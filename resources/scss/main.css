@@ -1,0 +1,122 @@
+@charset "UTF-8";
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #404755;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #818999c2;
+}
+
+::-moz-selection {
+  background: #53565fb0;
+}
+
+::selection {
+  background: #53565fb0;
+}
+
+body {
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  margin: 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+.btn {
+  background: lightgray;
+  padding: 8px 16px;
+  margin-left: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+}
+
+.save-btn {
+  background: dodgerblue;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.save-btn:hover {
+  background: #1076db;
+}
+
+.open-btn {
+  color: #333;
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.open-btn:hover {
+  background: #c0c0c0;
+}
+
+.editor {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+}
+
+.editor .editor-text-line {
+  height: 100%;
+}
+
+.editor .editor-text-line .text-area {
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  margin: 0;
+  padding: 6px;
+  background: #2d303a;
+  border: none;
+  color: #cccdcf;
+  resize: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.editor .editor-text-line .text-area:focus {
+  outline: none;
+}
+
+.editor .editor-text-line .btn-area {
+  padding: 8px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.editor .editor-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 1.5rem;
+  color: #cec9d4;
+  background: #5d2392;
+  font-size: 14px;
+}
+/*# sourceMappingURL=main.css.map */
