@@ -13,7 +13,9 @@ exports.ICPKeys = {
 var shortcutKeys;
 (function (shortcutKeys) {
     shortcutKeys["atMark"] = "CmdOrCtrl+@";
-    shortcutKeys["S"] = "CmdOrCtrl+S";
     shortcutKeys["O"] = "CmdOrCtrl+O";
+    shortcutKeys["S"] = "CmdOrCtrl+S";
+    shortcutKeys["ShiftO"] = "CmdOrCtrl+Shift+O";
+    shortcutKeys["ShiftS"] = "CmdOrCtrl+Shift+S";
 })(shortcutKeys = exports.shortcutKeys || (exports.shortcutKeys = {}));
 //# sourceMappingURL=Keys.js.map

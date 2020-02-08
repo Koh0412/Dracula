@@ -24,34 +24,48 @@ export default class Shortcut {
     this.devTool();
     this.saveFile();
     this.openFile();
+    this.openDirectory();
   }
 
+  // 開発用 INFO: 後で消す
   private static quit(): void {
-    localShortcut.register(this.window, "Ctrl+Q", () => {
+    this.setShortcut("Ctrl+Q", () => {
       this.app.quit();
     });
   }
 
-  // デバッグ用
+  // 開発用 INFO: 後で消す
   private static devTool() {
-    localShortcut.register(this.window, shortcutKeys.atMark, () => {
+    this.setShortcut(shortcutKeys.atMark, () => {
       this.window.webContents.openDevTools();
     });
   }
 
   private static saveFile() {
-    localShortcut.register(this.window, shortcutKeys.S, () => {
+    this.setShortcut(shortcutKeys.S, () => {
       this.window.webContents.send(ICPKeys.save.request);
 
       ipcMain.on(ICPKeys.save.value, (_, value: string) => {
         FileIO.save(value, this.window);
-      })
+      });
     });
   }
 
   private static openFile() {
-    localShortcut.register(this.window, shortcutKeys.O, () => {
+    this.setShortcut(shortcutKeys.O, () => {
       FileIO.open(this.window);
+    });
+  }
+
+  private static openDirectory() {
+    this.setShortcut(shortcutKeys.ShiftO, () => {
+      FileIO.openDirectory(this.window);
+    });
+  }
+
+  private static setShortcut(accelerator: string | string[], callback: () => void) {
+    localShortcut.register(this.window, accelerator, () => {
+      callback();
     });
   }
 }

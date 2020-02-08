@@ -11,6 +11,8 @@ export const ICPKeys = {
 
 export enum shortcutKeys {
   atMark = "CmdOrCtrl+@",
-  S = "CmdOrCtrl+S",
   O = "CmdOrCtrl+O",
+  S = "CmdOrCtrl+S",
+  ShiftO = "CmdOrCtrl+Shift+O",
+  ShiftS = "CmdOrCtrl+Shift+S"
 }

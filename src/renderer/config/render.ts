@@ -25,6 +25,10 @@ class Render {
       this.input.value = params[0];
       this.footer.innerHTML = params[1];
     });
+
+    ipcRenderer.on("open-dir", (event, fileOrDirName: string) => {
+      console.log(fileOrDirName);
+    });
   }
 }
 

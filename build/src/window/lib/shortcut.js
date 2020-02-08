@@ -22,23 +22,25 @@ var Shortcut = /** @class */ (function () {
         this.devTool();
         this.saveFile();
         this.openFile();
+        this.openDirectory();
     };
+    // 開発用 INFO: 後で消す
     Shortcut.quit = function () {
         var _this = this;
-        localShortcut.register(this.window, "Ctrl+Q", function () {
+        this.setShortcut("Ctrl+Q", function () {
             _this.app.quit();
         });
     };
-    // デバッグ用
+    // 開発用 INFO: 後で消す
     Shortcut.devTool = function () {
         var _this = this;
-        localShortcut.register(this.window, Keys_1.shortcutKeys.atMark, function () {
+        this.setShortcut(Keys_1.shortcutKeys.atMark, function () {
             _this.window.webContents.openDevTools();
         });
     };
     Shortcut.saveFile = function () {
         var _this = this;
-        localShortcut.register(this.window, Keys_1.shortcutKeys.S, function () {
+        this.setShortcut(Keys_1.shortcutKeys.S, function () {
             _this.window.webContents.send(Keys_1.ICPKeys.save.request);
             electron_1.ipcMain.on(Keys_1.ICPKeys.save.value, function (_, value) {
                 fileIO_1.default.save(value, _this.window);
@@ -47,8 +49,19 @@ var Shortcut = /** @class */ (function () {
     };
     Shortcut.openFile = function () {
         var _this = this;
-        localShortcut.register(this.window, Keys_1.shortcutKeys.O, function () {
+        this.setShortcut(Keys_1.shortcutKeys.O, function () {
             fileIO_1.default.open(_this.window);
+        });
+    };
+    Shortcut.openDirectory = function () {
+        var _this = this;
+        this.setShortcut(Keys_1.shortcutKeys.ShiftO, function () {
+            fileIO_1.default.openDirectory(_this.window);
+        });
+    };
+    Shortcut.setShortcut = function (accelerator, callback) {
+        localShortcut.register(this.window, accelerator, function () {
+            callback();
         });
     };
     return Shortcut;

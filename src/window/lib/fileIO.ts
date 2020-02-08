@@ -1,19 +1,25 @@
 import { dialog, BrowserWindow } from "electron";
 import * as fs from "fs";
+import * as path from "path";
 import { ICPKeys } from "../constants/Keys";
 
-export default class FileIO {
+class FileIO {
 
-  public static filePath: string = "";
+  public filePath: string = "";
+
+  private fileOrDirNames: string[] = [];
+  private dialogOptions: Electron.OpenDialogOptions = {};
   /**
-   * inputに記入されたテキストを保存する
+   * テキストの保存
    *
-   * @param input
+   * @param value
+   * @param window
    */
-  public static save(value: string, window: Electron.BrowserWindow): void {
+  public save(value: string, window: Electron.BrowserWindow): void {
     if (this.filePath === "") {
       // 保存ダイアログを生成
-      const saveDialog = dialog.showSaveDialog(this.dialogOptions());
+      this.dialogOptions.defaultPath = this.filePath;
+      const saveDialog = dialog.showSaveDialog(this.dialogOptions);
 
       saveDialog.then((result) => {
         // 保存ボタンを押した且つ、ファイルパスが記入されていれば保存
@@ -37,25 +43,60 @@ export default class FileIO {
   }
 
   /**
-   * ファイルを開いてその中身をinputに流し込む
+   * 名前を付けて保存する
    *
-   * @param input
+   * @param value
+   * @param window
    */
-  public static open(window: BrowserWindow): void {
-    const paths = dialog.showOpenDialogSync(this.dialogOptions());
-
-    if (paths) {
-      this.filePath = paths[0];
-      const value: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
-      window.webContents.send(ICPKeys.open.value, [value, this.filePath]);
-    }
+  public saveAs(value: string, window: BrowserWindow) {
+    // 後々作る
   }
 
-  private static dialogOptions(path?: string): Electron.OpenDialogOptions {
-    const options: Electron.OpenDialogOptions = {
-      defaultPath: path,
-    };
+  /**
+   * ファイルを開いてその中身を流し込む
+   *
+   * @param window
+   */
+  public open(window: BrowserWindow): void {
+    this.dialogOptions.properties = ["openFile"];
+    const paths = dialog.showOpenDialogSync(this.dialogOptions);
 
-    return options;
+    if (!paths) {
+      return
+    }
+
+    this.filePath = paths[0];
+    const textValue: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
+    window.webContents.send(ICPKeys.open.value, [textValue, this.filePath]);
+  }
+
+  public openDirectory(window: BrowserWindow): void {
+    this.dialogOptions.properties = ["openDirectory"];
+    const paths = dialog.showOpenDialogSync(this.dialogOptions);
+
+    if (!paths) {
+      return;
+    }
+
+    this.printAllFileAndDirectory(paths[0]);
+    window.webContents.send("open-dir", this.fileOrDirNames);
+  }
+
+  private printAllFileAndDirectory(dirPath: string) {
+    const fileAndDirs = fs.readdirSync(dirPath);
+
+    fileAndDirs.forEach((name) => {
+      this.fileOrDirNames.push(name);
+
+      const fullPath: string = path.join(dirPath, name);
+      const stats = fs.statSync(fullPath);
+      console.log(fullPath);
+
+      if (stats.isDirectory()) {
+        this.printAllFileAndDirectory(fullPath);
+      }
+    })
   }
 }
+
+export default new FileIO();
