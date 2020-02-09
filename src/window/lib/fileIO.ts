@@ -78,11 +78,11 @@ class FileIO {
       return;
     }
 
-    this.printAllFileAndDirectory(paths[0]);
-    window.webContents.send("open-dir", this.fileOrDirNames);
+    this.exposing(paths[0]);
+    window.webContents.send(ICPKeys.open.dir, this.fileOrDirNames);
   }
 
-  private printAllFileAndDirectory(dirPath: string) {
+  private exposing(dirPath: string) {
     const fileAndDirs = fs.readdirSync(dirPath);
 
     fileAndDirs.forEach((name) => {
@@ -90,10 +90,9 @@ class FileIO {
 
       const fullPath: string = path.join(dirPath, name);
       const stats = fs.statSync(fullPath);
-      console.log(fullPath);
 
       if (stats.isDirectory()) {
-        this.printAllFileAndDirectory(fullPath);
+        this.exposing(fullPath);
       }
     })
   }

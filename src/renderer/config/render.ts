@@ -26,7 +26,7 @@ class Render {
       this.footer.innerHTML = params[1];
     });
 
-    ipcRenderer.on("open-dir", (event, fileOrDirName: string) => {
+    ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirName: string) => {
       console.log(fileOrDirName);
     });
   }

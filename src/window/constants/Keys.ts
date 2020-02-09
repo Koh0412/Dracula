@@ -5,7 +5,8 @@ export const ICPKeys = {
     path: "save-path",
   },
   open: {
-    value: "open-value"
+    value: "open-value",
+    dir: "open-dir",
   }
 }
 
