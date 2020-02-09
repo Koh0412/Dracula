@@ -73,19 +73,18 @@ var FileIO = /** @class */ (function () {
         if (!paths) {
             return;
         }
-        this.printAllFileAndDirectory(paths[0]);
-        window.webContents.send("open-dir", this.fileOrDirNames);
+        this.exposing(paths[0]);
+        window.webContents.send(Keys_1.ICPKeys.open.dir, this.fileOrDirNames);
     };
-    FileIO.prototype.printAllFileAndDirectory = function (dirPath) {
+    FileIO.prototype.exposing = function (dirPath) {
         var _this = this;
         var fileAndDirs = fs.readdirSync(dirPath);
         fileAndDirs.forEach(function (name) {
             _this.fileOrDirNames.push(name);
             var fullPath = path.join(dirPath, name);
             var stats = fs.statSync(fullPath);
-            console.log(fullPath);
             if (stats.isDirectory()) {
-                _this.printAllFileAndDirectory(fullPath);
+                _this.exposing(fullPath);
             }
         });
     };
