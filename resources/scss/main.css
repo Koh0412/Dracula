@@ -24,42 +24,6 @@ body {
   margin: 0;
 }
 
-button:focus {
-  outline: none;
-}
-
-.btn {
-  background: lightgray;
-  padding: 8px 16px;
-  margin-left: 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  -webkit-transition: .2s ease;
-  transition: .2s ease;
-}
-
-.save-btn {
-  background: dodgerblue;
-  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
-  color: white;
-}
-
-.save-btn:hover {
-  background: #1076db;
-}
-
-.open-btn {
-  color: #333;
-  -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
-          box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
-}
-
-.open-btn:hover {
-  background: #c0c0c0;
-}
-
 .editor {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -96,14 +60,12 @@ button:focus {
   outline: none;
 }
 
-.editor .editor-text-line .btn-area {
-  padding: 8px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+.editor .editor-text-line .text-area .ace_gutter .ace_gutter-cell {
+  color: #67717b;
+}
+
+.editor .editor-text-line .text-area .ace_gutter .ace_gutter-active-line {
+  background: none;
 }
 
 .editor .editor-footer {
@@ -115,7 +77,7 @@ button:focus {
           align-items: center;
   height: 1.5rem;
   color: #cec9d4;
-  background: #5d2392;
+  background: #502290;
   font-size: 14px;
 }
 /*# sourceMappingURL=main.css.map */

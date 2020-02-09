@@ -19,39 +19,6 @@ body {
   margin: 0;
 }
 
-button {
-  &:focus {
-    outline: none;
-  }
-}
-
-.btn {
-  background: lightgray;
-  padding: 8px 16px;
-  margin-left: 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: .2s ease;
-}
-
-.save-btn {
-  background: dodgerblue;
-  box-shadow: 0px 0px 6px 0px rgba(0,0,0,.3);
-  color: white;
-  &:hover {
-    background: #1076db;
-  }
-}
-
-.open-btn {
-  color: #333;
-  box-shadow: 0px 0px 2px 0px rgba(0,0,0,.3);
-  &:hover {
-    background: #c0c0c0;
-  }
-}
-
 .editor {
   display: flex;
   position: absolute;
@@ -77,12 +44,15 @@ button {
       &:focus {
         outline: none;
       }
-    }
 
-    .btn-area {
-      padding: 8px 0;
-      display: flex;
-      justify-content: flex-end;
+      .ace_gutter {
+        .ace_gutter-cell {
+          color: #67717b;
+        }
+        .ace_gutter-active-line {
+          background: none;
+        }
+      }
     }
   }
 
