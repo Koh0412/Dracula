@@ -12,11 +12,11 @@
 }
 
 ::-moz-selection {
-  background: #53565fb0;
+  background: #254196b0 !important;
 }
 
 ::selection {
-  background: #53565fb0;
+  background: #254196b0 !important;
 }
 
 body {

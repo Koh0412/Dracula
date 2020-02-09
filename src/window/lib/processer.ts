@@ -7,8 +7,6 @@ export default class Processer {
 
   public createWindow(): BrowserWindow {
     this.windowOptions = {
-      width: Common.size.width,
-      height: Common.size.height,
       acceptFirstMouse: true,
       backgroundColor: Common.backgroundColor,
       icon: Common.iconPath,
@@ -33,6 +31,7 @@ export default class Processer {
     this.browserWindow.loadURL(Common.mainURL);
 
     this.browserWindow.webContents.on("did-finish-load", () => {
+      this.browserWindow?.maximize();
       this.browserWindow?.show();
     });
   }
