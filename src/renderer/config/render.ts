@@ -7,7 +7,10 @@ import "brace/theme/dracula";
 import "./lang";
 
 class Render {
-  private footer: HTMLElement = document.getElementById("footer")!;
+  private footer: HTMLElement = this.getElement("footer");
+  private dirMenu: HTMLElement = this.getElement("dir-menu");
+  private missingMessage: HTMLElement = this.getElement("missing-message");
+
   private editor: ace.Editor = ace.edit("input");
 
   public init(): void {
@@ -30,19 +33,32 @@ class Render {
       this.footer.innerHTML = params[1];
     });
 
-    ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirName: string) => {
-      console.log(fileOrDirName);
+    ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirNames: string[]) => {
+      this.missingMessage.innerHTML = "";
+      this.missingMessage.style.display = "none";
+
+      fileOrDirNames.forEach((item) => {
+        this.dirMenu.innerHTML += "<li>" + item + "</li>";
+      });
     });
   }
 
   private editorSetConfig(editor: ace.Editor): ace.Editor {
     editor.setTheme("ace/theme/dracula");
-    editor.setShowPrintMargin(false);
-
     editor.session.setMode("ace/mode/typescript");
+
+    editor.setOption("indentedSoftWrap", false);
+
+    editor.setShowPrintMargin(false);
     editor.session.setTabSize(2);
+    editor.session.setUseWrapMode(true);
 
     return editor;
+  }
+
+  private getElement<T>(id: string): T {
+    const element = document.getElementById(id) as unknown as T;
+    return element;
   }
 }
 

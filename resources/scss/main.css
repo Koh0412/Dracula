@@ -25,12 +25,12 @@ body {
 }
 
 .editor {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   position: absolute;
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -40,6 +40,51 @@ body {
 
 .editor .editor-text-line {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.editor .editor-text-line .dir-menu-list {
+  width: 15rem;
+  min-width: 7rem;
+  text-align: center;
+  border-right: 1px solid #4a4d58;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  resize: horizontal;
+  overflow: auto;
+  color: #cccdcf;
+}
+
+.editor .editor-text-line .dir-menu-list .dir-menu-title {
+  padding: 10px;
+  background: #3b3a61;
+  -webkit-box-shadow: 0 0 2px 1px #0f002d;
+          box-shadow: 0 0 2px 1px #0f002d;
+}
+
+.editor .editor-text-line .dir-menu-list .dir-menu {
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.editor .editor-text-line .dir-menu-list .dir-menu li {
+  padding: 4px 8px 4px 22px;
+  text-align: start;
+}
+
+.editor .editor-text-line .dir-menu-list .dir-menu li:hover {
+  cursor: pointer;
+  background: #3d405087;
+}
+
+.editor .editor-text-line .dir-menu-list .miss-msg {
+  font-size: 14px;
+  padding: 8px;
 }
 
 .editor .editor-text-line .text-area {
@@ -66,6 +111,10 @@ body {
 
 .editor .editor-text-line .text-area .ace_gutter .ace_gutter-active-line {
   background: none;
+}
+
+.editor .editor-text-line .text-area .ace_marker-layer .ace_active-line {
+  border-radius: 3px;
 }
 
 .editor .editor-footer {
