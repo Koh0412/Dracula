@@ -1,4 +1,4 @@
-export const ICPKeys = {
+export const ICPKeys: IICPKeys = {
   save: {
     request: "save-request",
     value: "save-value",
@@ -16,4 +16,20 @@ export enum shortcutKeys {
   S = "CmdOrCtrl+S",
   ShiftO = "CmdOrCtrl+Shift+O",
   ShiftS = "CmdOrCtrl+Shift+S"
+}
+
+export interface IICPKeys {
+  save: ISaveFileProperty,
+  open: IOpenFileProperty,
+}
+
+export interface ISaveFileProperty {
+  request: string,
+  value: string,
+  path: string,
+}
+
+export interface IOpenFileProperty {
+  value: string,
+  dir: string,
 }
