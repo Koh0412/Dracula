@@ -26,6 +26,7 @@ class Render {
     });
 
     ipcRenderer.on(ICPKeys.save.path, (_, filePath: string) => {
+      this.footer.innerHTML = "the file has been saved";
       setTimeout(() => {
         this.footer.innerHTML = filePath;
       }, 1500);
