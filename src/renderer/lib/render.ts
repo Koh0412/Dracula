@@ -1,28 +1,31 @@
 import { ICPKeys } from "../../window/constants/Keys"
 import { ipcRenderer } from "electron";
+import Util from "./Util";
 
 import * as ace from "brace";
 import "brace/theme/dracula";
 
-import "./lang";
+import "../config/lang";
 
 class Render {
-  private footer: HTMLElement = this.getElement("footer");
-  private dirMenu: HTMLElement = this.getElement("dir-menu");
-  private missingMessage: HTMLElement = this.getElement("missing-message");
+  private footer: HTMLElement = Util.getElement("footer");
+  private dirMenu: HTMLElement = Util.getElement("dir-menu");
+  private missingMessage: HTMLElement = Util.getElement("missing-message");
 
   private editor: ace.Editor = ace.edit("input");
 
-  public init(): void {
-
+  constructor() {
     this.editorSetConfig(this.editor);
 
+    this.init();
+  }
+
+  public init(): void {
     ipcRenderer.on(ICPKeys.save.request, (event, _) => {
       event.sender.send(ICPKeys.save.value, this.editor.getValue());
     });
 
     ipcRenderer.on(ICPKeys.save.path, (_, filePath: string) => {
-      this.footer.innerHTML = "the file has been saved";
       setTimeout(() => {
         this.footer.innerHTML = filePath;
       }, 1500);
@@ -34,12 +37,7 @@ class Render {
     });
 
     ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirNames: string[]) => {
-      this.missingMessage.innerHTML = "";
-      this.missingMessage.style.display = "none";
-
-      fileOrDirNames.forEach((item) => {
-        this.dirMenu.innerHTML += "<li>" + item + "</li>";
-      });
+      this.orderDirectoryList(fileOrDirNames)
     });
   }
 
@@ -56,9 +54,13 @@ class Render {
     return editor;
   }
 
-  private getElement<T>(id: string): T {
-    const element = document.getElementById(id) as unknown as T;
-    return element;
+  private orderDirectoryList(fileOrDirNames: string[]) {
+    this.missingMessage.innerHTML = "";
+    this.missingMessage.style.display = "none";
+
+    fileOrDirNames.forEach((item) => {
+      this.dirMenu.innerHTML += "<li>" + item + "</li>";
+    });
   }
 }
 
