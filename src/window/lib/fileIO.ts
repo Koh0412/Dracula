@@ -70,19 +70,31 @@ class FileIO {
     window.webContents.send(ICPKeys.open.value, [textValue, this.filePath]);
   }
 
+  /**
+   * フォルダを開く
+   *
+   * @param window
+   */
   public openDirectory(window: BrowserWindow): void {
+    this.fileOrDirNames = [];
     this.dialogOptions.properties = ["openDirectory"];
+
     const paths = dialog.showOpenDialogSync(this.dialogOptions);
 
     if (!paths) {
       return;
     }
 
-    this.exposing(paths[0]);
+    this.insertFileOrDirData(paths[0]);
     window.webContents.send(ICPKeys.open.dir, this.fileOrDirNames);
   }
 
-  private exposing(dirPath: string) {
+  /**
+   * dirPath内にあるファイルやディレクトリを配列に挿入
+   *
+   * @param dirPath
+   */
+  private insertFileOrDirData(dirPath: string) {
     const fileAndDirs = fs.readdirSync(dirPath);
 
     fileAndDirs.forEach((name) => {
@@ -92,7 +104,7 @@ class FileIO {
       const stats = fs.statSync(fullPath);
 
       if (stats.isDirectory()) {
-        this.exposing(fullPath);
+        this.insertFileOrDirData(fullPath);
       }
     })
   }

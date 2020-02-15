@@ -14,6 +14,8 @@ class Render {
 
   private editor: ace.Editor = ace.edit("input");
 
+  private notOpenDir: boolean = true;
+
   constructor() {
     this.editorSetConfig(this.editor);
 
@@ -56,12 +58,17 @@ class Render {
   }
 
   private orderDirectoryList(fileOrDirNames: string[]) {
-    this.missingMessage.innerHTML = "";
-    this.missingMessage.style.display = "none";
+    if (this.notOpenDir) {
+      this.missingMessage.style.display = "none";
+    }
+
+    this.dirMenu.innerHTML = "";
 
     fileOrDirNames.forEach((item) => {
       this.dirMenu.innerHTML += "<li>" + item + "</li>";
     });
+
+    this.notOpenDir = false;
   }
 }
 
