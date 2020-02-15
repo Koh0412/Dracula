@@ -38,7 +38,7 @@ class Render {
     });
 
     ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirNames: string[]) => {
-      this.orderDirectoryList(fileOrDirNames)
+      this.orderDirectoryList(fileOrDirNames);
     });
   }
 

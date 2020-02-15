@@ -1,6 +1,6 @@
 import { ipcMain, BrowserWindow, App } from "electron";
 import * as localShortcut from "electron-localshortcut";
-import { IShortcut } from "../definition/IShortcut";
+import { IBaseElement } from "../definition/IBaseElement";
 import { ICPKeys, shortcutKeys } from "../constants/Keys";
 import FileIO from "./fileIO";
 
@@ -12,9 +12,9 @@ export default class Shortcut {
    *
    * @param shortcut
    */
-  public static resister(shortcut: IShortcut): void {
-    this.window = shortcut.window;
-    this.app = shortcut.app;
+  public static resister(baseElement: IBaseElement): void {
+    this.window = baseElement.window;
+    this.app = baseElement.app;
 
     if (!this.window || !this.app) {
       return;

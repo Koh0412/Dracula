@@ -1,7 +1,7 @@
 import { BrowserWindow, app, App } from "electron";
 import Processer from "./lib/processer";
 import Shortcut from "./lib/shortcut";
-import { IShortcut } from "./definition/IShortcut";
+import { IBaseElement } from "./definition/IBaseElement";
 
 
 class Main {
@@ -27,11 +27,12 @@ class Main {
     this.window = this.mainProcesser.createWindow();
     this.mainProcesser.setBrowserWindowConfig();
 
-    const shortcut: IShortcut = {
+    const baseElement: IBaseElement = {
       window: this.window,
       app: this.app,
-    };
-    Shortcut.resister(shortcut);
+    }
+
+    Shortcut.resister(baseElement);
 
     this.window.on("closed", () => {
       this.window = null;
