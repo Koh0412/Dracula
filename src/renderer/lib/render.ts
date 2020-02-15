@@ -1,9 +1,10 @@
-import { ICPKeys } from "../../constants/Keys"
 import { ipcRenderer } from "electron";
-import Util from "./Util";
-
 import * as ace from "brace";
 import "brace/theme/dracula";
+
+import Util from "./Util";
+import { ICPKeys } from "../../constants/Keys";
+import { IOpenFile } from "../../definition/IOpenFile";
 
 import "../config/lang";
 
@@ -34,9 +35,9 @@ class Render {
       }, 1500);
     });
 
-    ipcRenderer.on(ICPKeys.open.value, (_, params: string[]) => {
-      this.editor.setValue(params[0]);
-      this.footer.innerHTML = params[1];
+    ipcRenderer.on(ICPKeys.open.value, (_, openFile: IOpenFile) => {
+      this.editor.setValue(openFile.text);
+      this.footer.innerHTML = openFile.path;
     });
 
     ipcRenderer.on(ICPKeys.open.dir, (event, fileOrDirNames: string[]) => {

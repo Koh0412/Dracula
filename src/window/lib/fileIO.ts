@@ -2,6 +2,7 @@ import { dialog, BrowserWindow } from "electron";
 import * as fs from "fs";
 import * as path from "path";
 import { ICPKeys } from "../../constants/Keys";
+import { IOpenFile } from "../../definition/IOpenFile";
 
 class FileIO {
 
@@ -64,10 +65,15 @@ class FileIO {
     if (!paths) {
       return
     }
-
     this.filePath = paths[0];
-    const textValue: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
-    window.webContents.send(ICPKeys.open.value, [textValue, this.filePath]);
+    const text: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
+
+    const openFileProp: IOpenFile = {
+      text: text,
+      path: this.filePath,
+    }
+
+    window.webContents.send(ICPKeys.open.value, openFileProp);
   }
 
   /**
