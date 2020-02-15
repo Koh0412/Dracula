@@ -1,7 +1,7 @@
 import { ipcMain, BrowserWindow, App } from "electron";
 import * as localShortcut from "electron-localshortcut";
 import { IBaseElement } from "../definition/IBaseElement";
-import { ICPKeys, shortcutKeys } from "../constants/Keys";
+import { ICPKeys, shortcutKeys } from "../../constants/Keys";
 import FileIO from "./fileIO";
 
 export default class Shortcut {

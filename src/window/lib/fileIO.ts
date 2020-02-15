@@ -1,7 +1,7 @@
 import { dialog, BrowserWindow } from "electron";
 import * as fs from "fs";
 import * as path from "path";
-import { ICPKeys } from "../constants/Keys";
+import { ICPKeys } from "../../constants/Keys";
 
 class FileIO {
 

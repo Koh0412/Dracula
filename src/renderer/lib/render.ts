@@ -1,4 +1,4 @@
-import { ICPKeys } from "../../window/constants/Keys"
+import { ICPKeys } from "../../constants/Keys"
 import { ipcRenderer } from "electron";
 import Util from "./Util";
 
