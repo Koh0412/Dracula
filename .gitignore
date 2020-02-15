@@ -1,5 +1,4 @@
 /node_modules
-/.vscode/launch.json
 /package-lock.json
 
 /build/src/**
