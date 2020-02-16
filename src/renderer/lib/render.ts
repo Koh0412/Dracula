@@ -17,11 +17,6 @@ class Render {
   }
 
   public init(): void {
-    DrEvent.ipcResposnse(IPCKeys.save.request, (event, _) => {
-      // Main側にeditorのtextを送る
-      event.sender.send(IPCKeys.save.value, Editor.getText());
-    });
-
     DrEvent.ipcResposnse<string>(IPCKeys.save.path, (_, filePath) => {
       this.RenderFooter(filePath);
     });

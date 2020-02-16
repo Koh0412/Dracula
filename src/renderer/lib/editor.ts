@@ -1,6 +1,9 @@
 import * as ace from "brace";
 import "brace/theme/dracula";
 
+import DrEvent from "../../common/DrEvent";
+import { IPCKeys } from "../../common/constants/Keys";
+
 import "../config/lang";
 
 class Editor {
@@ -8,6 +11,12 @@ class Editor {
 
   constructor() {
     this.SetConfig(this.textarea);
+
+    DrEvent.ipcResposnse(IPCKeys.save.request, (event, _) => {
+      // Main側にeditorのtextを送る
+      event.sender.send(IPCKeys.save.value, this.getText());
+      console.log(this.getText());
+    });
   }
 
   public setText(text: string): string {
