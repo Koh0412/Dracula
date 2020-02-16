@@ -30,7 +30,7 @@ class Main {
     const baseElement: IBaseElement = {
       window: this.window,
       app: this.app,
-    }
+    };
 
     Shortcut.resister(baseElement);
 

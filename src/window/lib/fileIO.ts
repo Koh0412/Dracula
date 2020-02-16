@@ -63,15 +63,15 @@ class FileIO {
     const paths = dialog.showOpenDialogSync(this.dialogOptions);
 
     if (!paths) {
-      return
+      return;
     }
     this.filePath = paths[0];
     const text: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
 
     const openFileProp: IOpenFile = {
-      text: text,
+      text,
       path: this.filePath,
-    }
+    };
 
     window.webContents.send(IPCKeys.open.value, openFileProp);
   }
@@ -112,7 +112,7 @@ class FileIO {
       if (stats.isDirectory()) {
         this.insertFileOrDirIn(fullPath);
       }
-    })
+    });
   }
 }
 

@@ -39,7 +39,7 @@ class Render {
     });
 
     DrEvent.ipcResposnse<string[]>(IPCKeys.open.dir, (_, fileOrDirNames) => {
-      this.orderDirectoryList(fileOrDirNames)
+      this.orderDirectoryList(fileOrDirNames);
     });
   }
 
@@ -104,4 +104,4 @@ class Render {
   }
 }
 
-export { Render }
+export { Render };
