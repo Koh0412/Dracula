@@ -26,27 +26,31 @@ class Render {
     });
 
     DrEvent.ipcResposnse<string[]>(IPCKeys.open.dir, (_, fileOrDirNames) => {
-      this.orderDirectoryList(fileOrDirNames);
+      if (this.notOpenDir) {
+        this.missingMessage.style.display = "none";
+      }
+
+      this.dirMenu.innerHTML = "";
+      const listItem = this.DirectoryList(fileOrDirNames);
+      listItem.forEach((item) => {
+        this.dirMenu.innerHTML += item.outerHTML;
+      });
+
+      this.notOpenDir = false;
     });
   }
 
   /**
-   * 取得したファイルとディレクトリを並べる
+   * 取得したファイルとディレクトリの配列
    *
    * @param fileOrDirNames
    */
-  private orderDirectoryList(fileOrDirNames: string[]): void {
-    if (this.notOpenDir) {
-      this.missingMessage.style.display = "none";
-    }
-
-    this.dirMenu.innerHTML = "";
-
-    fileOrDirNames.forEach((item) => {
-      this.dirMenu.innerHTML += "<li>" + item + "</li>";
+  private DirectoryList(fileOrDirNames: string[]) {
+    return fileOrDirNames.map((name) => {
+      const listItem = document.createElement("li");
+      listItem.innerHTML = name;
+      return listItem;
     });
-
-    this.notOpenDir = false;
   }
 
   /**
