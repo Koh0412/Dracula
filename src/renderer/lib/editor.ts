@@ -15,7 +15,6 @@ class Editor {
     DrEvent.ipcResposnse(IPCKeys.save.request, (event, _) => {
       // Main側にeditorのtextを送る
       event.sender.send(IPCKeys.save.value, this.getText());
-      console.log(this.getText());
     });
   }
 
