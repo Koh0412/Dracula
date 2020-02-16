@@ -1,8 +1,8 @@
 import { dialog, BrowserWindow } from "electron";
 import * as fs from "fs";
 import * as path from "path";
-import { ICPKeys } from "../../constants/Keys";
-import { IOpenFile } from "../../definition/IOpenFile";
+import { IPCKeys } from "../../common/constants/Keys";
+import { IOpenFile } from "../../common/definition/IOpenFile";
 
 class FileIO {
 
@@ -29,7 +29,7 @@ class FileIO {
             this.filePath = result.filePath;
             fs.writeFileSync(this.filePath, value, { encoding: "utf8" });
 
-            window.webContents.send(ICPKeys.save.path, this.filePath);
+            window.webContents.send(IPCKeys.save.path, this.filePath);
           } catch (err) {
             console.log("save file error: " + err);
           }
@@ -39,7 +39,7 @@ class FileIO {
       });
     } else {
       fs.writeFileSync(this.filePath, value);
-      window.webContents.send(ICPKeys.save.path, this.filePath);
+      window.webContents.send(IPCKeys.save.path, this.filePath);
     }
   }
 
@@ -73,7 +73,7 @@ class FileIO {
       path: this.filePath,
     }
 
-    window.webContents.send(ICPKeys.open.value, openFileProp);
+    window.webContents.send(IPCKeys.open.value, openFileProp);
   }
 
   /**
@@ -91,8 +91,8 @@ class FileIO {
       return;
     }
 
-    this.insertFileOrDirData(paths[0]);
-    window.webContents.send(ICPKeys.open.dir, this.fileOrDirNames);
+    this.insertFileOrDirIn(paths[0]);
+    window.webContents.send(IPCKeys.open.dir, this.fileOrDirNames);
   }
 
   /**
@@ -100,7 +100,7 @@ class FileIO {
    *
    * @param dirPath
    */
-  private insertFileOrDirData(dirPath: string) {
+  private insertFileOrDirIn(dirPath: string) {
     const fileAndDirs = fs.readdirSync(dirPath);
 
     fileAndDirs.forEach((name) => {
@@ -110,7 +110,7 @@ class FileIO {
       const stats = fs.statSync(fullPath);
 
       if (stats.isDirectory()) {
-        this.insertFileOrDirData(fullPath);
+        this.insertFileOrDirIn(fullPath);
       }
     })
   }

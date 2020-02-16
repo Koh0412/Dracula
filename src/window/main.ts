@@ -1,7 +1,7 @@
 import { BrowserWindow, app, App } from "electron";
 import Processer from "./lib/processer";
 import Shortcut from "./lib/shortcut";
-import { IBaseElement } from "../definition/IBaseElement";
+import { IBaseElement } from "../common/definition/IBaseElement";
 
 
 class Main {

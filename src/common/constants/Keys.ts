@@ -1,4 +1,5 @@
-export const ICPKeys: IICPKeys = {
+/** IPCで必要になる共通のキー */
+export const IPCKeys: IIPCKeys = {
   save: {
     request: "save-request",
     value: "save-value",
@@ -18,7 +19,7 @@ export enum shortcutKeys {
   ShiftS = "CmdOrCtrl+Shift+S"
 }
 
-export interface IICPKeys {
+export interface IIPCKeys {
   save: ISaveFileProperty,
   open: IOpenFileProperty,
 }
