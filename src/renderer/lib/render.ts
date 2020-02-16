@@ -1,33 +1,25 @@
-import * as ace from "brace";
-import "brace/theme/dracula";
-
 import Util from "../../common/Util";
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import DrEvent from "../../common/DrEvent";
-
-import "../config/lang";
+import Editor from "./editor";
 
 class Render {
   private footer: HTMLElement = Util.getElement("footer");
   private dirMenu: HTMLElement = Util.getElement("dir-menu");
   private missingMessage: HTMLElement = Util.getElement("missing-message");
 
-  private editor: ace.Editor = ace.edit("input");
-
   /** 一度でもディレクトリを開いたかどうか */
   private notOpenDir: boolean = true;
 
   constructor() {
-    this.editorSetConfig(this.editor);
-
     this.init();
   }
 
   public init(): void {
     DrEvent.ipcResposnse(IPCKeys.save.request, (event, _) => {
-      // Main側にeditorのvalueを送る
-      event.sender.send(IPCKeys.save.value, this.editor.getValue());
+      // Main側にeditorのtextを送る
+      event.sender.send(IPCKeys.save.value, Editor.getText());
     });
 
     DrEvent.ipcResposnse<string>(IPCKeys.save.path, (_, filePath) => {
@@ -41,24 +33,6 @@ class Render {
     DrEvent.ipcResposnse<string[]>(IPCKeys.open.dir, (_, fileOrDirNames) => {
       this.orderDirectoryList(fileOrDirNames);
     });
-  }
-
-  /**
-   * editorの設定
-   *
-   * @param editor
-   */
-  private editorSetConfig(editor: ace.Editor): ace.Editor {
-    editor.setTheme("ace/theme/dracula");
-    editor.session.setMode("ace/mode/typescript");
-
-    editor.setOption("indentedSoftWrap", false);
-
-    editor.setShowPrintMargin(false);
-    editor.session.setTabSize(2);
-    editor.session.setUseWrapMode(true);
-
-    return editor;
   }
 
   /**
@@ -86,7 +60,7 @@ class Render {
    * @param openFile
    */
   private insertOpenFileData(openFile: IOpenFile): void {
-    this.editor.setValue(openFile.text);
+    Editor.setText(openFile.text);
     this.footer.innerHTML = openFile.path;
   }
 
@@ -104,4 +78,4 @@ class Render {
   }
 }
 
-export { Render };
+export default new Render();
