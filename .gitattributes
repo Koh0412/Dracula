@@ -1,0 +1,7 @@
+* text=auto
+
+*.txt text
+
+*.bat eol=crlf
+*.cmd eol=crlf
+*.sh text eol=lf
