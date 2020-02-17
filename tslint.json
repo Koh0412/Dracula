@@ -16,6 +16,7 @@
     "ordered-imports": false,
     "quotemark": [true, "double"],
     "no-console": false,
+    "member-ordering": false,
     "trailing-comma": false,
     "eofline": false,
     "no-shadowed-variable": false
