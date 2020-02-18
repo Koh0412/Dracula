@@ -10,33 +10,33 @@ class FileIO {
 
   private fileOrDirNames: string[] = [];
   private dialogOptions: Electron.OpenDialogOptions = {};
+
+  private get emptyFilePath(): boolean {
+    return this.filePath === "";
+  }
+
   /**
    * テキストの保存
    *
    * @param value
    * @param window
    */
-  public save(value: string, window: Electron.BrowserWindow): void {
-    if (this.filePath === "") {
+  public async save(value: string, window: Electron.BrowserWindow): Promise<void> {
+    if (this.emptyFilePath) {
       // 保存ダイアログを生成
-      this.dialogOptions.defaultPath = this.filePath;
-      const saveDialog = dialog.showSaveDialog(this.dialogOptions);
+      const saveDialog = await this.createSaveDialog();
 
-      saveDialog.then((result) => {
-        // 保存ボタンを押した且つ、ファイルパスが記入されていれば保存
-        if (!result.canceled && result.filePath) {
-          try {
-            this.filePath = result.filePath;
-            fs.writeFileSync(this.filePath, value, { encoding: "utf8" });
+      // 保存ボタンを押した且つ、ファイルパスが記入されていれば保存
+      if (!saveDialog.canceled && saveDialog.filePath) {
+        try {
+          this.filePath = saveDialog.filePath;
+          fs.writeFileSync(this.filePath, value, { encoding: "utf8" });
 
-            window.webContents.send(IPCKeys.save.path, this.filePath);
-          } catch (err) {
-            console.log("save file error: " + err);
-          }
+          window.webContents.send(IPCKeys.save.path, this.filePath);
+        } catch (err) {
+          dialog.showErrorBox("error", `cannot save to ${this.filePath}`);
         }
-      }).catch((err) => {
-        console.log(err);
-      });
+      }
     } else {
       fs.writeFileSync(this.filePath, value);
       window.webContents.send(IPCKeys.save.path, this.filePath);
@@ -91,7 +91,7 @@ class FileIO {
       return;
     }
 
-    this.insertFileOrDirIn(paths[0]);
+    this.addFilePath(paths[0]);
     window.webContents.send(IPCKeys.open.dir, this.fileOrDirNames);
   }
 
@@ -100,7 +100,7 @@ class FileIO {
    *
    * @param dirPath
    */
-  private insertFileOrDirIn(dirPath: string) {
+  private addFilePath(dirPath: string) {
     const fileAndDirs = fs.readdirSync(dirPath);
 
     fileAndDirs.forEach((name) => {
@@ -110,9 +110,16 @@ class FileIO {
       const stats = fs.statSync(fullPath);
 
       if (stats.isDirectory()) {
-        this.insertFileOrDirIn(fullPath);
+        this.addFilePath(fullPath);
       }
     });
+  }
+
+  private createSaveDialog() {
+    this.dialogOptions.defaultPath = this.filePath;
+    const saveDialog = dialog.showSaveDialog(this.dialogOptions);
+
+    return saveDialog;
   }
 }
 

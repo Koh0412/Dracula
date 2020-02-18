@@ -45,7 +45,7 @@ class Render {
    *
    * @param fileOrDirNames
    */
-  private DirectoryList(fileOrDirNames: string[]) {
+  private DirectoryList(fileOrDirNames: string[]): HTMLElement[] {
     return fileOrDirNames.map((name) => {
       const listItem = document.createElement("li");
       listItem.innerHTML = name;
@@ -68,7 +68,7 @@ class Render {
    *
    * @param filePath
    */
-  private RenderFooter(filePath: string) {
+  private RenderFooter(filePath: string): void {
     this.footer.innerHTML = "the file has been saved";
 
     setTimeout(() => {
