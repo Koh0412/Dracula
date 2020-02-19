@@ -7,7 +7,6 @@ import Editor from "./editor";
 class Render {
   private footer: HTMLElement = Util.getElement("footer");
   private dirMenu: HTMLElement = Util.getElement("dir-menu");
-  private missingMessage: HTMLElement = Util.getElement("missing-message");
 
   /** 一度でもディレクトリを開いたかどうか */
   private notOpenDir: boolean = true;
@@ -23,7 +22,8 @@ class Render {
 
     DrEvent.ipcResposnse<string[]>(IPCKeys.open.dir, (_, fileOrDirNames) => {
       if (this.notOpenDir) {
-        this.missingMessage.style.display = "none";
+        const msg: HTMLElement = Util.getElement("missing-message");
+        msg.style.display = "none";
       }
 
       this.dirMenu.innerHTML = "";
