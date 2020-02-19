@@ -19,6 +19,8 @@
     "member-ordering": false,
     "trailing-comma": false,
     "eofline": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "only-arrow-functions": false,
+    "ban-types": false
   }
 }

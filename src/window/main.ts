@@ -32,7 +32,7 @@ class Main {
       app: this.app,
     };
 
-    Shortcut.resister(baseElement);
+    this.shortcut(baseElement);
 
     this.window.on("closed", () => {
       this.window = null;
@@ -43,6 +43,10 @@ class Main {
       if (this.window === null) {
         this.create();
       }
+  }
+
+  private shortcut(baseElement: IBaseElement): Shortcut {
+    return new Shortcut(baseElement);
   }
 }
 

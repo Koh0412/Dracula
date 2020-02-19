@@ -5,14 +5,14 @@ import { IPCKeys, shortcutKeys } from "../../common/constants/Keys";
 import FileIO from "./fileIO";
 
 export default class Shortcut {
-  private static window: BrowserWindow;
-  private static app: App;
+  private window: BrowserWindow;
+  private app: App;
   /**
    * ショートカットキーの登録
    *
    * @param shortcut
    */
-  public static resister(baseElement: IBaseElement): void {
+  constructor(baseElement: IBaseElement) {
     this.window = baseElement.window;
     this.app = baseElement.app;
 
@@ -28,20 +28,20 @@ export default class Shortcut {
   }
 
   // 開発用 INFO: 後で消す
-  private static quit(): void {
+  private quit(): void {
     this.setShortcut("Ctrl+Q", () => {
       this.app.quit();
     });
   }
 
   // 開発用 INFO: 後で消す
-  private static devTool() {
+  private devTool() {
     this.setShortcut(shortcutKeys.atMark, () => {
       this.window.webContents.openDevTools();
     });
   }
 
-  private static saveFile() {
+  private saveFile() {
     this.setShortcut(shortcutKeys.S, () => {
       this.window.webContents.send(IPCKeys.save.request);
 
@@ -51,19 +51,19 @@ export default class Shortcut {
     });
   }
 
-  private static openFile() {
+  private openFile() {
     this.setShortcut(shortcutKeys.O, () => {
       FileIO.open(this.window);
     });
   }
 
-  private static openDirectory() {
+  private openDirectory() {
     this.setShortcut(shortcutKeys.ShiftO, () => {
       FileIO.openDirectory(this.window);
     });
   }
 
-  private static setShortcut(accelerator: string | string[], callback: () => void) {
+  private setShortcut(accelerator: string | string[], callback: () => void) {
     localShortcut.register(this.window, accelerator, () => {
       callback();
     });

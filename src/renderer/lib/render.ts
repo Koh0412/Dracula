@@ -13,10 +13,6 @@ class Render {
   private notOpenDir: boolean = true;
 
   constructor() {
-    this.init();
-  }
-
-  public init(): void {
     DrEvent.ipcResposnse<string>(IPCKeys.save.path, (_, filePath) => {
       this.RenderFooter(filePath);
     });
