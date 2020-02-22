@@ -102,8 +102,10 @@ body {
   }
 
   .editor-footer {
+    padding: 0 6px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 1.5rem;
     color: $color-text-footer;
     background: $color-bg-footer;

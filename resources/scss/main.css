@@ -118,12 +118,16 @@ body {
 }
 
 .editor .editor-footer {
+  padding: 0 6px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   height: 1.5rem;
   color: #cec9d4;
   background: #502290;
