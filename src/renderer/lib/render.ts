@@ -20,6 +20,7 @@ class Render {
       this.insertOpenFileData(openFile);
     });
 
+    // TODO: argsにfileOrDirNameとfullpathが必要
     DrEvent.ipcResposnse<string[]>(IPCKeys.open.dir, (_, fileOrDirNames) => {
       if (this.notOpenDir) {
         const msg: HTMLElement = Util.getElement("missing-message");
@@ -27,10 +28,17 @@ class Render {
       }
 
       this.dirMenu.innerHTML = "";
+
       const listItem = this.DirectoryList(fileOrDirNames);
       listItem.forEach((item) => {
         this.dirMenu.innerHTML += item.outerHTML;
       });
+
+      // 各リストアイテムのにfullpathを入れて、
+      // el.titleをfsに使う
+      // this.dirMenu.addEventListener("click", (e) => {
+      //   const el: HTMLElement = e.target as HTMLElement;
+      // });
 
       this.notOpenDir = false;
     });
@@ -44,7 +52,11 @@ class Render {
   private DirectoryList(fileOrDirNames: string[]): HTMLElement[] {
     return fileOrDirNames.map((name) => {
       const listItem = document.createElement("li");
+
       listItem.innerHTML = name;
+      // 仮データ TODO: fullpathを入れるようにする
+      listItem.title = name;
+
       return listItem;
     });
   }

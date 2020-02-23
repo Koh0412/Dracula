@@ -4,6 +4,8 @@ import * as path from "path";
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
+import { Elapsed } from "../../common/decorators";
+
 class FileIO {
 
   public filePath: string = "";
@@ -58,6 +60,7 @@ class FileIO {
    *
    * @param window
    */
+  @Elapsed("open")
   public open(window: BrowserWindow): void {
     this.dialogOptions.properties = ["openFile"];
     const paths = dialog.showOpenDialogSync(this.dialogOptions);
@@ -81,6 +84,7 @@ class FileIO {
    *
    * @param window
    */
+  @Elapsed("dir")
   public openDirectory(window: BrowserWindow): void {
     this.fileOrDirNames = [];
     this.dialogOptions.properties = ["openDirectory"];
