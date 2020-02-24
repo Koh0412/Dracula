@@ -10,10 +10,6 @@
   background: $color-scrollbar-thumb;
 }
 
-::selection {
-  background: $color-selection !important;
-}
-
 body {
   font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   margin: 0;
@@ -96,6 +92,9 @@ body {
       .ace_marker-layer {
         .ace_active-line {
           border-radius: 3px;
+        }
+        .ace_selection {
+          background: $color-selection;
         }
       }
     }

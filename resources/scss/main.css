@@ -11,14 +11,6 @@
   background: #818999c2;
 }
 
-::-moz-selection {
-  background: #254196b0 !important;
-}
-
-::selection {
-  background: #254196b0 !important;
-}
-
 body {
   font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   margin: 0;
@@ -115,6 +107,10 @@ body {
 
 .editor .editor-text-line .text-area .ace_marker-layer .ace_active-line {
   border-radius: 3px;
+}
+
+.editor .editor-text-line .text-area .ace_marker-layer .ace_selection {
+  background: #5e636f;
 }
 
 .editor .editor-footer {
