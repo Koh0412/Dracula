@@ -19,7 +19,7 @@ class Render {
 
   constructor() {
     DrEvent.renderResponse<string>(IPCKeys.save.path, (_, filePath) => {
-      this.RenderFooter(filePath);
+      this.addMessageToFooter(filePath);
     });
 
     DrEvent.renderResponse<IOpenFile>(IPCKeys.open.value, (_, openFile) => {
@@ -73,6 +73,8 @@ class Render {
   private insertOpenFileData(openFile: IOpenFile): void {
     Editor.setText(openFile.text);
     this.footer.innerHTML = openFile.path;
+
+    Editor.textarea.gotoLine(1);
   }
 
   /**
@@ -80,7 +82,7 @@ class Render {
    *
    * @param filePath
    */
-  private RenderFooter(filePath: string): void {
+  private addMessageToFooter(filePath: string): void {
     this.footer.innerHTML = "the file has been saved";
 
     setTimeout(() => {
