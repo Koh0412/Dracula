@@ -87,7 +87,12 @@ class Render {
     }, 1500);
   }
 
-  private openFileByClick(ev: MouseEvent) {
+  /**
+   * 要素をクリックしてファイルを開く
+   *
+   * @param ev
+   */
+  private openFileByClick(ev: MouseEvent): void {
     const el: HTMLElement = ev.target as HTMLElement;
     const isDirectory = el.getAttribute("data-isDirectory");
 
