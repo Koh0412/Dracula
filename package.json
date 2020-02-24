@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "npm run delete && tsc",
-    "delete": "rimraf ./build/src/window/**/* && rimraf ./build/src/constants/**/*",
+    "delete": "rimraf ./build/src/window/**/* && rimraf ./build/src/common/**/*",
     "start": "webpack && npm run build && electron ./build/src/window/main.js",
     "electron": "electron ./build/src/window/main.js"
   },

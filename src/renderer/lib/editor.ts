@@ -1,6 +1,8 @@
 import * as ace from "brace";
 import "../config/lang";
+import "../config/snippets";
 import "brace/theme/dracula";
+import "brace/ext/language_tools";
 
 import DrEvent from "../../common/DrEvent";
 import { IPCKeys } from "../../common/constants/Keys";

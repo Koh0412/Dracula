@@ -24,5 +24,8 @@ export const aceConf: IAceConf = {
   showPrintMargin: false,
   tabSize: 2,
   wrap: true,
-  indentedSoftWrap: false
+  indentedSoftWrap: false,
+  enableBasicAutocompletion: true,
+  enableLiveAutocompletion: true,
+  enableSnippets: true
 };
