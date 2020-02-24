@@ -1,10 +1,11 @@
-import { dialog, BrowserWindow } from "electron";
+import { dialog, BrowserWindow, ipcMain } from "electron";
 import * as fs from "fs";
 import * as path from "path";
 
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
+import DrEvent from "../../common/DrEvent";
 
 import { Elapsed } from "../../common/decorators";
 
@@ -17,6 +18,12 @@ class FileIO {
 
   private get emptyFilePath(): boolean {
     return this.filePath === "";
+  }
+
+  constructor() {
+    DrEvent.mainResponse<string>(IPCKeys.save.byClick, (_, path) => {
+      this.filePath = path;
+    });
   }
 
   /**

@@ -4,12 +4,13 @@ export const IPCKeys: IIPCKeys = {
     request: "save-request",
     value: "save-value",
     path: "save-path",
+    byClick: "save-path-by-click"
   },
   open: {
     value: "open-value",
     dir: "open-dir",
   }
-}
+};
 
 export enum shortcutKeys {
   atMark = "CmdOrCtrl+@",
@@ -20,17 +21,18 @@ export enum shortcutKeys {
 }
 
 export interface IIPCKeys {
-  save: ISaveFileProperty,
-  open: IOpenFileProperty,
+  save: ISaveFileProperty;
+  open: IOpenFileProperty;
 }
 
 export interface ISaveFileProperty {
-  request: string,
-  value: string,
-  path: string,
+  request: string;
+  value: string;
+  path: string;
+  byClick: string;
 }
 
 export interface IOpenFileProperty {
-  value: string,
-  dir: string,
+  value: string;
+  dir: string;
 }
