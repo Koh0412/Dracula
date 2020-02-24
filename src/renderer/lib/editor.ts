@@ -10,8 +10,8 @@ class Editor {
   public textarea: ace.Editor = ace.edit("textarea");
 
   constructor() {
+    this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(aceConf);
-
 
     DrEvent.ipcResposnse(IPCKeys.save.request, (event, _) => {
       // Main側にeditorのtextを送る

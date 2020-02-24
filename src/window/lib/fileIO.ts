@@ -1,8 +1,10 @@
 import { dialog, BrowserWindow } from "electron";
 import * as fs from "fs";
 import * as path from "path";
+
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
+import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 import { Elapsed } from "../../common/decorators";
 
@@ -10,7 +12,7 @@ class FileIO {
 
   public filePath: string = "";
 
-  private fileOrDirNames: string[] = [];
+  private openDirectoies: IOpenDirectory[] = [];
   private dialogOptions: Electron.OpenDialogOptions = {};
 
   private get emptyFilePath(): boolean {
@@ -86,7 +88,7 @@ class FileIO {
    */
   @Elapsed("dir")
   public openDirectory(window: BrowserWindow): void {
-    this.fileOrDirNames = [];
+    this.openDirectoies = [];
     this.dialogOptions.properties = ["openDirectory"];
 
     const paths = dialog.showOpenDialogSync(this.dialogOptions);
@@ -95,26 +97,32 @@ class FileIO {
       return;
     }
 
-    this.addFilePath(paths[0]);
-    window.webContents.send(IPCKeys.open.dir, this.fileOrDirNames);
+    this.addFileNameAndPath(paths[0], this.openDirectoies);
+
+    window.webContents.send(IPCKeys.open.dir, this.openDirectoies);
   }
 
   /**
-   * dirPath内にあるファイルやディレクトリを配列に挿入
+   * dirPath内にあるファイル名とパスをopenDirectoriesに追加
    *
    * @param dirPath
    */
-  private addFilePath(dirPath: string) {
-    const fileAndDirs = fs.readdirSync(dirPath);
+  private addFileNameAndPath(dirPath: string, openDirectories: IOpenDirectory[]) {
+    const fileNames = fs.readdirSync(dirPath);
 
-    fileAndDirs.forEach((name) => {
-      this.fileOrDirNames.push(name);
-
+    fileNames.forEach((name) => {
       const fullPath: string = path.join(dirPath, name);
       const stats = fs.statSync(fullPath);
 
+      const prop: IOpenDirectory = {
+        filename: name,
+        fullPath,
+        isDirectory: stats.isDirectory(),
+      };
+      openDirectories.push(prop);
+
       if (stats.isDirectory()) {
-        this.addFilePath(fullPath);
+        this.addFileNameAndPath(fullPath, openDirectories);
       }
     });
   }
