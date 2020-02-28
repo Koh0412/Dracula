@@ -27,41 +27,47 @@ body {
     height: 100%;
     display: flex;
 
-    .dir-menu-list {
-      width: 15rem;
-      min-width: 7rem;
-      text-align: center;
+    .dir-menu {
+      display: flex;
+      flex-direction: column;
       border-right: 1px solid #4a4d58;
-      user-select: none;
-      resize: horizontal;
-      overflow: auto;
+      text-align: center;
       color: $color-text-editor;
 
       .dir-menu-title {
         padding: 10px;
         background: $color-bg-menu-title;
         box-shadow: 0 0 2px 1px #0f002d;
-
       }
 
-      .dir-menu {
-        padding: 0;
-        list-style: none;
-        font-size: 14px;
+      .dir-menu-list {
+        height: 100%;
+        width: 15rem;
+        min-width: 180px;
+        max-width: 900px;
+        user-select: none;
+        resize: horizontal;
+        overflow: auto;
 
-        li {
-          padding: 4px 8px 4px 22px;
-          text-align: start;
-          &:hover {
-            cursor: pointer;
-            background: $color-bg-hover-menu;
+        .dir-menu-item {
+          padding: 0;
+          list-style: none;
+          font-size: 14px;
+
+          li {
+            padding: 4px 8px 4px 22px;
+            text-align: start;
+            &:hover {
+              cursor: pointer;
+              background: $color-bg-hover-menu;
+            }
           }
         }
-      }
 
-      .miss-msg {
-        font-size: 14px;
-        padding: 8px;
+        .miss-msg {
+          font-size: 14px;
+          padding: 8px;
+        }
       }
     }
 

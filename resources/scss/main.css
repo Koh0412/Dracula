@@ -37,44 +37,56 @@ body {
   display: flex;
 }
 
-.editor .editor-text-line .dir-menu-list {
-  width: 15rem;
-  min-width: 7rem;
-  text-align: center;
+.editor .editor-text-line .dir-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   border-right: 1px solid #4a4d58;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  resize: horizontal;
-  overflow: auto;
+  text-align: center;
   color: #cccdcf;
 }
 
-.editor .editor-text-line .dir-menu-list .dir-menu-title {
+.editor .editor-text-line .dir-menu .dir-menu-title {
   padding: 10px;
   background: #3b3a61;
   -webkit-box-shadow: 0 0 2px 1px #0f002d;
           box-shadow: 0 0 2px 1px #0f002d;
 }
 
-.editor .editor-text-line .dir-menu-list .dir-menu {
+.editor .editor-text-line .dir-menu .dir-menu-list {
+  height: 100%;
+  width: 15rem;
+  min-width: 180px;
+  max-width: 900px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  resize: horizontal;
+  overflow: auto;
+}
+
+.editor .editor-text-line .dir-menu .dir-menu-list .dir-menu-item {
   padding: 0;
   list-style: none;
   font-size: 14px;
 }
 
-.editor .editor-text-line .dir-menu-list .dir-menu li {
+.editor .editor-text-line .dir-menu .dir-menu-list .dir-menu-item li {
   padding: 4px 8px 4px 22px;
   text-align: start;
 }
 
-.editor .editor-text-line .dir-menu-list .dir-menu li:hover {
+.editor .editor-text-line .dir-menu .dir-menu-list .dir-menu-item li:hover {
   cursor: pointer;
   background: #3d405087;
 }
 
-.editor .editor-text-line .dir-menu-list .miss-msg {
+.editor .editor-text-line .dir-menu .dir-menu-list .miss-msg {
   font-size: 14px;
   padding: 8px;
 }

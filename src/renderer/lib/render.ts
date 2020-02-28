@@ -12,7 +12,7 @@ import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 class Render {
   private footer: HTMLElement = Util.getElement("footer");
-  private dirMenu: HTMLElement = Util.getElement("dir-menu");
+  private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
 
   /** 一度でもディレクトリを開いたかどうか */
   private notOpenDir: boolean = true;
@@ -34,15 +34,15 @@ class Render {
       }
 
       // 初期化
-      this.dirMenu.innerHTML = "";
+      this.dirMenuItem.innerHTML = "";
 
       const listItem = this.DirectoryList(openDirectories);
       // listItemをセット
       listItem.forEach((item) => {
-        this.dirMenu.innerHTML += item.outerHTML;
+        this.dirMenuItem.innerHTML += item.outerHTML;
       });
 
-      this.dirMenu.addEventListener("click", this.openFileByClick.bind(this));
+      this.dirMenuItem.addEventListener("click", this.openFileByClick.bind(this));
 
       this.notOpenDir = false;
     });
