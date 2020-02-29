@@ -15,6 +15,8 @@ class Editor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(aceConf);
 
+    this.textarea.resize();
+
     DrEvent.renderResponse(IPCKeys.save.request, (event, _) => {
       // Main側にeditorのtextを送る
       event.sender.send(IPCKeys.save.value, this.getText);

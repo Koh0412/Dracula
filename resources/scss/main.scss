@@ -23,21 +23,21 @@ body {
   flex-direction: column;
   overflow: hidden;
 
-  .editor-text-line {
+  .editor-main {
     height: 100%;
     display: flex;
 
     .dir-menu {
       display: flex;
       flex-direction: column;
-      border-right: 1px solid #4a4d58;
+      border-right: 1px solid $color-border-menu;
       text-align: center;
       color: $color-text-editor;
 
       .dir-menu-title {
-        padding: 10px;
+        padding: 6px;
         background: $color-bg-menu-title;
-        box-shadow: 0 0 2px 1px #0f002d;
+        border-top: 1px solid $color-border-menu;
       }
 
       .dir-menu-list {
