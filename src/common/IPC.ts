@@ -6,7 +6,7 @@ interface EventEmitter {
 
 class IPC {
   /**
-   * - ipcRenderのonメソッドの実行
+   * - ipcのonメソッドの実行
    * - そのままだと第二引数がanyになってしまうためメソッド化
    *
    * @param emitter
