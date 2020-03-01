@@ -4,7 +4,7 @@ import { ipcRenderer } from "electron";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import DrEvent from "../../common/DrEvent";
+import IPC from "../../common/IPC";
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
@@ -18,15 +18,15 @@ class Render {
   private notOpenDir: boolean = true;
 
   constructor() {
-    DrEvent.renderResponse<string>(IPCKeys.save.path, (_, filePath) => {
+    IPC.recieve<string>(ipcRenderer, IPCKeys.save.path, (_, filePath) => {
       this.addMessageToFooter(filePath);
     });
 
-    DrEvent.renderResponse<IOpenFile>(IPCKeys.open.value, (_, openFile) => {
+    IPC.recieve<IOpenFile>(ipcRenderer, IPCKeys.open.value, (_, openFile) => {
       this.insertOpenFileData(openFile);
     });
 
-    DrEvent.renderResponse<IOpenDirectory[]>(IPCKeys.open.dir, (_, openDirectories) => {
+    IPC.recieve<IOpenDirectory[]>(ipcRenderer, IPCKeys.open.dir, (_, openDirectories) => {
       // 一度もフォルダを開いていなければ非表示に
       if (this.notOpenDir) {
         const msg: HTMLElement = Util.getElement("missing-message");
@@ -103,7 +103,7 @@ class Render {
       const text = fs.readFileSync(el.title, { encoding: "utf8" });
       this.insertOpenFileData({text, path: el.title});
 
-      ipcRenderer.send(IPCKeys.save.byClick, el.title);
+      ipcRenderer.send(IPCKeys.open.byClick, el.title);
     }
   }
 }

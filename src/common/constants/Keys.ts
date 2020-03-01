@@ -4,11 +4,11 @@ export const IPCKeys: IIPCKeys = {
     request: "save-request",
     value: "save-value",
     path: "save-path",
-    byClick: "save-path-by-click"
   },
   open: {
     value: "open-value",
     dir: "open-dir",
+    byClick: "open-by-click"
   }
 };
 
@@ -29,10 +29,10 @@ export interface ISaveFileProperty {
   request: string;
   value: string;
   path: string;
-  byClick: string;
 }
 
 export interface IOpenFileProperty {
   value: string;
   dir: string;
+  byClick: string;
 }

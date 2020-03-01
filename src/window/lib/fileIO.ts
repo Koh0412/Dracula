@@ -1,11 +1,11 @@
-import { dialog, BrowserWindow } from "electron";
+import { dialog, BrowserWindow, ipcMain } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
 
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-import DrEvent from "../../common/DrEvent";
+import IPC from "../../common/IPC";
 
 import { Elapsed } from "../../common/decorators";
 
@@ -21,7 +21,7 @@ class FileIO {
   }
 
   constructor() {
-    DrEvent.mainResponse<string>(IPCKeys.save.byClick, (_, path) => {
+    IPC.recieve<string>(ipcMain, IPCKeys.open.byClick, (_, path) => {
       this.filePath = path;
     });
   }
@@ -104,7 +104,7 @@ class FileIO {
       return;
     }
 
-    this.addFileNameAndPath(paths[0], this.openDirectoies);
+    this.addOpenDirProp(paths[0], this.openDirectoies);
 
     window.webContents.send(IPCKeys.open.dir, this.openDirectoies);
   }
@@ -114,7 +114,7 @@ class FileIO {
    *
    * @param dirPath
    */
-  private addFileNameAndPath(dirPath: string, openDirectories: IOpenDirectory[]) {
+  private addOpenDirProp(dirPath: string, openDirectories: IOpenDirectory[]): void {
     const fileNames = fs.readdirSync(dirPath);
 
     fileNames.forEach((name) => {
@@ -129,12 +129,12 @@ class FileIO {
       openDirectories.push(prop);
 
       if (stats.isDirectory()) {
-        this.addFileNameAndPath(fullPath, openDirectories);
+        this.addOpenDirProp(fullPath, openDirectories);
       }
     });
   }
 
-  private createSaveDialog() {
+  private createSaveDialog(): Promise<Electron.SaveDialogReturnValue> {
     this.dialogOptions.defaultPath = this.filePath;
     const saveDialog = dialog.showSaveDialog(this.dialogOptions);
 
