@@ -9,7 +9,6 @@ import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
-
 class Render {
   private footer: HTMLElement = Util.getElement("footer");
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
@@ -98,6 +97,8 @@ class Render {
   private openFileByClick(ev: MouseEvent): void {
     const el: HTMLElement = ev.target as HTMLElement;
     const isDirectory = el.getAttribute("data-isDirectory");
+
+    Util.addClassChildItem(this.dirMenuItem, el, "focus-item");
 
     if (isDirectory === "false") {
       const text = fs.readFileSync(el.title, { encoding: "utf8" });

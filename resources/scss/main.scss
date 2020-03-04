@@ -15,6 +15,10 @@ body {
   margin: 0;
 }
 
+.focus-item {
+  background: $color-bg-hover-menu;
+}
+
 .editor {
   position: absolute;
   width: 100%;

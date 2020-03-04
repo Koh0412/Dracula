@@ -16,6 +16,10 @@ body {
   margin: 0;
 }
 
+.focus-item {
+  background: #3d405087;
+}
+
 .editor {
   position: absolute;
   width: 100%;
