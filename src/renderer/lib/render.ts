@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import * as fs from "fs-extra";
 import { ipcRenderer } from "electron";
 
 import Editor from "./editor";

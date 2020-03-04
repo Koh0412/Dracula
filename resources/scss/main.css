@@ -20,6 +20,10 @@ body {
   background: #3d405087;
 }
 
+.titlebar {
+  color: #cccdcf !important;
+}
+
 .editor {
   position: absolute;
   width: 100%;

@@ -15,7 +15,8 @@ export default class Processer {
       // INFO: ないとrequire is undefinedになる
       webPreferences: {
         nodeIntegration: true
-      }
+      },
+      frame: false
     };
 
     this.browserWindow = new BrowserWindow(this.windowOptions);
