@@ -10,12 +10,12 @@ import { Elapsed } from "../../common/decorators";
 
 class FileIO {
 
-  public filePath: string = "";
+  private filePath: string = "";
 
   private openDirectoies: IOpenDirectory[] = [];
   private dialogOptions: Electron.OpenDialogOptions = {};
 
-  private get emptyFilePath(): boolean {
+  private get isEmptyPath(): boolean {
     return this.filePath === "";
   }
 
@@ -26,7 +26,7 @@ class FileIO {
    * @param window
    */
   public async save(value: string, window: Electron.BrowserWindow): Promise<void> {
-    if (this.emptyFilePath) {
+    if (this.isEmptyPath) {
       // 保存ダイアログを生成
       const saveDialog = await this.createSaveDialog();
 
@@ -136,8 +136,13 @@ class FileIO {
     });
   }
 
+  /**
+   * saveDialogを生成
+   */
   private createSaveDialog(): Promise<Electron.SaveDialogReturnValue> {
-    this.dialogOptions.defaultPath = this.filePath;
+    if (!this.isEmptyPath) {
+      this.dialogOptions.defaultPath = this.filePath;
+    }
     const saveDialog = dialog.showSaveDialog(this.dialogOptions);
 
     return saveDialog;
