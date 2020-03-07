@@ -1,2 +1,2 @@
-import "./lib/render";
-import "./lib/titleBar";
+import "./components/render";
+import "./components/titleBar";

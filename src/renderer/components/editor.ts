@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+import { ipcRenderer as renderer } from "electron";
 
 import * as ace from "brace";
 import "../config/lang";
@@ -6,7 +6,6 @@ import "../config/snippets";
 import "brace/theme/dracula";
 import "brace/ext/language_tools";
 
-import IPC from "../../common/IPC";
 import { IPCKeys } from "../../common/constants/Keys";
 import { aceConf } from "../../common/constants/aceConf";
 
@@ -19,7 +18,7 @@ class Editor {
 
     this.textarea.resize();
 
-    IPC.recieve(ipcRenderer, IPCKeys.save.request, (event, _) => {
+    renderer.on(IPCKeys.save.request, (event) => {
       // Main側にeditorのtextを送る
       event.sender.send(IPCKeys.save.value, this.getText);
     });

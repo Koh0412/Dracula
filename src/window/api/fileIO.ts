@@ -1,11 +1,10 @@
-import { dialog, BrowserWindow, ipcMain } from "electron";
+import { dialog, BrowserWindow, ipcMain as main } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
 
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-import IPC from "../../common/IPC";
 
 import { Elapsed } from "../../common/decorators";
 
@@ -18,12 +17,6 @@ class FileIO {
 
   private get emptyFilePath(): boolean {
     return this.filePath === "";
-  }
-
-  constructor() {
-    IPC.recieve<string>(ipcMain, IPCKeys.open.byClick, (_, path) => {
-      this.filePath = path;
-    });
   }
 
   /**
@@ -107,6 +100,15 @@ class FileIO {
     this.addOpenDirProp(paths[0], this.openDirectoies);
 
     window.webContents.send(IPCKeys.open.dir, this.openDirectoies);
+  }
+
+  /**
+   * `path`をfilePathにセット
+   *
+   * @param path
+   */
+  public setPath(path: string): void {
+    this.filePath = path;
   }
 
   /**

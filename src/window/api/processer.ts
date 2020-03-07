@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import Common from "./common";
+import Common from "../constants/common";
 
 export default class Processer {
   private browserWindow: BrowserWindow | null = null;

@@ -2,7 +2,7 @@ import { ipcMain, BrowserWindow, App } from "electron";
 import * as localShortcut from "electron-localshortcut";
 import { IBaseElement } from "../../common/definition/IBaseElement";
 import { IPCKeys, shortcutKeys } from "../../common/constants/Keys";
-import FileIO from "./fileIO";
+import FileIO from "../api/fileIO";
 
 export default class Shortcut {
   private window: BrowserWindow;
