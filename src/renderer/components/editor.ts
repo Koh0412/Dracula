@@ -6,8 +6,11 @@ import "../config/snippets";
 import "brace/theme/dracula";
 import "brace/ext/language_tools";
 
+import Status from "./status";
+
 import { IPCKeys } from "../../common/constants/Keys";
 import { aceConf } from "../../common/constants/aceConf";
+import { IOpenFile } from "../../common/definition/IOpenFile";
 
 class Editor {
   public textarea: ace.Editor = ace.edit("textarea");
@@ -17,6 +20,7 @@ class Editor {
     this.textarea.setOptions(aceConf);
 
     this.textarea.resize();
+    renderer.on(IPCKeys.open.value, (_, openFile: IOpenFile) => this.addOpenFileValue(openFile));
 
     renderer.on(IPCKeys.save.request, (event) => {
       // Main側にeditorのtextを送る
@@ -30,6 +34,18 @@ class Editor {
 
   public setText(text: string): string {
     return this.textarea.setValue(text);
+  }
+
+  /**
+   * ファイルのデータをStatusのpathとエディター内に流し込む
+   *
+   * @param openFile
+   */
+  public addOpenFileValue(openFile: IOpenFile): void {
+    this.setText(openFile.text);
+    Status.setPath(openFile.path);
+
+    this.textarea.gotoLine(1);
   }
 }
 
