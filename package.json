@@ -20,6 +20,7 @@
     "electron": "^7.1.10",
     "electron-localshortcut": "^3.2.1",
     "fs-extra": "^8.1.0",
+    "mousetrap-ts": "^1.0.0",
     "rimraf": "^3.0.0",
     "ts-loader": "6.2.1",
     "ts-node": "8.6.2",
