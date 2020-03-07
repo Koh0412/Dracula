@@ -23,8 +23,9 @@ class Render {
       // 一度もフォルダを開いていなければ非表示に
       if (this.notOpenDir) {
         const msg: HTMLElement = Util.getElement("missing-message");
-        msg.style.display = "none";
+        msg.hidden = true;
       }
+      this.notOpenDir = false;
 
       // 初期化
       this.dirMenuItem.innerHTML = "";
@@ -37,7 +38,6 @@ class Render {
 
       this.dirMenuItem.addEventListener("click", this.openFileByClick.bind(this));
 
-      this.notOpenDir = false;
     });
   }
 
