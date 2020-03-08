@@ -119,9 +119,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 1.5rem;
     color: $color-text-footer;
     background: $color-bg-footer;
     font-size: 14px;
+    .status-path {
+      padding: 4px 0;
+    }
+    .status-item {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      .status-list {
+        list-style: none;
+        padding: 4px 8px;
+        cursor: pointer;
+        &:hover {
+          background: $color-bg-footer-hover;
+        }
+      }
+    }
   }
 }

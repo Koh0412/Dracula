@@ -9,6 +9,10 @@ class Util {
     return element;
   }
 
+  public addClass(element: HTMLElement, className: string) {
+    element.classList.add(className);
+  }
+
   /**
    * - `parent`の子要素の`target`にクラスを追加
    * - `target`以外の子要素にクラスがついている場合は削除

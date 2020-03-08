@@ -1,4 +1,2 @@
-import "./components/sideMenu";
+import "./components/render";
 import "./components/titleBar";
-import "./components/editor";
-import "./components/status";

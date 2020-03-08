@@ -143,9 +143,30 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  height: 1.5rem;
   color: #cec9d4;
   background: #502290;
   font-size: 14px;
+}
+
+.editor .editor-footer .status-path {
+  padding: 4px 0;
+}
+
+.editor .editor-footer .status-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.editor .editor-footer .status-item .status-list {
+  list-style: none;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.editor .editor-footer .status-item .status-list:hover {
+  background: #622ab1;
 }
 /*# sourceMappingURL=main.css.map */

@@ -12,6 +12,7 @@ import { IPCKeys } from "../../common/constants/Keys";
 import { aceConf } from "../../common/constants/aceConf";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
+/** エディタエリア */
 class Editor {
   public textarea: ace.Editor = ace.edit("textarea");
 
@@ -28,10 +29,19 @@ class Editor {
     });
   }
 
+  /** エディタ内のtextを取得 */
   public get getText(): string {
     return this.textarea.getValue();
   }
 
+  /** 現在のカーソルの位置を取得 */
+  public get getCursorPosition(): ace.Position {
+    const row = this.textarea.getCursorPosition().row + 1;
+    const column = this.textarea.getCursorPosition().column + 1;
+    return { row, column };
+  }
+
+  /** エディタにtextをセット */
   public setText(text: string): string {
     return this.textarea.setValue(text);
   }
@@ -46,6 +56,17 @@ class Editor {
     Status.setPath(openFile.path);
 
     this.textarea.gotoLine(1);
+  }
+
+  /**
+   * カーソルが動いた時の処理
+   *
+   * @param callback
+   */
+  public changeCursor(callback: () => void): void {
+    this.textarea.selection.addEventListener("changeCursor", () => {
+      callback();
+    });
   }
 }
 

@@ -7,6 +7,7 @@ import Util from "../../common/Util";
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
+/** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
 
@@ -28,7 +29,7 @@ class SideMenu {
       const listItem = this.DirectoryList(openDirectories);
       // listItemをセット
       listItem.forEach((item) => {
-        this.dirMenuItem.innerHTML += item.outerHTML;
+        this.dirMenuItem.appendChild(item);
       });
 
       this.dirMenuItem.addEventListener("click", this.openFileByClick.bind(this));
