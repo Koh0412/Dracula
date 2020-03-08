@@ -16,7 +16,9 @@ export default class Processer {
       webPreferences: {
         nodeIntegration: true
       },
-      frame: false
+      frame: false,
+      minWidth: Common.minWidth,
+      minHeight: Common.minHeight
     };
 
     this.browserWindow = new BrowserWindow(this.windowOptions);

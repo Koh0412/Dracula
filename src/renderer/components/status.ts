@@ -41,12 +41,13 @@ class Status {
   }
 
   /**
-   * ステータスバーの各リストを1つ生成する
+   * - ステータスバーの各リストを1つ生成する
+   * - `callback`はclickされた時の処理
    *
    * @param name
    * @param callback
    */
-  public createStatusList(name: string, callback?: () => void): HTMLLIElement {
+  public createStatusList(name: string, callback?: (event: MouseEvent) => void): HTMLLIElement {
     const li = document.createElement("li");
 
     li.innerHTML = name;
@@ -54,8 +55,8 @@ class Status {
     this.item.appendChild(li);
 
     if (callback) {
-      li.addEventListener("click", () => {
-        callback();
+      li.addEventListener("click", (event) => {
+        callback(event);
       });
     }
 

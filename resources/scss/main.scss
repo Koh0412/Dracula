@@ -117,18 +117,22 @@ body {
   .editor-footer {
     padding: 0 6px;
     display: flex;
+    height: 25px;
     align-items: center;
     justify-content: space-between;
     color: $color-text-footer;
     background: $color-bg-footer;
     font-size: 14px;
+    user-select: none;
     .status-path {
       padding: 4px 0;
+      white-space: nowrap;
     }
     .status-item {
       display: flex;
       margin: 0;
       padding: 0;
+      white-space: nowrap;
       .status-list {
         list-style: none;
         padding: 4px 8px;

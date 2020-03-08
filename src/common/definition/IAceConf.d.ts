@@ -1,4 +1,4 @@
-interface IAceConf {
+export interface IAceConf {
   // render option
   theme: string;
   showPrintMargin?: boolean;
@@ -17,15 +17,3 @@ interface IAceConf {
   enableLiveAutocompletion?: boolean;
   enableSnippets?: boolean;
 }
-
-export const aceConf: IAceConf = {
-  theme: "ace/theme/dracula",
-  mode: "ace/mode/typescript",
-  showPrintMargin: false,
-  tabSize: 2,
-  wrap: true,
-  indentedSoftWrap: false,
-  enableBasicAutocompletion: true,
-  enableLiveAutocompletion: true,
-  enableSnippets: true
-};

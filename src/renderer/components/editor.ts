@@ -9,16 +9,29 @@ import "brace/ext/language_tools";
 import Status from "./status";
 
 import { IPCKeys } from "../../common/constants/Keys";
-import { aceConf } from "../../common/constants/aceConf";
+import { IAceConf } from "../../common/definition/IAceConf";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
 /** エディタエリア */
 class Editor {
   public textarea: ace.Editor = ace.edit("textarea");
+  private mode: string = "typescript";
+
+  private aceConf: IAceConf = {
+    theme: "ace/theme/dracula",
+    mode: `ace/mode/${this.mode}`,
+    showPrintMargin: false,
+    tabSize: 2,
+    wrap: true,
+    indentedSoftWrap: false,
+    enableBasicAutocompletion: true,
+    enableLiveAutocompletion: true,
+    enableSnippets: true
+  };
 
   constructor() {
     this.textarea.$blockScrolling = Infinity;
-    this.textarea.setOptions(aceConf);
+    this.textarea.setOptions(this.aceConf);
 
     this.textarea.resize();
     renderer.on(IPCKeys.open.value, (_, openFile: IOpenFile) => this.addOpenFileValue(openFile));
