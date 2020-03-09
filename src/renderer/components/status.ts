@@ -48,9 +48,8 @@ class Status {
    * @param callback
    */
   public createStatusList(name: string, callback?: (event: MouseEvent) => void): HTMLLIElement {
-    const li = document.createElement("li");
+    const li = Util.createListItemElement({ text: name });
 
-    li.innerHTML = name;
     Util.addClass(li, "status-list");
     this.item.appendChild(li);
 

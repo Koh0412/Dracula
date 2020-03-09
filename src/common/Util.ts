@@ -1,3 +1,8 @@
+interface IElementOptions {
+  text: string;
+  title?: string;
+}
+
 class Util {
   /**
    * 指定の`id`属性の要素を取得
@@ -29,6 +34,21 @@ class Util {
     if (!target.isEqualNode(parent)) {
       target.classList.add(className);
     }
+  }
+
+  /**
+   * <li>要素を生成 optionsで設定
+   *
+   * @param options
+   */
+  public createListItemElement(options: IElementOptions): HTMLLIElement {
+    const li = document.createElement("li");
+    li.innerHTML = options.text;
+    if (options.title) {
+      li.title = options.title;
+    }
+
+    return li;
   }
 }
 

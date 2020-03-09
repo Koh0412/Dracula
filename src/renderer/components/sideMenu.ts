@@ -2,6 +2,7 @@ import * as fs from "fs-extra";
 import { ipcRenderer as renderer } from "electron";
 
 import Editor from "./editor";
+import Tab from "./tab";
 
 import Util from "../../common/Util";
 import { IPCKeys } from "../../common/constants/Keys";
@@ -44,10 +45,10 @@ class SideMenu {
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      const li = document.createElement("li");
-
-      li.innerHTML = opendir.filename;
-      li.title = opendir.fullPath;
+      const li = Util.createListItemElement({
+        text: opendir.filename,
+        title: opendir.fullPath,
+      });
       li.setAttribute("data-isDirectory", String(opendir.isDirectory));
 
       return li;
@@ -67,6 +68,10 @@ class SideMenu {
     Util.addClassChildItem(this.dirMenuItem, target, "focus-item");
 
     if (isDirectory === "false") {
+      if (target.textContent && path) {
+        Tab.create(target.textContent, path);
+      }
+
       const text = fs.readFileSync(path, { encoding: "utf8" });
       Editor.addOpenFileValue({text, path});
 
