@@ -21,7 +21,7 @@ body {
 }
 
 .titlebar {
-  color: #cccdcf !important;
+  color: #bcb8c0 !important;
 }
 
 .editor {
@@ -36,6 +36,63 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   overflow: hidden;
+}
+
+.editor .editor-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #bcb8c0;
+  text-align: center;
+}
+
+.editor .editor-header .editor-setting {
+  width: 15rem;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.editor .editor-header .editor-setting li {
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.editor .editor-header .editor-setting li:hover {
+  color: #d9d4dd;
+}
+
+.editor .editor-header .editor-setting li .material-icons {
+  font-size: 22px;
+}
+
+.editor .editor-header .editor-tab {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 35px;
+  font-size: 14px;
+}
+
+.editor .editor-header .editor-tab li {
+  width: 100px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: start;
+  border-right: 1px solid #1f1929;
+}
+
+.editor .editor-header .editor-tab li:hover {
+  background: #3d405087;
 }
 
 .editor .editor-main {
@@ -53,15 +110,13 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-right: 1px solid #4a4d58;
   text-align: center;
-  color: #cccdcf;
+  color: #bcb8c0;
 }
 
-.editor .editor-main .dir-menu .dir-menu-title {
+.editor .editor-main .dir-menu .dir-menu-current {
   padding: 6px;
   background: #3b3a61;
-  border-top: 1px solid #4a4d58;
 }
 
 .editor .editor-main .dir-menu .dir-menu-list {
@@ -86,10 +141,10 @@ body {
 .editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li {
   padding: 4px 8px 4px 22px;
   text-align: start;
+  cursor: pointer;
 }
 
 .editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li:hover {
-  cursor: pointer;
   background: #3d405087;
 }
 
@@ -100,14 +155,9 @@ body {
 
 .editor .editor-main .text-area {
   width: 100%;
-  height: 100%;
   font-size: 15px;
-  margin: 0;
-  padding: 6px;
   background: #2d303a;
-  border: none;
   color: #cccdcf;
-  resize: none;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -144,7 +194,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  color: #cec9d4;
+  color: #bcb8c0;
   background: #502290;
   font-size: 14px;
   -webkit-user-select: none;

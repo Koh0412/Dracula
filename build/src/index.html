@@ -6,15 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../../resources/scss/main.css">
     <script src="./renderer/index.js" defer></script>
   </head>
   <body>
     <div class="editor">
-      <!-- <div style="height: 40px;">// header</div> -->
+      <header class="editor-header">
+        <ul class="editor-setting">
+          <li title="settings"><i class="material-icons">more_horiz</i></li>
+          <li title="search word"><i class="material-icons">search</i></li>
+        </ul>
+        <ul class="editor-tab" id="tab">
+        </ul>
+      </header>
       <div class="editor-main">
         <div class="dir-menu">
-          <div class="dir-menu-title" id="dir-menu-title">current</div>
+          <div class="dir-menu-current">current</div>
           <div class="dir-menu-list">
             <div class="miss-msg" id="missing-message">Missing Directory...</div>
             <ul class="dir-menu-item" id="dir-menu-item"></ul>

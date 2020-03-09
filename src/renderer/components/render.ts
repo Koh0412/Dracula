@@ -1,5 +1,6 @@
 import Editor from "./editor";
 import "./sideMenu";
+import "./tab";
 import Status from "./status";
 
 /** 全体のレンダリング */

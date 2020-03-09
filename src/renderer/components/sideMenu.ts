@@ -1,13 +1,14 @@
 import * as fs from "fs-extra";
 import { ipcRenderer as renderer } from "electron";
 
-import Editor from "./editor";
 import Tab from "./tab";
+import Editor from "./editor";
 
 import Util from "../../common/Util";
 import { IPCKeys } from "../../common/constants/Keys";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
+// TODO: 階層ツリーなstyleにしたい
 /** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
