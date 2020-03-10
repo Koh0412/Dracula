@@ -14,8 +14,24 @@ class Util {
     return element;
   }
 
-  public addClass(element: HTMLElement, className: string) {
+  /**
+   * クラスの追加
+   *
+   * @param element
+   * @param className
+   */
+  public addClass(element: HTMLElement, className: string): void {
     element.classList.add(className);
+  }
+
+  /**
+   * クラスの削除
+   *
+   * @param element
+   * @param className
+   */
+  public removeClass(element: HTMLElement, className: string) {
+    element.classList.remove(className);
   }
 
   /**
@@ -26,13 +42,13 @@ class Util {
    * @param target
    * @param className
    */
-  public addClassChildItem(parent: HTMLElement, target: HTMLElement, className: string) {
+  public addClassChildItem(parent: HTMLElement, target: HTMLElement, className: string): void {
     parent.childNodes.forEach((node) => {
-      (node as HTMLElement).classList.remove(className);
+      this.removeClass((node as HTMLElement), className);
     });
 
     if (!target.isEqualNode(parent)) {
-      target.classList.add(className);
+      this.addClass(target, className);
     }
   }
 
@@ -42,7 +58,7 @@ class Util {
    * @param options
    */
   public createListItemElement(options: IElementOptions): HTMLLIElement {
-    const li = document.createElement("li");
+    const li: HTMLLIElement = document.createElement("li");
     li.innerHTML = options.text;
     if (options.title) {
       li.title = options.title;

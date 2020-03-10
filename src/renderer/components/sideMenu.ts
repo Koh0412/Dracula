@@ -63,12 +63,15 @@ class SideMenu {
    */
   private openFileByClick(ev: MouseEvent): void {
     const target: HTMLElement = ev.target as HTMLElement;
-    const isDirectory: string = target.getAttribute("data-isDirectory");
+    const isDirectoryAttr: string | null = target.getAttribute("data-isDirectory");
     const path: string = target.title;
 
+    // target要素にクラスを追加
     Util.addClassChildItem(this.dirMenuItem, target, "focus-item");
 
-    if (isDirectory === "false") {
+    // targetがディレクトリでなければ処理
+    if (isDirectoryAttr && isDirectoryAttr === "false") {
+      // タブを生成
       if (target.textContent && path) {
         Tab.create(target.textContent, path);
       }
