@@ -8,7 +8,7 @@ import "brace/ext/language_tools";
 
 import Status from "./status";
 
-import { IPCKeys } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/Keys";
 import { IAceConf } from "../../common/definition/IAceConf";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
@@ -34,11 +34,11 @@ class Editor {
     this.textarea.setOptions(this.aceConf);
 
     this.textarea.resize();
-    renderer.on(IPCKeys.open.value, (_, openFile: IOpenFile) => this.addOpenFileValue(openFile));
+    renderer.on(IPCConstants.OPEN_VALUE, (_, openFile: IOpenFile) => this.addOpenFileValue(openFile));
 
-    renderer.on(IPCKeys.save.request, (event) => {
+    renderer.on(IPCConstants.SAVE_REQ, (event) => {
       // Main側にeditorのtextを送る
-      event.sender.send(IPCKeys.save.value, this.getText);
+      event.sender.send(IPCConstants.SAVE_VALUE, this.getText);
     });
   }
 

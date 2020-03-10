@@ -5,7 +5,7 @@ import Shortcut from "./lib/shortcut";
 import FileIO from "./api/fileIO";
 
 import { IBaseElement } from "../common/definition/IBaseElement";
-import { IPCKeys } from "../common/constants/Keys";
+import { IPCConstants } from "../common/constants/Keys";
 
 
 class Main {
@@ -21,7 +21,7 @@ class Main {
     this.app.on("ready", this.create.bind(this));
     this.app.on("activate", this.onActivated.bind(this));
 
-    ipc.on(IPCKeys.open.byClick, (_, path: string) => FileIO.setPath(path));
+    ipc.on(IPCConstants.OPEN_BYCLICK, (_, path: string) => FileIO.setPath(path));
   }
 
   private onWindowAllClosed(): void {

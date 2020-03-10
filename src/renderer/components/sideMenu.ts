@@ -5,7 +5,7 @@ import Tab from "./tab";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCKeys } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/Keys";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 // TODO: 階層ツリーなstyleにしたい
@@ -17,7 +17,7 @@ class SideMenu {
   private notOpenDir: boolean = true;
 
   constructor() {
-    renderer.on(IPCKeys.open.dir, (_, openDirectories: IOpenDirectory[]) => {
+    renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
       // 一度もフォルダを開いていなければ非表示に
       if (this.notOpenDir) {
         const msg: HTMLElement = Util.getElement("missing-message");
@@ -76,7 +76,7 @@ class SideMenu {
       const text = fs.readFileSync(path, { encoding: "utf8" });
       Editor.addOpenFileValue({text, path});
 
-      renderer.send(IPCKeys.open.byClick, path);
+      renderer.send(IPCConstants.OPEN_BYCLICK, path);
     }
   }
 }

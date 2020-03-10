@@ -2,7 +2,7 @@ import { dialog, BrowserWindow, ipcMain as main } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
 
-import { IPCKeys } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/Keys";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
@@ -36,14 +36,14 @@ class FileIO {
           this.filePath = saveDialog.filePath;
           fs.writeFileSync(this.filePath, value, { encoding: "utf8" });
 
-          window.webContents.send(IPCKeys.save.path, this.filePath);
+          window.webContents.send(IPCConstants.SAVE_PATH, this.filePath);
         } catch (err) {
           dialog.showErrorBox("error", `cannot save to ${this.filePath}`);
         }
       }
     } else {
       fs.writeFileSync(this.filePath, value);
-      window.webContents.send(IPCKeys.save.path, this.filePath);
+      window.webContents.send(IPCConstants.SAVE_PATH, this.filePath);
     }
   }
 
@@ -78,7 +78,7 @@ class FileIO {
       path: this.filePath,
     };
 
-    window.webContents.send(IPCKeys.open.value, openFileProp);
+    window.webContents.send(IPCConstants.OPEN_VALUE, openFileProp);
   }
 
   /**
@@ -99,7 +99,7 @@ class FileIO {
 
     this.addOpenDirProp(paths[0], this.openDirectoies);
 
-    window.webContents.send(IPCKeys.open.dir, this.openDirectoies);
+    window.webContents.send(IPCConstants.OPEN_DIR, this.openDirectoies);
   }
 
   /**

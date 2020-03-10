@@ -1,7 +1,7 @@
 import { ipcMain, BrowserWindow, App } from "electron";
 import * as localShortcut from "electron-localshortcut";
 import { IBaseElement } from "../../common/definition/IBaseElement";
-import { IPCKeys, shortcutKeys } from "../../common/constants/Keys";
+import { shortcutKeys, IPCConstants } from "../../common/constants/Keys";
 import FileIO from "../api/fileIO";
 
 export default class Shortcut {
@@ -43,9 +43,9 @@ export default class Shortcut {
 
   private saveFile() {
     this.setShortcut(shortcutKeys.S, () => {
-      this.window.webContents.send(IPCKeys.save.request);
+      this.window.webContents.send(IPCConstants.SAVE_REQ);
 
-      ipcMain.on(IPCKeys.save.value, (_, value: string) => {
+      ipcMain.on(IPCConstants.SAVE_VALUE, (_, value: string) => {
         FileIO.save(value, this.window);
       });
     });

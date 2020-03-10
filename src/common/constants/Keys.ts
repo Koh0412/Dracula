@@ -1,16 +1,12 @@
 /** IPCで必要になる共通のキー */
-export const IPCKeys: IIPCKeys = {
-  save: {
-    request: "save-request",
-    value: "save-value",
-    path: "save-path",
-  },
-  open: {
-    value: "open-value",
-    dir: "open-dir",
-    byClick: "open-by-click"
-  }
-};
+export enum IPCConstants {
+  SAVE_REQ = "save-request",
+  SAVE_VALUE = "save-value",
+  SAVE_PATH = "save-path",
+  OPEN_VALUE = "open-value",
+  OPEN_DIR = "open-dir",
+  OPEN_BYCLICK = "open-by-click"
+}
 
 export enum shortcutKeys {
   atMark = "CmdOrCtrl+@",
@@ -18,21 +14,4 @@ export enum shortcutKeys {
   S = "CmdOrCtrl+S",
   ShiftO = "CmdOrCtrl+Shift+O",
   ShiftS = "CmdOrCtrl+Shift+S"
-}
-
-export interface IIPCKeys {
-  save: ISaveFileProperty;
-  open: IOpenFileProperty;
-}
-
-export interface ISaveFileProperty {
-  request: string;
-  value: string;
-  path: string;
-}
-
-export interface IOpenFileProperty {
-  value: string;
-  dir: string;
-  byClick: string;
 }

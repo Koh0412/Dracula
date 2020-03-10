@@ -4,7 +4,7 @@ import { ipcRenderer as renderer } from "electron";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCKeys } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/Keys";
 
 
 // TODO: tab数が増えた時にどうするか
@@ -34,7 +34,7 @@ class Tab {
     const text = fs.readFileSync(path, { encoding: "utf8" });
     Editor.addOpenFileValue({text, path});
 
-    renderer.send(IPCKeys.open.byClick, path);
+    renderer.send(IPCConstants.OPEN_BYCLICK, path);
   }
 }
 

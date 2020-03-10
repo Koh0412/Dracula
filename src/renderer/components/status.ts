@@ -1,7 +1,7 @@
 import { ipcRenderer as renderer } from "electron";
 
 import Util from "../../common/Util";
-import { IPCKeys } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/Keys";
 import * as ace from "brace";
 
 /** ステータスバー */
@@ -12,7 +12,7 @@ class Status {
   private cursorPosition: ace.Position = {row: 1, column: 1};
 
   constructor() {
-    renderer.on(IPCKeys.save.path, (_, filePath: string) => this.addSaveMessage(filePath));
+    renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
   }
 
   public get getLines() {
