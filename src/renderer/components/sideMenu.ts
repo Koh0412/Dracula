@@ -46,7 +46,7 @@ class SideMenu {
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      const li = Util.createListItemElement({
+      const li: HTMLLIElement = Util.createListItemElement({
         text: opendir.filename,
         title: opendir.fullPath,
       });
@@ -63,7 +63,7 @@ class SideMenu {
    */
   private openFileByClick(ev: MouseEvent): void {
     const target: HTMLElement = ev.target as HTMLElement;
-    const isDirectory = target.getAttribute("data-isDirectory");
+    const isDirectory: string = target.getAttribute("data-isDirectory");
     const path: string = target.title;
 
     Util.addClassChildItem(this.dirMenuItem, target, "focus-item");
@@ -73,7 +73,7 @@ class SideMenu {
         Tab.create(target.textContent, path);
       }
 
-      const text = fs.readFileSync(path, { encoding: "utf8" });
+      const text: string = fs.readFileSync(path, { encoding: "utf8" });
       Editor.addOpenFileValue({text, path});
 
       renderer.send(IPCConstants.OPEN_BYCLICK, path);

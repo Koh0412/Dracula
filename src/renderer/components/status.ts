@@ -15,7 +15,7 @@ class Status {
     renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
   }
 
-  public get getLines() {
+  public get getLines(): ace.Position {
     return this.cursorPosition;
   }
 
@@ -23,7 +23,7 @@ class Status {
     this.path.innerHTML = path;
   }
 
-  public setLines(pos: ace.Position) {
+  public setLines(pos: ace.Position): void {
     this.cursorPosition = pos;
   }
 
@@ -48,7 +48,7 @@ class Status {
    * @param callback
    */
   public createStatusList(name: string, callback?: (event: MouseEvent) => void): HTMLLIElement {
-    const li = Util.createListItemElement({ text: name });
+    const li: HTMLLIElement = Util.createListItemElement({ text: name });
 
     Util.addClass(li, "status-list");
     this.item.appendChild(li);

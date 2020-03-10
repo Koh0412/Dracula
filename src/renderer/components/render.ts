@@ -7,7 +7,7 @@ import Status from "./status";
 // INFO: import順の関係上、ここを経由しないとStatus -> Editorにアクセスできないため作成
 class Render {
   constructor() {
-    const lines = Status.createStatusList("row 1, column 1");
+    const lines: HTMLLIElement = Status.createStatusList("row 1, column 1");
 
     Editor.changeCursor(() => {
       Status.setLines(Editor.getCursorPosition);
@@ -15,11 +15,11 @@ class Render {
     });
   }
 
-  private get row() {
+  private get row(): number {
     return Status.getLines.row;
   }
 
-  private get column() {
+  private get column(): number {
     return Status.getLines.column;
   }
 }

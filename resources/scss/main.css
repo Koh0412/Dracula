@@ -36,6 +36,10 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .editor .editor-header {
@@ -124,10 +128,6 @@ body {
   width: 15rem;
   min-width: 180px;
   max-width: 65vw;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   resize: horizontal;
   overflow: auto;
 }
@@ -197,10 +197,6 @@ body {
   color: #bcb8c0;
   background: #502290;
   font-size: 14px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 
 .editor .editor-footer .status-path {
