@@ -40,22 +40,37 @@ class SideMenu {
   }
 
   /**
+   * 詳細設定をしたicon生成して返す
+   *
+   * @param openDir
+   */
+  private createMenuIcon(openDir: IOpenDirectory): HTMLElement {
+    let icon: HTMLElement;
+
+    if (openDir.isDirectory) {
+      icon = Util.createMaterialIcon("folder");
+    } else {
+      icon = Util.createMaterialIcon("insert_drive_file");
+    }
+
+    icon.setAttribute("data-type", "icon");
+
+    return icon;
+  }
+
+  /**
    * 取得したファイルとディレクトリをlistItemにmapして配列として返す
    *
    * @param openDirectories
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      let icon: HTMLElement;
-      if (opendir.isDirectory) {
-        icon = Util.createMaterialIcon("folder");
-      } else {
-        icon = Util.createMaterialIcon("insert_drive_file");
-      }
+      const icon = this.createMenuIcon(opendir);
       const li: HTMLLIElement = Util.createListItemElement({
         text: icon.outerHTML + opendir.filename,
         title: opendir.fullPath,
       });
+
       li.setAttribute("data-isDirectory", String(opendir.isDirectory));
 
       return li;
@@ -68,22 +83,19 @@ class SideMenu {
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
-    const target: HTMLElement = ev.target as HTMLElement;
-    const isDirectoryAttr: string | null = target.getAttribute("data-isDirectory");
+    const target = Util.EventTargetInfo(ev);
     const path: string = target.title;
 
     // target要素にクラスを追加
-    Util.addClassChildItem(this.dirMenuItem, target, "focus-item");
+    Util.addClassChildItem(this.dirMenuItem, target.element, "focus-item");
 
-    // targetがディレクトリでなければ処理
-    if (isDirectoryAttr && isDirectoryAttr === "false") {
+    // ディレクトリでなければ処理
+    if (target.attritube.dataIsDirectory === "false" && path) {
       // タブを生成
-      if (target.innerHTML && path) {
-        Tab.create(target.innerHTML, path);
-      }
+      Tab.create(target.element, path);
 
       const text: string = fs.readFileSync(path, { encoding: "utf8" });
-      Editor.addOpenFileValue({text, path});
+      Editor.addOpenFileValue({ text, path });
 
       renderer.send(IPCConstants.OPEN_BYCLICK, path);
     }

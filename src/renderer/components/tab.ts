@@ -22,9 +22,9 @@ class Tab {
    * @param textContent
    * @param path
    */
-  public create(textContent: string, path: string): void {
+  public create(target: HTMLElement, path: string): void {
     const li: HTMLLIElement = Util.createListItemElement({
-      text: textContent,
+      text: target.innerHTML,
       title: path,
     });
 
@@ -34,6 +34,11 @@ class Tab {
     }
 
     this.list.forEach((tab) => {
+      Util.removeClass(tab, "focus-item");
+
+      if (tab.title === target.title) {
+        Util.addClass(tab, "focus-item");
+      }
       this.element.appendChild(tab);
     });
   }
@@ -44,10 +49,15 @@ class Tab {
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
-    const target: HTMLElement = ev.target as HTMLElement;
+    const target = Util.EventTargetInfo(ev);
     const path: string = target.title;
-
     const text: string = fs.readFileSync(path, { encoding: "utf8" });
+
+    this.list.forEach((tab) => {
+      Util.removeClass(tab, "focus-item");
+    });
+
+    Util.addClass(target.element, "focus-item");
     Editor.addOpenFileValue({text, path});
 
     renderer.send(IPCConstants.OPEN_BYCLICK, path);

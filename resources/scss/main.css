@@ -101,10 +101,6 @@ body {
   cursor: pointer;
 }
 
-.editor .editor-header .editor-tab li:hover {
-  background: #3d405087;
-}
-
 .editor .editor-header .editor-tab li .material-icons {
   font-size: 18px;
   margin-right: 4px;

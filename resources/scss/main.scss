@@ -73,9 +73,6 @@ body {
         align-items: center;
         border-right: 1px solid $color-border-tab;
         cursor: pointer;
-        &:hover {
-          background: $color-bg-hover-menu;
-        }
 
         .material-icons {
           font-size: $font-size-list-icon;

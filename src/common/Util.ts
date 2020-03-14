@@ -3,6 +3,15 @@ interface IElementOptions {
   title?: string;
 }
 
+interface ITargetInfo {
+  element: HTMLElement;
+  attritube: {
+    dataType: string | null;
+    dataIsDirectory: string | null;
+  };
+  title: string;
+}
+
 class Util {
   /**
    * 指定の`id`属性の要素を取得
@@ -78,6 +87,30 @@ class Util {
     italic.textContent = iconName;
 
     return italic;
+  }
+
+  /**
+   * クリックしたtargetの情報
+   *
+   * @param click
+   */
+  public EventTargetInfo(click: MouseEvent): ITargetInfo {
+    let target: HTMLElement = click.target as HTMLElement;
+    const dataType: string | null = target.getAttribute("data-type");
+    // クリックした要素がiconなら親要素を参照
+    if (dataType === "icon") {
+      target = target.parentElement as HTMLElement;
+    }
+
+    const dataIsDirectory: string | null = target.getAttribute("data-isDirectory");
+    const title: string = target.title;
+
+    const info: ITargetInfo = {
+      element: target,
+      attritube: { dataType, dataIsDirectory },
+      title,
+    };
+    return info;
   }
 }
 
