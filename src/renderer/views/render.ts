@@ -1,7 +1,7 @@
-import Editor from "./editor";
-import "./sideMenu";
-import "./tab";
-import Status from "./status";
+import Editor from "../components/editor";
+import "../components/sideMenu";
+import "../components/tab";
+import Status from "../components/status";
 
 /** 全体のレンダリング */
 // INFO: import順の関係上、ここを経由しないとStatus -> Editorにアクセスできないため作成

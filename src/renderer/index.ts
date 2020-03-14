@@ -1,2 +1,2 @@
-import "./components/render";
+import "./views/render";
 import "./components/titleBar";

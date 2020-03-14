@@ -66,6 +66,19 @@ class Util {
 
     return li;
   }
+
+  /**
+   * material iconを作成
+   *
+   * @param iconName
+   */
+  public createMaterialIcon(iconName: string): HTMLElement {
+    const italic = document.createElement("i");
+    this.addClass(italic, "material-icons");
+    italic.textContent = iconName;
+
+    return italic;
+  }
 }
 
 export default new Util();

@@ -88,15 +88,26 @@ body {
 }
 
 .editor .editor-header .editor-tab li {
-  width: 100px;
+  min-width: 100px;
   padding: 8px;
-  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   text-align: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-right: 1px solid #1f1929;
+  cursor: pointer;
 }
 
 .editor .editor-header .editor-tab li:hover {
   background: #3d405087;
+}
+
+.editor .editor-header .editor-tab li .material-icons {
+  font-size: 18px;
+  margin-right: 4px;
 }
 
 .editor .editor-main {
@@ -141,11 +152,22 @@ body {
 .editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li {
   padding: 4px 8px 4px 22px;
   text-align: start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
 }
 
 .editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li:hover {
   background: #3d405087;
+}
+
+.editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li .material-icons {
+  margin-right: 4px;
+  font-size: 18px;
 }
 
 .editor .editor-main .dir-menu .dir-menu-list .miss-msg {

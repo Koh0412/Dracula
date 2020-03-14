@@ -50,8 +50,9 @@ body {
         &:hover {
           color: $color-text-icon;
         }
+
         .material-icons {
-          font-size: $font-size-icon;
+          font-size: $font-size-general-icon;
         }
       }
     }
@@ -63,14 +64,22 @@ body {
       display: flex;
       height: $height-tabs;
       font-size: $font-size-general;
+
       li {
-        width: $width-tab-list;
+        min-width: $width-tab-list;
         padding: 8px;
-        cursor: pointer;
+        display: flex;
         text-align: start;
+        align-items: center;
         border-right: 1px solid $color-border-tab;
+        cursor: pointer;
         &:hover {
           background: $color-bg-hover-menu;
+        }
+
+        .material-icons {
+          font-size: $font-size-list-icon;
+          margin-right: 4px;
         }
       }
     }
@@ -107,9 +116,16 @@ body {
           li {
             padding: 4px 8px 4px 22px;
             text-align: start;
+            display: flex;
+            align-items: center;
             cursor: pointer;
             &:hover {
               background: $color-bg-hover-menu;
+            }
+
+            .material-icons {
+              margin-right: 4px;
+              font-size: $font-size-list-icon;
             }
           }
         }
@@ -132,18 +148,22 @@ body {
       }
 
       .ace_gutter {
+
         .ace_gutter-cell {
           color: $color-text-cell;
         }
+
         .ace_gutter-active-line {
           background: none;
         }
       }
 
       .ace_marker-layer {
+
         .ace_active-line {
           border-radius: 3px;
         }
+
         .ace_selection {
           background: $color-selection;
         }
@@ -160,15 +180,18 @@ body {
     color: $color-text-general;
     background: $color-bg-footer;
     font-size: $font-size-general;
+
     .status-path {
       padding: 4px 0;
       white-space: nowrap;
     }
+
     .status-item {
       display: flex;
       margin: 0;
       padding: 0;
       white-space: nowrap;
+
       .status-list {
         list-style: none;
         padding: 4px 8px;

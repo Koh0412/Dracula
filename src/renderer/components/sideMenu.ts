@@ -46,8 +46,14 @@ class SideMenu {
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
+      let icon: HTMLElement;
+      if (opendir.isDirectory) {
+        icon = Util.createMaterialIcon("folder");
+      } else {
+        icon = Util.createMaterialIcon("insert_drive_file");
+      }
       const li: HTMLLIElement = Util.createListItemElement({
-        text: opendir.filename,
+        text: icon.outerHTML + opendir.filename,
         title: opendir.fullPath,
       });
       li.setAttribute("data-isDirectory", String(opendir.isDirectory));
@@ -72,8 +78,8 @@ class SideMenu {
     // targetがディレクトリでなければ処理
     if (isDirectoryAttr && isDirectoryAttr === "false") {
       // タブを生成
-      if (target.textContent && path) {
-        Tab.create(target.textContent, path);
+      if (target.innerHTML && path) {
+        Tab.create(target.innerHTML, path);
       }
 
       const text: string = fs.readFileSync(path, { encoding: "utf8" });
