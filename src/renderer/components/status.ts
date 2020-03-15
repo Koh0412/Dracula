@@ -2,42 +2,21 @@ import { ipcRenderer as renderer } from "electron";
 
 import Util from "../../common/Util";
 import { IPCConstants } from "../../common/constants/Keys";
-import * as ace from "brace";
 
 /** ステータスバー */
 class Status {
+  public lines: HTMLElement = null;
+
   private path: HTMLElement = Util.getElement("status-path");
   private item: HTMLElement = Util.getElement("status-item");
 
-  private cursorPosition: ace.Position = {row: 1, column: 1};
-
   constructor() {
+    this.lines = this.createStatusList("Ln 1, Col 1");
     renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
-  }
-
-  public get getLines(): ace.Position {
-    return this.cursorPosition;
   }
 
   public setPath(path: string): void {
     this.path.innerHTML = path;
-  }
-
-  public setLines(pos: ace.Position): void {
-    this.cursorPosition = pos;
-  }
-
-  /**
-   * 取得したfilePathをfooterのstatus-pathに入れる
-   *
-   * @param filePath
-   */
-  private addSaveMessage(filePath: string): void {
-    this.path.innerHTML = "the file has been saved";
-
-    setTimeout(() => {
-      this.path.innerHTML = filePath;
-    }, 1500);
   }
 
   /**
@@ -60,6 +39,19 @@ class Status {
     }
 
     return li;
+  }
+
+  /**
+   * 取得したfilePathをfooterのstatus-pathに入れる
+   *
+   * @param filePath
+   */
+  private addSaveMessage(filePath: string): void {
+    this.path.innerHTML = "the file has been saved";
+
+    setTimeout(() => {
+      this.path.innerHTML = filePath;
+    }, 1500);
   }
 }
 

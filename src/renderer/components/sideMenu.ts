@@ -12,11 +12,14 @@ import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 /** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
+  private listItems: HTMLElement[] = [];
 
   /** 一度でもディレクトリを開いたかどうか */
   private notOpenDir: boolean = true;
 
   constructor() {
+    Tab.element.addEventListener("click", this.tabClick.bind(this));
+
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
       // 一度もフォルダを開いていなければ非表示に
       if (this.notOpenDir) {
@@ -28,9 +31,9 @@ class SideMenu {
       // 初期化
       this.dirMenuItem.innerHTML = "";
 
-      const listItem = this.DirectoryList(openDirectories);
+      this.listItems = this.DirectoryList(openDirectories);
       // listItemをセット
-      listItem.forEach((item) => {
+      this.listItems.forEach((item) => {
         this.dirMenuItem.appendChild(item);
       });
 
@@ -99,6 +102,17 @@ class SideMenu {
 
       renderer.send(IPCConstants.OPEN_BYCLICK, path);
     }
+  }
+
+  private tabClick(ev: MouseEvent) {
+    const target = Util.EventTargetInfo(ev);
+    this.listItems.forEach((item) => {
+      Util.removeClass(item, "focus-item");
+
+      if (target.title === item.title) {
+        Util.addClass(item, "focus-item");
+      }
+    });
   }
 }
 

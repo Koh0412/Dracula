@@ -9,8 +9,8 @@ import { IPCConstants } from "../../common/constants/Keys";
 // TODO: tab数が増えた時にどうするか
 // TODO: focus系はどうするか
 class Tab {
-  private element: HTMLElement = Util.getElement("tab");
-  private list: HTMLElement[] = [];
+  public element: HTMLElement = Util.getElement("tab");
+  private listItems: HTMLElement[] = [];
 
   constructor() {
     this.element.addEventListener("click", this.openFileByClick.bind(this));
@@ -28,12 +28,12 @@ class Tab {
       title: path,
     });
 
-    const isDuplicated: boolean = this.checkElementTitle(this.list, li);
+    const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
     if (!isDuplicated) {
-      this.list.push(li);
+      this.listItems.push(li);
     }
 
-    this.list.forEach((tab) => {
+    this.listItems.forEach((tab) => {
       Util.removeClass(tab, "focus-item");
 
       if (tab.title === target.title) {
@@ -53,7 +53,7 @@ class Tab {
     const path: string = target.title;
     const text: string = fs.readFileSync(path, { encoding: "utf8" });
 
-    this.list.forEach((tab) => {
+    this.listItems.forEach((tab) => {
       Util.removeClass(tab, "focus-item");
     });
 

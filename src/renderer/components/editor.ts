@@ -40,6 +40,10 @@ class Editor {
       // Main側にeditorのtextを送る
       event.sender.send(IPCConstants.SAVE_VALUE, this.getText);
     });
+
+    this.changeCursor(() => {
+      Status.lines.innerHTML = `Ln ${this.row}, Col ${this.column}`;
+    });
   }
 
   /** エディタ内のtextを取得 */
@@ -52,6 +56,14 @@ class Editor {
     const row: number = this.textarea.getCursorPosition().row + 1;
     const column: number = this.textarea.getCursorPosition().column + 1;
     return { row, column };
+  }
+
+  public get row(): number {
+    return this.getCursorPosition.row;
+  }
+
+  public get column(): number {
+    return this.getCursorPosition.column;
   }
 
   /** エディタにtextをセット */
