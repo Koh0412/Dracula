@@ -15,6 +15,11 @@ class Status {
     renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
   }
 
+  /**
+   * Statusのパスをセット
+   *
+   * @param path
+   */
   public setPath(path: string): void {
     this.path.innerHTML = path;
   }

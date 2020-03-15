@@ -104,6 +104,11 @@ class SideMenu {
     }
   }
 
+  /**
+   * タブをクリックしたときのsidemenu側での処理
+   *
+   * @param ev
+   */
   private tabClick(ev: MouseEvent) {
     const target = Util.EventTargetInfo(ev);
     this.listItems.forEach((item) => {
