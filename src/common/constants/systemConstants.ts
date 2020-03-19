@@ -14,7 +14,7 @@ export const StatusMessage = {
   INIT_POSITION: "Ln 1, Col 1",
 };
 
-export const HTMLAttribute = {
+export const AttributeName = {
   DATA_TYPE: "data-type",
   DATA_ISDIRECTORY: "data-isDirectory",
 };

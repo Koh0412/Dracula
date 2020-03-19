@@ -5,7 +5,7 @@ import Tab from "./tab";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCConstants, IconName, HTMLAttribute } from "../../common/constants/systemConstants";
+import { IPCConstants, IconName, AttributeName } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 // TODO: 階層ツリーなstyleにしたい
@@ -56,7 +56,7 @@ class SideMenu {
       icon = Util.createMaterialIcon(IconName.INSERT_DRIVE_FILE);
     }
 
-    icon.setAttribute(HTMLAttribute.DATA_TYPE, "icon");
+    icon.setAttribute(AttributeName.DATA_TYPE, "icon");
 
     return icon;
   }
@@ -74,7 +74,7 @@ class SideMenu {
         title: opendir.fullPath,
       });
 
-      li.setAttribute(HTMLAttribute.DATA_ISDIRECTORY, String(opendir.isDirectory));
+      li.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
 
       return li;
     });
