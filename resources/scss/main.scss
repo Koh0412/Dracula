@@ -68,7 +68,9 @@ body {
       li {
         min-width: $width-tab-list;
         padding: 8px;
+        padding-right: 27px;
         display: flex;
+        position: relative;
         text-align: start;
         align-items: center;
         border-right: 1px solid $color-border-tab;
@@ -77,6 +79,15 @@ body {
         .material-icons {
           font-size: $font-size-list-icon;
           margin-right: 4px;
+        }
+
+        .tab-close {
+          margin-left: 6px;
+          font-size: $font-size-general;
+          position: absolute;
+          top: 35%;
+          left: 80%;
+          display: none;
         }
       }
     }
@@ -100,8 +111,8 @@ body {
       .dir-menu-list {
         height: 100%;
         width: $width-settings;
-        min-width: 180px;
-        max-width: 65vw;
+        min-width: $min-width-dir-menu;
+        max-width: $max-width-dir-menu;
         resize: horizontal;
         overflow: auto;
 

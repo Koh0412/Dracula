@@ -33,4 +33,5 @@ export enum Keybind {
 export enum IconName {
   FOLDER = "folder",
   INSERT_DRIVE_FILE = "insert_drive_file",
+  CLOSE = "close",
 }

@@ -1,17 +1,10 @@
 import { IconName, AttributeName } from "./constants/systemConstants";
+import { ITargetInfo } from "./definition/ITargetInfo";
 
 interface IElementOptions {
   text: string;
   title?: string;
-}
-
-interface ITargetInfo {
-  element: HTMLElement;
-  attritube: {
-    dataType: string | null;
-    dataIsDirectory: string | null;
-  };
-  title: string;
+  isClose?: boolean;
 }
 
 class Util {
@@ -71,8 +64,21 @@ class Util {
   public createListItemElement(options: IElementOptions): HTMLLIElement {
     const li: HTMLLIElement = document.createElement("li");
     li.innerHTML = options.text;
+
     if (options.title) {
       li.title = options.title;
+    }
+
+    if (options.isClose) {
+      const close: HTMLElement = this.createMaterialIcon(IconName.CLOSE);
+
+      close.title = "close";
+      close.setAttribute(AttributeName.DATA_TYPE, "close");
+      this.addClass(close, "tab-close");
+      li.appendChild(close);
+
+      li.addEventListener("mouseover", () => close.style.display = "block");
+      li.addEventListener("mouseleave", () => close.style.display = "none");
     }
 
     return li;
@@ -100,7 +106,7 @@ class Util {
     let target: HTMLElement = click.target as HTMLElement;
     const dataType: string | null = target.getAttribute(AttributeName.DATA_TYPE);
     // クリックした要素がiconなら親要素を参照
-    if (dataType === "icon") {
+    if (dataType === "icon" || dataType === "close") {
       target = target.parentElement as HTMLElement;
     }
 

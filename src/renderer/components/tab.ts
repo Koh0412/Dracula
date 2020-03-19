@@ -5,6 +5,7 @@ import Editor from "./editor";
 
 import Util from "../../common/Util";
 import { IPCConstants } from "../../common/constants/systemConstants";
+import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
 // TODO: tab数が増えた時にどうするか
 // TODO: focus系はどうするか
@@ -26,6 +27,7 @@ class Tab {
     const li: HTMLLIElement = Util.createListItemElement({
       text: target.innerHTML,
       title: path,
+      isClose: true,
     });
 
     const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
@@ -44,12 +46,38 @@ class Tab {
   }
 
   /**
+   * `target`のタブを削除
+   *
+   * @param target
+   */
+  private remove(target: ITargetInfo): void {
+    this.element.innerHTML = "";
+    if (target.element.classList.contains("focus-item")) {
+      // removeするタブがフォーカスを持っている場合の処理
+    }
+
+    this.listItems = this.listItems.filter((tab) => {
+      return target.title !== tab.title;
+    });
+
+    this.listItems.forEach((tab) => {
+      this.element.appendChild(tab);
+    });
+  }
+
+  /**
    * タブをクリックしてファイルを開く
    *
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
+
+    if (target.attritube.dataType === "close") {
+      this.remove(target);
+      return;
+    }
+
     const path: string = target.title;
     const text: string = fs.readFileSync(path, { encoding: "utf8" });
 

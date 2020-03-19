@@ -90,9 +90,11 @@ body {
 .editor .editor-header .editor-tab li {
   min-width: 100px;
   padding: 8px;
+  padding-right: 27px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
   text-align: start;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -104,6 +106,15 @@ body {
 .editor .editor-header .editor-tab li .material-icons {
   font-size: 18px;
   margin-right: 4px;
+}
+
+.editor .editor-header .editor-tab li .tab-close {
+  margin-left: 6px;
+  font-size: 14px;
+  position: absolute;
+  top: 35%;
+  left: 80%;
+  display: none;
 }
 
 .editor .editor-main {
