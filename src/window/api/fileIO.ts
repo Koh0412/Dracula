@@ -2,7 +2,7 @@ import { dialog, BrowserWindow, ipcMain as main } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
 
-import { IPCConstants } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/systemConstants";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 

@@ -8,7 +8,7 @@ import "brace/ext/language_tools";
 
 import Status from "./status";
 
-import { IPCConstants } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/systemConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
@@ -42,7 +42,9 @@ class Editor {
     });
 
     this.changeCursor(() => {
-      Status.lines.innerHTML = `Ln ${this.row}, Col ${this.column}`;
+      if (Status.lines) {
+        Status.lines.innerHTML = `Ln ${this.row}, Col ${this.column}`;
+      }
     });
   }
 

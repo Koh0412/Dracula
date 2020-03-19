@@ -4,7 +4,7 @@ import { ipcRenderer as renderer } from "electron";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCConstants } from "../../common/constants/Keys";
+import { IPCConstants } from "../../common/constants/systemConstants";
 
 // TODO: tab数が増えた時にどうするか
 // TODO: focus系はどうするか
@@ -13,7 +13,7 @@ class Tab {
   private listItems: HTMLElement[] = [];
 
   constructor() {
-    this.element.addEventListener("click", this.openFileByClick.bind(this));
+    this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
   }
 
   /**

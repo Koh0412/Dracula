@@ -1,17 +1,17 @@
 import { ipcRenderer as renderer } from "electron";
 
 import Util from "../../common/Util";
-import { IPCConstants } from "../../common/constants/Keys";
+import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
 
 /** ステータスバー */
 class Status {
-  public lines: HTMLElement = null;
+  public lines: HTMLElement | null = null;
 
   private path: HTMLElement = Util.getElement("status-path");
   private item: HTMLElement = Util.getElement("status-item");
 
   constructor() {
-    this.lines = this.createStatusList("Ln 1, Col 1");
+    this.lines = this.createStatusList(StatusMessage.INIT_POSITION);
     renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
   }
 
@@ -52,7 +52,7 @@ class Status {
    * @param filePath
    */
   private addSaveMessage(filePath: string): void {
-    this.path.innerHTML = "the file has been saved";
+    this.path.innerHTML = StatusMessage.SAVE;
 
     setTimeout(() => {
       this.path.innerHTML = filePath;

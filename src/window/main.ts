@@ -5,7 +5,7 @@ import Shortcut from "./lib/shortcut";
 import FileIO from "./api/fileIO";
 
 import { IBaseElement } from "../common/definition/IBaseElement";
-import { IPCConstants } from "../common/constants/Keys";
+import { IPCConstants } from "../common/constants/systemConstants";
 
 
 class Main {

@@ -1,3 +1,5 @@
+import { IconName, HTMLAttribute } from "./constants/systemConstants";
+
 interface IElementOptions {
   text: string;
   title?: string;
@@ -81,7 +83,7 @@ class Util {
    *
    * @param iconName
    */
-  public createMaterialIcon(iconName: string): HTMLElement {
+  public createMaterialIcon(iconName: IconName): HTMLElement {
     const italic = document.createElement("i");
     this.addClass(italic, "material-icons");
     italic.textContent = iconName;
@@ -96,13 +98,13 @@ class Util {
    */
   public EventTargetInfo(click: MouseEvent): ITargetInfo {
     let target: HTMLElement = click.target as HTMLElement;
-    const dataType: string | null = target.getAttribute("data-type");
+    const dataType: string | null = target.getAttribute(HTMLAttribute.DATA_TYPE);
     // クリックした要素がiconなら親要素を参照
     if (dataType === "icon") {
       target = target.parentElement as HTMLElement;
     }
 
-    const dataIsDirectory: string | null = target.getAttribute("data-isDirectory");
+    const dataIsDirectory: string | null = target.getAttribute(HTMLAttribute.DATA_ISDIRECTORY);
     const title: string = target.title;
 
     const info: ITargetInfo = {

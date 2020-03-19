@@ -5,7 +5,7 @@ import Tab from "./tab";
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCConstants } from "../../common/constants/Keys";
+import { IPCConstants, IconName, HTMLAttribute } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 // TODO: 階層ツリーなstyleにしたい
@@ -18,7 +18,7 @@ class SideMenu {
   private notOpenDir: boolean = true;
 
   constructor() {
-    Tab.element.addEventListener("click", this.tabClick.bind(this));
+    Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
 
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
       // 一度もフォルダを開いていなければ非表示に
@@ -37,7 +37,7 @@ class SideMenu {
         this.dirMenuItem.appendChild(item);
       });
 
-      this.dirMenuItem.addEventListener("click", this.openFileByClick.bind(this));
+      this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
 
     });
   }
@@ -51,12 +51,12 @@ class SideMenu {
     let icon: HTMLElement;
 
     if (openDir.isDirectory) {
-      icon = Util.createMaterialIcon("folder");
+      icon = Util.createMaterialIcon(IconName.FOLDER);
     } else {
-      icon = Util.createMaterialIcon("insert_drive_file");
+      icon = Util.createMaterialIcon(IconName.INSERT_DRIVE_FILE);
     }
 
-    icon.setAttribute("data-type", "icon");
+    icon.setAttribute(HTMLAttribute.DATA_TYPE, "icon");
 
     return icon;
   }
@@ -74,7 +74,7 @@ class SideMenu {
         title: opendir.fullPath,
       });
 
-      li.setAttribute("data-isDirectory", String(opendir.isDirectory));
+      li.setAttribute(HTMLAttribute.DATA_ISDIRECTORY, String(opendir.isDirectory));
 
       return li;
     });
