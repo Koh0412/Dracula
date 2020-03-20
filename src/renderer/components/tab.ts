@@ -12,7 +12,6 @@ import { ITargetInfo } from "../../common/definition/ITargetInfo";
 class Tab {
   public element: HTMLElement = Util.getElement("tab");
   private listItems: HTMLElement[] = [];
-  private index: number | null = null;
 
   constructor() {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
@@ -33,12 +32,7 @@ class Tab {
 
     const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
     if (!isDuplicated) {
-      if (this.index) {
-        this.listItems.splice(this.index, 0, li);
-        this.index++;
-      } else {
-        this.listItems.push(li);
-      }
+      this.listItems.push(li);
     }
 
     this.listItems.forEach((tab) => {
@@ -90,7 +84,6 @@ class Tab {
     const path: string = target.title;
     const text: string = fs.readFileSync(path, { encoding: "utf8" });
 
-    this.index = this.listItems.indexOf(target.element) + 1;
     this.listItems.forEach((tab) => {
       Util.removeClass(tab, "focus-item");
     });
