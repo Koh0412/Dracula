@@ -12,6 +12,7 @@ export const IPCConstants = {
 export const StatusMessage = {
   SAVE: "the file has been saved",
   INIT_POSITION: "Ln 1, Col 1",
+  UNTITLED: "Untitled text",
 };
 
 /** カスタムのhtml属性の名前 */

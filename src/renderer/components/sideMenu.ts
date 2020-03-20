@@ -113,11 +113,9 @@ class SideMenu {
     const target = Util.EventTargetInfo(ev);
 
     if (target.attritube.dataType !== "close" && target.title) {
-      this.listItems.forEach((item) => {
-        Util.removeClass(item, "focus-item");
-
-        if (target.title === item.title) {
-          Util.addClass(item, "focus-item");
+      Tab.clearFocus((tab) => {
+        if (target.title === tab.title) {
+          Util.addClass(tab, "focus-item");
         }
       });
     }

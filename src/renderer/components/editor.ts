@@ -8,7 +8,7 @@ import "brace/ext/language_tools";
 
 import Status from "./status";
 
-import { IPCConstants } from "../../common/constants/systemConstants";
+import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 
@@ -82,7 +82,11 @@ class Editor {
    */
   public addOpenFileValue(openFile: IOpenFile): void {
     this.setText(openFile.text);
-    Status.setPath(openFile.path);
+    if (openFile.path) {
+      Status.setPath(openFile.path);
+    } else {
+      Status.setPath(StatusMessage.UNTITLED);
+    }
 
     this.textarea.gotoLine(1);
   }
@@ -96,6 +100,10 @@ class Editor {
     this.textarea.selection.addEventListener("changeCursor", () => {
       callback();
     });
+  }
+
+  public init(): void {
+    this.addOpenFileValue({text: "", path: "" });
   }
 }
 
