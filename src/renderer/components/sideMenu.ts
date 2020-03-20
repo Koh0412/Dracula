@@ -51,9 +51,9 @@ class SideMenu {
     let icon: HTMLElement;
 
     if (openDir.isDirectory) {
-      icon = Util.createMaterialIcon(IconName.FOLDER);
+      icon = Util.createMaterialIcon(IconName.folder);
     } else {
-      icon = Util.createMaterialIcon(IconName.INSERT_DRIVE_FILE);
+      icon = Util.createMaterialIcon(IconName.insertDriveFile);
     }
 
     icon.setAttribute(AttributeName.DATA_TYPE, "icon");
@@ -111,13 +111,16 @@ class SideMenu {
    */
   private tabClick(ev: MouseEvent) {
     const target = Util.EventTargetInfo(ev);
-    this.listItems.forEach((item) => {
-      Util.removeClass(item, "focus-item");
 
-      if (target.title === item.title) {
-        Util.addClass(item, "focus-item");
-      }
-    });
+    if (target.attritube.dataType !== "close") {
+      this.listItems.forEach((item) => {
+        Util.removeClass(item, "focus-item");
+
+        if (target.title === item.title) {
+          Util.addClass(item, "focus-item");
+        }
+      });
+    }
   }
 }
 

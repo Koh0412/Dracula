@@ -15,6 +15,7 @@ class Main {
   private mainProcesser: Processer = new Processer();
 
   constructor(app: App) {
+    process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = "true";
     this.app = app;
 
     this.app.on("window-all-closed", this.onWindowAllClosed.bind(this));

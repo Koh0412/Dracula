@@ -31,7 +31,7 @@ export enum Keybind {
 
 /** material iconの名前 */
 export enum IconName {
-  FOLDER = "folder",
-  INSERT_DRIVE_FILE = "insert_drive_file",
-  CLOSE = "close",
+  folder = "folder",
+  insertDriveFile = "insert_drive_file",
+  close = "close",
 }

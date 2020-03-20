@@ -70,7 +70,7 @@ class Util {
     }
 
     if (options.isClose) {
-      const close: HTMLElement = this.createMaterialIcon(IconName.CLOSE);
+      const close: HTMLElement = this.createMaterialIcon(IconName.close);
 
       close.title = "close";
       close.setAttribute(AttributeName.DATA_TYPE, "close");
