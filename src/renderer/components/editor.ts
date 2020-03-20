@@ -60,10 +60,12 @@ class Editor {
     return { row, column };
   }
 
+  /** カーソルの行 */
   public get row(): number {
     return this.getCursorPosition.row;
   }
 
+  /** カーソルの列 */
   public get column(): number {
     return this.getCursorPosition.column;
   }

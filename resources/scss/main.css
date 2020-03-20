@@ -51,7 +51,7 @@ body {
 }
 
 .editor .editor-header .editor-setting {
-  width: 15rem;
+  min-width: 15rem;
   padding: 0;
   list-style: none;
   margin: 0;
@@ -80,11 +80,24 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   height: 35px;
   font-size: 14px;
+  width: 100%;
+  overflow-x: overlay;
+  display: -webkit-box;
+}
+
+.editor .editor-header .editor-tab::-webkit-scrollbar {
+  width: 5px;
+  background: #404755;
+}
+
+.editor .editor-header .editor-tab::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+.editor .editor-header .editor-tab::-webkit-scrollbar-thumb {
+  background: #818999c2;
 }
 
 .editor .editor-header .editor-tab li {

@@ -14,6 +14,7 @@ export const StatusMessage = {
   INIT_POSITION: "Ln 1, Col 1",
 };
 
+/** カスタムのhtml属性の名前 */
 export const AttributeName = {
   DATA_TYPE: "data-type",
   DATA_ISDIRECTORY: "data-isDirectory",

@@ -1,12 +1,12 @@
 @import "./variables";
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: $font-size-general
 }
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background: $color-scrollbar-track;
 }
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background: $color-scrollbar-thumb;
 }
 
@@ -38,7 +38,7 @@ body {
     text-align: center;
 
     .editor-setting {
-      width: $width-settings;
+      min-width: $width-settings;
       padding: 0;
       list-style: none;
       margin: 0;
@@ -61,9 +61,23 @@ body {
       list-style: none;
       margin: 0;
       padding: 0;
-      display: flex;
       height: $height-tabs;
       font-size: $font-size-general;
+      width: 100%;
+      overflow-x: overlay;
+      display: -webkit-box;
+      &::-webkit-scrollbar {
+        width: 5px;
+        background: $color-scrollbar-track;
+      }
+
+      &::-webkit-scrollbar:horizontal {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $color-scrollbar-thumb;
+      }
 
       li {
         min-width: $width-tab-list;

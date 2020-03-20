@@ -112,7 +112,7 @@ class SideMenu {
   private tabClick(ev: MouseEvent) {
     const target = Util.EventTargetInfo(ev);
 
-    if (target.attritube.dataType !== "close") {
+    if (target.attritube.dataType !== "close" && target.title) {
       this.listItems.forEach((item) => {
         Util.removeClass(item, "focus-item");
 
