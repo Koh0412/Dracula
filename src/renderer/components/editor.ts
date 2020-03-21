@@ -1,4 +1,5 @@
 import { ipcRenderer as renderer } from "electron";
+import * as fs from "fs-extra";
 
 import * as ace from "brace";
 import "../config/lang";
@@ -34,7 +35,7 @@ class Editor {
     this.textarea.setOptions(this.aceConf);
 
     this.textarea.resize();
-    renderer.on(IPCConstants.OPEN_VALUE, (_, openFile: IOpenFile) => this.addOpenFileValue(openFile));
+    renderer.on(IPCConstants.OPEN_VALUE, (_, openFile: IOpenFile) => this.updateValue(openFile.path));
 
     renderer.on(IPCConstants.SAVE_REQ, (event) => {
       // Main側にeditorのtextを送る
@@ -76,19 +77,23 @@ class Editor {
   }
 
   /**
-   * ファイルのデータをStatusのpathとエディター内に流し込む
+   * `path`のファイルのデータをStatusのpathとエディター内に流し込む
    *
    * @param openFile
    */
-  public addOpenFileValue(openFile: IOpenFile): void {
-    this.setText(openFile.text);
-    if (openFile.path) {
-      Status.setPath(openFile.path);
+  public updateValue(path: string): void {
+    let fileText: string = "";
+
+    if (path) {
+      fileText = fs.readFileSync(path, { encoding: "utf8" });
+      Status.setPath(path);
     } else {
       Status.setPath(StatusMessage.UNTITLED);
     }
+    this.setText(fileText);
 
     this.textarea.gotoLine(1);
+    renderer.send(IPCConstants.OPEN_BYCLICK, path);
   }
 
   /**
@@ -102,8 +107,9 @@ class Editor {
     });
   }
 
+  /** 初期化処理 */
   public init(): void {
-    this.addOpenFileValue({text: "", path: "" });
+    this.updateValue("");
   }
 }
 

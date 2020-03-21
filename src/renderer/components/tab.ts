@@ -1,10 +1,6 @@
-import * as fs from "fs-extra";
-import { ipcRenderer as renderer } from "electron";
-
 import Editor from "./editor";
 
 import Util from "../../common/Util";
-import { IPCConstants } from "../../common/constants/systemConstants";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
 class Tab {
@@ -80,10 +76,9 @@ class Tab {
     if (this.previous) {
       Util.addClass(this.previous, "focus-item");
       const path: string = this.previous.title;
-      this.updateEditorValue(path);
+      Editor.updateValue(path);
     } else {
       Editor.init();
-      renderer.send(IPCConstants.OPEN_BYCLICK, "");
     }
     return;
   }
@@ -127,20 +122,7 @@ class Tab {
 
     Util.clearFocus(this.listItems);
     Util.addClass(target.element, "focus-item");
-    const path: string = target.title;
-    this.updateEditorValue(path);
-  }
-
-  /**
-   * エディタにtextや`path`を投げる
-   *
-   * @param path
-   */
-  private updateEditorValue(path: string): void {
-    const text: string = fs.readFileSync(path, { encoding: "utf8" });
-
-    Editor.addOpenFileValue({text, path});
-    renderer.send(IPCConstants.OPEN_BYCLICK, path);
+    Editor.updateValue(target.title);
   }
 }
 

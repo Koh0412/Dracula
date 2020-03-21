@@ -96,11 +96,7 @@ class SideMenu {
     if (target.attritube.dataIsDirectory === "false" && path) {
       // タブを生成
       Tab.create(target.element, path);
-
-      const text: string = fs.readFileSync(path, { encoding: "utf8" });
-      Editor.addOpenFileValue({ text, path });
-
-      renderer.send(IPCConstants.OPEN_BYCLICK, path);
+      Editor.updateValue(path);
     }
   }
 
