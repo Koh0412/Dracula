@@ -8,7 +8,8 @@ import { IPCConstants } from "../../common/constants/systemConstants";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
 class Tab {
-  public element: HTMLElement = Util.getElement("tab");
+  private element: HTMLElement = Util.getElement("tab");
+  private previous: HTMLElement | null = null;
   private index: number | null = null;
   private listItems: HTMLElement[] = [];
 
@@ -16,19 +17,13 @@ class Tab {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
   }
 
-  /**
-   * - タブのフォーカスを全てクリア
-   * - それ以降にさらに処理を入れる場合は`callback`に
-   *
-   * @param callback
-   */
-  public clearFocus(callback?: (tab: HTMLElement) => void) {
-    this.listItems.forEach((tab) => {
-      Util.removeClass(tab, "focus-item");
-      if (callback) {
-        callback(tab);
-      }
-    });
+  public get getElement(): HTMLElement {
+    return this.element;
+  }
+
+  /** フォーカスのあるタブの一個前のタブ */
+  public get getPreviousTab(): HTMLElement | null {
+    return this.previous;
   }
 
   /**
@@ -48,8 +43,9 @@ class Tab {
     if (!isDuplicated) {
       this.listItems.push(li);
     }
+    Util.clearFocus(this.listItems);
 
-    this.clearFocus((tab) => {
+    this.listItems.forEach((tab) => {
       if (tab.title === target.title) {
         Util.addClass(tab, "focus-item");
       }
@@ -72,21 +68,19 @@ class Tab {
    *
    * @param target
    */
-  private focusTab(target: ITargetInfo): HTMLElement | undefined {
+  private focusTab(target: ITargetInfo): void {
     this.index = this.listItems.indexOf(target.element);
     if (this.index > 0) {
       this.index--;
     } else {
       this.index++;
     }
-    const previous: HTMLElement | undefined = this.listItems[this.index];
+    this.previous = this.listItems[this.index];
 
-    if (previous) {
-      Util.addClass(previous, "focus-item");
-
-      const path: string = previous.title;
+    if (this.previous) {
+      Util.addClass(this.previous, "focus-item");
+      const path: string = this.previous.title;
       this.updateEditorValue(path);
-      return previous;
     } else {
       Editor.init();
       renderer.send(IPCConstants.OPEN_BYCLICK, "");
@@ -131,14 +125,14 @@ class Tab {
       return;
     }
 
-    this.clearFocus();
+    Util.clearFocus(this.listItems);
     Util.addClass(target.element, "focus-item");
     const path: string = target.title;
     this.updateEditorValue(path);
   }
 
   /**
-   * エディタの更新
+   * エディタにtextや`path`を投げる
    *
    * @param path
    */

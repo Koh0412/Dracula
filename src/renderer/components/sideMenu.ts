@@ -18,7 +18,7 @@ class SideMenu {
   private notOpenDir: boolean = true;
 
   constructor() {
-    Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
+    Tab.getElement.addEventListener("mousedown", this.tabClick.bind(this));
 
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
       // 一度もフォルダを開いていなければ非表示に
@@ -111,13 +111,19 @@ class SideMenu {
    */
   private tabClick(ev: MouseEvent) {
     const target = Util.EventTargetInfo(ev);
+    const prevTab: HTMLElement | null = Tab.getPreviousTab;
 
-    if (target.attritube.dataType !== "close" && target.title) {
-      Tab.clearFocus((tab) => {
-        if (target.title === tab.title) {
-          Util.addClass(tab, "focus-item");
-        }
-      });
+    // tabのクローズを押したかどうか
+    if (target.attritube.dataType === "close") {
+      if (prevTab) {
+        Util.updateFocus(this.listItems, prevTab.title);
+      } else {
+        Util.clearFocus(this.listItems);
+      }
+    } else {
+      if (target.title) {
+        Util.updateFocus(this.listItems, target.title);
+      }
     }
   }
 }

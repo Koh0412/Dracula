@@ -57,6 +57,33 @@ class Util {
   }
 
   /**
+   * `list`の各アイテムのフォーカスをクリア
+   *
+   * @param list
+   */
+  public clearFocus(list: HTMLElement[]) {
+    list.forEach((item) => {
+      this.removeClass(item, "focus-item");
+    });
+  }
+
+  /**
+   * - `list`のアイテムをクリアした上で、`compareElementTitle`で各アイテムを比較して
+   * - 一致するものにフォーカスを与える
+   *
+   * @param list
+   * @param compareElementTitle
+   */
+  public updateFocus(list: HTMLElement[], compareElementTitle: string) {
+    this.clearFocus(list);
+    list.forEach((item) => {
+      if (compareElementTitle === item.title) {
+        this.addClass(item, "focus-item");
+      }
+    });
+  }
+
+  /**
    * <li>要素を生成 optionsで設定
    *
    * @param options

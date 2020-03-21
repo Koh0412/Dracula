@@ -14,7 +14,7 @@ import { IOpenFile } from "../../common/definition/IOpenFile";
 
 /** エディタエリア */
 class Editor {
-  public textarea: ace.Editor = ace.edit("textarea");
+  private textarea: ace.Editor = ace.edit("textarea");
   private mode: string = "typescript";
 
   private aceConf: IAceConf = {
