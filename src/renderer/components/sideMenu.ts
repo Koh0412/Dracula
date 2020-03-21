@@ -1,4 +1,4 @@
-import { ipcRenderer as renderer } from "electron";
+import { ipcRenderer as renderer, Menu } from "electron";
 
 import Tab from "./tab";
 import Editor from "./editor";
@@ -18,6 +18,12 @@ class SideMenu {
 
   constructor() {
     Tab.getElement.addEventListener("mousedown", this.tabClick.bind(this));
+
+    // TODO: コンテキストメニューを作る
+    window.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      renderer.send("ipc:menu");
+    }, false);
 
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
       // 一度もフォルダを開いていなければ非表示に
