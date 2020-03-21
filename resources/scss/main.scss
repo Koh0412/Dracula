@@ -82,7 +82,7 @@ body {
       li {
         min-width: $width-tab-list;
         padding: 8px;
-        padding-right: 27px;
+        padding-right: $padding-icon-length;
         display: flex;
         position: relative;
         text-align: start;
@@ -125,8 +125,8 @@ body {
       .dir-menu-list {
         height: 100%;
         width: $width-settings;
-        min-width: $min-width-dir-menu;
-        max-width: $max-width-dir-menu;
+        min-width: $width-min-dir-menu;
+        max-width: $width-max-dir-menu;
         resize: horizontal;
         overflow: auto;
 
@@ -161,7 +161,7 @@ body {
 
     .text-area {
       width: 100%;
-      font-size: 15px;
+      font-size: $font-size-textarea;
       background: $color-bg-editor-writeline;
       color: $color-text-editor;
       box-sizing: border-box;

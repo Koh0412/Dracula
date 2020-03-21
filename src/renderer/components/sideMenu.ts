@@ -1,4 +1,3 @@
-import * as fs from "fs-extra";
 import { ipcRenderer as renderer } from "electron";
 
 import Tab from "./tab";

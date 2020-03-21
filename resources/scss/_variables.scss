@@ -2,13 +2,8 @@
 $color-bg-editor-writeline: #2d303a;
 $color-bg-footer: #502290;
 $color-bg-footer-hover: #622ab1;
-$color-bg-menu-title: #3b3a61;
 $color-bg-hover-menu: #3d405087;
-
-$color-text-general: #bcb8c0;
-$color-text-editor: #cccdcf;
-$color-text-cell: #67717b;
-$color-text-icon: #d9d4dd;
+$color-bg-menu-title: #3b3a61;
 
 $color-border-tab: #1f1929;
 
@@ -17,14 +12,22 @@ $color-scrollbar-thumb: #818999c2;
 
 $color-selection: #5e636f;
 
-$width-settings: 15rem;
-$width-tab-list: 100px;
-$max-width-dir-menu: 65vw;
-$min-width-dir-menu: 180px;
+$color-text-cell: #67717b;
+$color-text-editor: #cccdcf;
+$color-text-general: #bcb8c0;
+$color-text-icon: #d9d4dd;
 
-$height-tabs: 35px;
-$height-footer: 25px;
-
+$font-size-general: 14px;
 $font-size-general-icon: 22px;
 $font-size-list-icon: 18px;
-$font-size-general: 14px;
+$font-size-textarea: 15px;
+
+$height-footer: 25px;
+$height-tabs: 35px;
+
+$padding-icon-length: 27px;
+
+$width-max-dir-menu: 65vw;
+$width-min-dir-menu: 180px;
+$width-settings: 15rem;
+$width-tab-list: 100px;
