@@ -1,4 +1,4 @@
-import { BrowserWindow, app, App, ipcMain as ipc, Menu, MenuItem } from "electron";
+import { BrowserWindow, app, App, ipcMain as ipc } from "electron";
 
 import Processer from "./api/processer";
 import Shortcut from "./lib/shortcut";
@@ -21,12 +21,6 @@ class Main {
     this.app.on("window-all-closed", this.onWindowAllClosed.bind(this));
     this.app.on("ready", this.create.bind(this));
     this.app.on("activate", this.onActivated.bind(this));
-
-    // コンテキストメニューのテスト
-    const testmenu = new Menu();
-    testmenu.append(new MenuItem({ label: "MenuItem1", click: () => console.log("item 1 clicked")}));
-    testmenu.append(new MenuItem({ type: "separator" }));
-    ipc.on("ipc:menu", () => testmenu.popup());
 
     ipc.on(IPCConstants.OPEN_BYCLICK, (_, path: string) => FileIO.setPath(path));
   }
