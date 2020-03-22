@@ -24,10 +24,7 @@ body {
   color: #bcb8c0 !important;
 }
 
-.editor {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.container-after-titlebar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,6 +32,14 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.editor {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -42,16 +47,37 @@ body {
           user-select: none;
 }
 
-.editor .editor-header {
+.editor .dir-menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #bcb8c0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: center;
+  color: #bcb8c0;
+  resize: horizontal;
+  overflow: hidden;
+  width: 15rem;
+  min-width: 180px;
+  max-width: 65vw;
 }
 
-.editor .editor-header .editor-setting {
-  min-width: 15rem;
+.editor .dir-menu::-webkit-scrollbar {
+  width: 5px;
+  background: #404755;
+}
+
+.editor .dir-menu::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+.editor .dir-menu::-webkit-scrollbar-thumb {
+  background: #818999c2;
+}
+
+.editor .dir-menu .editor-setting {
   padding: 0;
   list-style: none;
   margin: 0;
@@ -63,44 +89,99 @@ body {
           align-items: center;
 }
 
-.editor .editor-header .editor-setting li {
+.editor .dir-menu .editor-setting li {
   padding: 4px 6px;
   cursor: pointer;
 }
 
-.editor .editor-header .editor-setting li:hover {
+.editor .dir-menu .editor-setting li:hover {
   color: #d9d4dd;
 }
 
-.editor .editor-header .editor-setting li .material-icons {
+.editor .dir-menu .editor-setting li .material-icons {
   font-size: 22px;
 }
 
-.editor .editor-header .editor-tab {
+.editor .dir-menu .dir-menu-current {
+  padding: 6px;
+  background: #3b3a61;
+}
+
+.editor .dir-menu .dir-menu-list {
+  height: 100%;
+}
+
+.editor .dir-menu .dir-menu-list .dir-menu-item {
+  padding: 0;
   list-style: none;
+  font-size: 14px;
+}
+
+.editor .dir-menu .dir-menu-list .dir-menu-item li {
+  padding: 4px 8px 4px 22px;
+  text-align: start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.editor .dir-menu .dir-menu-list .dir-menu-item li:hover {
+  background: #3d405087;
+}
+
+.editor .dir-menu .dir-menu-list .dir-menu-item li .material-icons {
+  margin-right: 4px;
+  font-size: 18px;
+}
+
+.editor .dir-menu .dir-menu-list .miss-msg {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.editor .editor-main {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.editor .editor-main .editor-tab {
   margin: 0;
   padding: 0;
   height: 35px;
-  font-size: 14px;
   width: 100%;
-  overflow-x: overlay;
+  color: #bcb8c0;
   display: -webkit-box;
+  font-size: 14px;
+  list-style: none;
+  overflow-x: overlay;
+  overflow-y: hidden;
 }
 
-.editor .editor-header .editor-tab::-webkit-scrollbar {
+.editor .editor-main .editor-tab::-webkit-scrollbar {
   width: 5px;
   background: #404755;
 }
 
-.editor .editor-header .editor-tab::-webkit-scrollbar:horizontal {
+.editor .editor-main .editor-tab::-webkit-scrollbar:horizontal {
   height: 4px;
 }
 
-.editor .editor-header .editor-tab::-webkit-scrollbar-thumb {
+.editor .editor-main .editor-tab::-webkit-scrollbar-thumb {
   background: #818999c2;
 }
 
-.editor .editor-header .editor-tab li {
+.editor .editor-main .editor-tab li {
   min-width: 100px;
   padding: 8px;
   padding-right: 27px;
@@ -116,12 +197,12 @@ body {
   cursor: pointer;
 }
 
-.editor .editor-header .editor-tab li .material-icons {
+.editor .editor-main .editor-tab li .material-icons {
   font-size: 18px;
   margin-right: 4px;
 }
 
-.editor .editor-header .editor-tab li .tab-close {
+.editor .editor-main .editor-tab li .tab-close {
   margin-left: 6px;
   font-size: 14px;
   position: absolute;
@@ -130,73 +211,9 @@ body {
   display: none;
 }
 
-.editor .editor-main {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.editor .editor-main .dir-menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: center;
-  color: #bcb8c0;
-}
-
-.editor .editor-main .dir-menu .dir-menu-current {
-  padding: 6px;
-  background: #3b3a61;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list {
-  height: 100%;
-  width: 15rem;
-  min-width: 180px;
-  max-width: 65vw;
-  resize: horizontal;
-  overflow: auto;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list .dir-menu-item {
-  padding: 0;
-  list-style: none;
-  font-size: 14px;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li {
-  padding: 4px 8px 4px 22px;
-  text-align: start;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li:hover {
-  background: #3d405087;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list .dir-menu-item li .material-icons {
-  margin-right: 4px;
-  font-size: 18px;
-}
-
-.editor .editor-main .dir-menu .dir-menu-list .miss-msg {
-  font-size: 14px;
-  padding: 8px;
-}
-
 .editor .editor-main .text-area {
   width: 100%;
+  height: 100%;
   font-size: 15px;
   background: #2d303a;
   color: #cccdcf;
@@ -224,7 +241,7 @@ body {
   background: #5e636f;
 }
 
-.editor .editor-footer {
+.editor-footer {
   padding: 0 6px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -241,12 +258,12 @@ body {
   font-size: 14px;
 }
 
-.editor .editor-footer .status-path {
+.editor-footer .status-path {
   padding: 4px 0;
   white-space: nowrap;
 }
 
-.editor .editor-footer .status-item {
+.editor-footer .status-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -255,13 +272,13 @@ body {
   white-space: nowrap;
 }
 
-.editor .editor-footer .status-item .status-list {
+.editor-footer .status-item .status-list {
   list-style: none;
   padding: 4px 8px;
   cursor: pointer;
 }
 
-.editor .editor-footer .status-item .status-list:hover {
+.editor-footer .status-item .status-list:hover {
   background: #622ab1;
 }
 /*# sourceMappingURL=main.css.map */
