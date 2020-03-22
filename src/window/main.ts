@@ -6,6 +6,7 @@ import FileIO from "./api/fileIO";
 
 import { IBaseElement } from "../common/definition/IBaseElement";
 import { IPCConstants } from "../common/constants/systemConstants";
+import { initLog, stopAppLog } from "../common/decorators";
 
 
 class Main {
@@ -25,10 +26,12 @@ class Main {
     ipc.on(IPCConstants.OPEN_BYCLICK, (_, path: string) => FileIO.setPath(path));
   }
 
+  @stopAppLog()
   private onWindowAllClosed(): void {
     this.app.quit();
   }
 
+  @initLog()
   private create(): void {
 
     this.window = this.mainProcesser.createWindow();
