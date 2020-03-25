@@ -19,6 +19,14 @@ body {
   background: $color-bg-hover-menu;
 }
 
+.resize {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  right: 0;
+  cursor: ew-resize;
+}
+
 .titlebar {
   color: $color-text-general !important;
 }
@@ -40,7 +48,6 @@ body {
     flex-direction: column;
     text-align: center;
     color: $color-text-general;
-    resize: horizontal;
     overflow: hidden;
     width: $width-settings;
     min-width: $width-min-dir-menu;

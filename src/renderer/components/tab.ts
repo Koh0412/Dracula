@@ -1,6 +1,6 @@
 import Editor from "./editor";
 
-import Util from "../../common/Util";
+import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
 class Tab {

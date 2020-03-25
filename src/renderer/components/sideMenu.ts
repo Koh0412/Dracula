@@ -3,7 +3,8 @@ import { ipcRenderer as renderer } from "electron";
 import Tab from "./tab";
 import Editor from "./editor";
 
-import Util from "../../common/Util";
+import Util from "../../common/util";
+import Resize from "../../common/resize";
 import { IPCConstants, IconName, AttributeName } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
@@ -11,6 +12,7 @@ import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 /** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
+  private resize: HTMLElement = Util.getElement("resize");
   private listItems: HTMLElement[] = [];
 
   /** 一度でもディレクトリを開いたかどうか */
@@ -18,15 +20,10 @@ class SideMenu {
 
   constructor() {
     Tab.getElement.addEventListener("mousedown", this.tabClick.bind(this));
+    const resize = new Resize(this.resize);
 
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
-      // 一度もフォルダを開いていなければ非表示に
-      if (this.notOpenDir) {
-        const msg: HTMLElement = Util.getElement("missing-message");
-        msg.hidden = true;
-      }
-      this.notOpenDir = false;
-
+      this.hideMessage();
       // 初期化
       this.dirMenuItem.innerHTML = "";
 
@@ -37,7 +34,6 @@ class SideMenu {
       });
 
       this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
-
     });
   }
 
@@ -77,6 +73,17 @@ class SideMenu {
 
       return li;
     });
+  }
+
+  /**
+   * 一度もフォルダを開いていなければ非表示に
+   */
+  private hideMessage() {
+    if (this.notOpenDir) {
+      const msg: HTMLElement = Util.getElement("missing-message");
+      msg.hidden = true;
+    }
+    this.notOpenDir = false;
   }
 
   /**

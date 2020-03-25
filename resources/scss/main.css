@@ -20,6 +20,14 @@ body {
   background: #3d405087;
 }
 
+.resize {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  right: 0;
+  cursor: ew-resize;
+}
+
 .titlebar {
   color: #bcb8c0 !important;
 }
@@ -57,7 +65,6 @@ body {
           flex-direction: column;
   text-align: center;
   color: #bcb8c0;
-  resize: horizontal;
   overflow: hidden;
   width: 15rem;
   min-width: 180px;

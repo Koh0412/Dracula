@@ -1,6 +1,6 @@
 import { ipcRenderer as renderer } from "electron";
 
-import Util from "../../common/Util";
+import Util from "../../common/util";
 import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
 
 /** ステータスバー */
