@@ -19,7 +19,7 @@ class SideMenu {
   private notOpenDir: boolean = true;
 
   constructor() {
-    Tab.getElement.addEventListener("mousedown", this.tabClick.bind(this));
+    Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
     const resize = new Resize(this.resize);
 
     renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
@@ -113,7 +113,7 @@ class SideMenu {
    */
   private tabClick(ev: MouseEvent) {
     const target = Util.EventTargetInfo(ev);
-    const prevTab: HTMLElement | null = Tab.getPreviousTab;
+    const prevTab: HTMLElement | null = Tab.previousTab;
 
     // tabのクローズを押したかどうか
     if (target.attritube.dataType === "close") {

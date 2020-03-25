@@ -4,7 +4,6 @@ import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
 class Tab {
-  private element: HTMLElement = Util.getElement("tab");
   private previous: HTMLElement | null = null;
   private index: number | null = null;
   private listItems: HTMLElement[] = [];
@@ -13,12 +12,13 @@ class Tab {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
   }
 
-  public get getElement(): HTMLElement {
-    return this.element;
+  public get element(): HTMLElement {
+    const element: HTMLElement = Util.getElement("tab");
+    return element;
   }
 
   /** フォーカスのあるタブの一個前のタブ */
-  public get getPreviousTab(): HTMLElement | null {
+  public get previousTab(): HTMLElement | null {
     return this.previous;
   }
 

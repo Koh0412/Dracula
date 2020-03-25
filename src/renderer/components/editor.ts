@@ -39,7 +39,7 @@ class Editor {
 
     renderer.on(IPCConstants.SAVE_REQ, (event) => {
       // Main側にeditorのtextを送る
-      event.sender.send(IPCConstants.SAVE_VALUE, this.getText);
+      event.sender.send(IPCConstants.SAVE_VALUE, this.value);
     });
 
     this.changeCursor(() => {
@@ -49,31 +49,31 @@ class Editor {
     });
   }
 
-  /** エディタ内のtextを取得 */
-  public get getText(): string {
+  /** エディタ内のvalueを取得 */
+  private get value(): string {
     return this.textarea.getValue();
   }
 
   /** 現在のカーソルの位置を取得 */
-  public get getCursorPosition(): ace.Position {
+  private get cursorPosition(): ace.Position {
     const row: number = this.textarea.getCursorPosition().row + 1;
     const column: number = this.textarea.getCursorPosition().column + 1;
     return { row, column };
   }
 
   /** カーソルの行 */
-  public get row(): number {
-    return this.getCursorPosition.row;
+  private get row(): number {
+    return this.cursorPosition.row;
   }
 
   /** カーソルの列 */
-  public get column(): number {
-    return this.getCursorPosition.column;
+  private get column(): number {
+    return this.cursorPosition.column;
   }
 
-  /** エディタにtextをセット */
-  public setText(text: string): string {
-    return this.textarea.setValue(text);
+   /** 初期化処理 */
+  public init(): void {
+    this.updateValue("");
   }
 
   /**
@@ -90,10 +90,15 @@ class Editor {
     } else {
       Status.setPath(StatusMessage.UNTITLED);
     }
-    this.setText(fileText);
+    this.setValue(fileText);
 
     this.textarea.gotoLine(1);
     renderer.send(IPCConstants.OPEN_BYCLICK, path);
+  }
+
+  /** エディタにvalueをセット */
+  private setValue(value: string): string {
+    return this.textarea.setValue(value);
   }
 
   /**
@@ -101,15 +106,10 @@ class Editor {
    *
    * @param callback
    */
-  public changeCursor(callback: () => void): void {
+  private changeCursor(callback: () => void): void {
     this.textarea.selection.addEventListener("changeCursor", () => {
       callback();
     });
-  }
-
-  /** 初期化処理 */
-  public init(): void {
-    this.updateValue("");
   }
 }
 
