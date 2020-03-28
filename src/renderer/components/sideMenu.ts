@@ -4,7 +4,7 @@ import Tab from "./tab";
 import Editor from "./editor";
 
 import Util from "../../common/util";
-import Resize from "../../common/resize";
+import Resize from "../api/resize";
 import { IPCConstants, IconName, AttributeName } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
