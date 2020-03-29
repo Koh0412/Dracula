@@ -1,19 +1,17 @@
-import { dialog, BrowserWindow, ipcMain as main } from "electron";
+import { BrowserWindow } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
+
+import Dialog from "./dialog";
 
 import { IPCConstants } from "../../common/constants/systemConstants";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-
 import { Elapsed } from "../../common/decorators";
 
 class FileIO {
-
   private filePath: string = "";
-
   private openDirectoies: IOpenDirectory[] = [];
-  private dialogOptions: Electron.OpenDialogOptions = {};
 
   private get isEmptyPath(): boolean {
     return this.filePath === "";
@@ -27,24 +25,13 @@ class FileIO {
    */
   public async save(value: string, window: Electron.BrowserWindow): Promise<void> {
     if (this.isEmptyPath) {
-      // 保存ダイアログを生成
-      const saveDialog = await this.createSaveDialog();
-
-      // 保存ボタンを押した且つ、ファイルパスが記入されていれば保存
-      if (!saveDialog.canceled && saveDialog.filePath) {
-        try {
-          this.filePath = saveDialog.filePath;
-          fs.writeFileSync(this.filePath, value, { encoding: "utf8" });
-
-          window.webContents.send(IPCConstants.SAVE_PATH, this.filePath);
-        } catch (err) {
-          dialog.showErrorBox("error", `cannot save to ${this.filePath}`);
-        }
+      const path = Dialog.createSaveDialog(this.filePath);
+      if (path) {
+        this.filePath = path;
       }
-    } else {
-      fs.writeFileSync(this.filePath, value);
-      window.webContents.send(IPCConstants.SAVE_PATH, this.filePath);
     }
+    fs.writeFileSync(this.filePath, value);
+    window.webContents.send(IPCConstants.SAVE_PATH, this.filePath);
   }
 
   /**
@@ -64,21 +51,18 @@ class FileIO {
    */
   @Elapsed("open")
   public open(window: BrowserWindow): void {
-    this.dialogOptions.properties = ["openFile"];
-    const paths = dialog.showOpenDialogSync(this.dialogOptions);
+    const paths = Dialog.createOpenDialog("openFile");
+    if (paths) {
+      this.filePath = paths[0];
+      const text: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
+      // ファイルの中身とパスをまとめる
+      const openFileProp: IOpenFile = {
+        text,
+        path: this.filePath,
+      };
 
-    if (!paths) {
-      return;
+      window.webContents.send(IPCConstants.OPEN_VALUE, openFileProp);
     }
-    this.filePath = paths[0];
-    const text: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
-
-    const openFileProp: IOpenFile = {
-      text,
-      path: this.filePath,
-    };
-
-    window.webContents.send(IPCConstants.OPEN_VALUE, openFileProp);
   }
 
   /**
@@ -89,17 +73,12 @@ class FileIO {
   @Elapsed("dir")
   public openDirectory(window: BrowserWindow): void {
     this.openDirectoies = [];
-    this.dialogOptions.properties = ["openDirectory"];
+    const paths = Dialog.createOpenDialog("openDirectory");
 
-    const paths = dialog.showOpenDialogSync(this.dialogOptions);
-
-    if (!paths) {
-      return;
+    if (paths) {
+      this.addOpenDirProp(paths[0], this.openDirectoies);
+      window.webContents.send(IPCConstants.OPEN_DIR, this.openDirectoies);
     }
-
-    this.addOpenDirProp(paths[0], this.openDirectoies);
-
-    window.webContents.send(IPCConstants.OPEN_DIR, this.openDirectoies);
   }
 
   /**
@@ -112,7 +91,7 @@ class FileIO {
   }
 
   /**
-   * dirPath内にあるファイル名とパスをopenDirectoriesに追加
+   * dirPath内にあるファイル名とパスとstatsをopenDirectoriesに追加
    *
    * @param dirPath
    */
@@ -134,18 +113,6 @@ class FileIO {
         this.addOpenDirProp(fullPath, openDirectories);
       }
     });
-  }
-
-  /**
-   * saveDialogを生成
-   */
-  private createSaveDialog(): Promise<Electron.SaveDialogReturnValue> {
-    if (!this.isEmptyPath) {
-      this.dialogOptions.defaultPath = this.filePath;
-    }
-    const saveDialog = dialog.showSaveDialog(this.dialogOptions);
-
-    return saveDialog;
   }
 }
 
