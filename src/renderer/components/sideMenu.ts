@@ -40,32 +40,13 @@ class SideMenu {
   }
 
   /**
-   * 詳細設定をしたicon生成して返す
-   *
-   * @param openDir
-   */
-  private createMenuIcon(openDir: IOpenDirectory): HTMLElement {
-    let icon: HTMLElement;
-
-    if (openDir.isDirectory) {
-      icon = Util.createMaterialIcon(IconName.folder);
-    } else {
-      icon = Util.createMaterialIcon(IconName.insertDriveFile);
-    }
-
-    icon.setAttribute(AttributeName.DATA_TYPE, "icon");
-
-    return icon;
-  }
-
-  /**
    * 取得したファイルとディレクトリをlistItemにmapして配列として返す
    *
    * @param openDirectories
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      const icon = this.createMenuIcon(opendir);
+      const icon = Util.createMenuIcon(opendir.isDirectory);
       const li: HTMLLIElement = Util.createListItemElement({
         text: icon.outerHTML + opendir.filename,
         title: opendir.fullPath,
@@ -103,7 +84,7 @@ class SideMenu {
     // ディレクトリでなければ処理
     if (target.attritube.dataIsDirectory === "false" && path) {
       // タブを生成
-      Tab.create(target.element, path);
+      Tab.create(target.element.innerHTML, path);
       Editor.updateValue(path);
     }
   }

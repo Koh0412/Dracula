@@ -17,6 +17,11 @@ type PropertyType = keyof IOptionProperty;
 class Dialog {
   private options: Electron.OpenDialogOptions = {};
 
+  /**
+   * ダイアログをIPCから受け取れるように準備状態にする
+   *
+   * @param win
+   */
   public ready(win: BrowserWindow) {
     ipc.on(IPCConstants.OPEN_DIALOG, () => {
       const paths = this.createOpenDialog("openFile");

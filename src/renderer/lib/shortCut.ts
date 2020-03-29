@@ -10,6 +10,13 @@ export class ShortCut {
     this.mouseTrap = new MouseTrap(targetElement);
   }
 
+  /**
+   * 指定のキーのバインドを行う
+   *
+   * @param keys
+   * @param callback
+   * @param isElementActive
+   */
   public keyBind(keys: string | string[], callback: () => void, isElementActive: boolean = false) {
     this.mouseTrap.bind(keys, () => {
       callback();

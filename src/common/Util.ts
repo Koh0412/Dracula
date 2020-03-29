@@ -1,5 +1,6 @@
 import { IconName, AttributeName } from "./constants/systemConstants";
 import { ITargetInfo } from "./definition/ITargetInfo";
+import { IOpenDirectory } from "./definition/IOpenDirectory";
 
 interface IElementOptions {
   text: string;
@@ -122,6 +123,26 @@ class Util {
     italic.textContent = iconName;
 
     return italic;
+  }
+
+  /**
+   * - 詳細設定をしたicon生成して返す
+   * - ディレクトリかファイルかによってアイコンが変わる
+   *
+   * @param openDir
+   */
+  public createMenuIcon(isDirectory: boolean): HTMLElement {
+    let icon: HTMLElement;
+
+    if (isDirectory) {
+      icon = this.createMaterialIcon(IconName.folder);
+    } else {
+      icon = this.createMaterialIcon(IconName.insertDriveFile);
+    }
+
+    icon.setAttribute(AttributeName.DATA_TYPE, "icon");
+
+    return icon;
   }
 
   /**

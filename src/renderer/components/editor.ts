@@ -1,5 +1,6 @@
 import { ipcRenderer as renderer } from "electron";
 import * as fs from "fs-extra";
+import * as pathModule from "path";
 
 import * as ace from "brace";
 import "../config/lang";
@@ -8,8 +9,10 @@ import "brace/theme/dracula";
 import "brace/ext/language_tools";
 
 import Status from "./status";
+import Tab from "./tab";
 import FileIO from "../api/fileIO";
 
+import Util from "../../common/util";
 import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
 import { ShortCut } from "../lib/shortCut";
@@ -37,7 +40,14 @@ class Editor {
     this.textarea.setOptions(this.aceConf);
     this.textarea.resize();
 
-    renderer.on(IPCConstants.OPEN_PATH, (_, path: string) => this.updateValue(path));
+    renderer.on(IPCConstants.OPEN_PATH, (_, path: string) => {
+      const name = pathModule.basename(path);
+      const stats = fs.statSync(path);
+      const icon = Util.createMenuIcon(stats.isDirectory());
+
+      Tab.create(icon.outerHTML + name, path);
+      this.updateValue(path);
+    });
     renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => FileIO.save(this.value, path));
 
     this.shortCut.keyBind(this.shortCut.ctrlOrCmd("s"), () => {

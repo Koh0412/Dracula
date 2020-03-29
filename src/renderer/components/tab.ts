@@ -23,14 +23,15 @@ class Tab {
   }
 
   /**
-   * タブの生成
+   * - タブの生成
+   * - `text`をinnerHTMLに、`path`をtitleに流す
    *
    * @param textContent
    * @param path
    */
-  public create(target: HTMLElement, path: string): void {
+  public create(text: string, path: string): void {
     const li: HTMLLIElement = Util.createListItemElement({
-      text: target.innerHTML,
+      text,
       title: path,
       isClose: true,
     });
@@ -42,7 +43,7 @@ class Tab {
     Util.clearFocus(this.listItems);
 
     this.listItems.forEach((tab) => {
-      if (tab.title === target.title) {
+      if (tab.title === path) {
         Util.addClass(tab, "focus-item");
       }
       this.element.appendChild(tab);
