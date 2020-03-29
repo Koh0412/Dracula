@@ -12,7 +12,7 @@ class Status {
 
   constructor() {
     this.lines = this.createStatusList(StatusMessage.INIT_POSITION);
-    renderer.on(IPCConstants.SAVE_PATH, (_, filePath: string) => this.addSaveMessage(filePath));
+    renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => this.addSaveMessage(path));
   }
 
   /**
@@ -51,7 +51,7 @@ class Status {
    *
    * @param filePath
    */
-  private addSaveMessage(filePath: string): void {
+  public addSaveMessage(filePath: string): void {
     this.path.innerHTML = StatusMessage.SAVE;
 
     setTimeout(() => {

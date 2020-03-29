@@ -1,11 +1,12 @@
 /** IPCで必要になる共通のキー */
 export const IPCConstants = {
-  SAVE_REQ: "save-request",
-  SAVE_VALUE: "save-value",
+  SAVE_DIALOG: "save-dialog",
   SAVE_PATH: "save-path",
-  OPEN_VALUE: "open-value",
-  OPEN_DIR: "open-dir",
-  OPEN_BYCLICK: "open-by-click"
+  OPEN_BYCLICK: "open-by-click",
+  OPEN_DIALOG: "open-dialog",
+  OPEN_PATH: "open-path",
+  DIR_DIALOG: "dir-dialog",
+  DIR_PATH: "dir-path",
 };
 
 /** ステータスバーのメッセージ */

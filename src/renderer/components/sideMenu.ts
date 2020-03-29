@@ -2,6 +2,7 @@ import { ipcRenderer as renderer } from "electron";
 
 import Tab from "./tab";
 import Editor from "./editor";
+import FileIO from "../api/fileIO";
 
 import Util from "../../common/util";
 import Resize from "../api/resize";
@@ -22,7 +23,8 @@ class SideMenu {
     Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
     const resize = new Resize(this.resize);
 
-    renderer.on(IPCConstants.OPEN_DIR, (_, openDirectories: IOpenDirectory[]) => {
+    renderer.on(IPCConstants.DIR_PATH, (_, dirPath) => {
+      const openDirectories = this.openDirectory(dirPath);
       this.hideMessage();
       // 初期化
       this.dirMenuItem.innerHTML = "";
@@ -76,7 +78,7 @@ class SideMenu {
   }
 
   /**
-   * 一度もフォルダを開いていなければ非表示に
+   * フォルダを開いたらメッセージを非表示に
    */
   private hideMessage() {
     if (this.notOpenDir) {
@@ -127,6 +129,17 @@ class SideMenu {
         Util.updateFocus(this.listItems, target.title);
       }
     }
+  }
+
+  /**
+   * フォルダを開く
+   *
+   * @param window
+   */
+  public openDirectory(path: string): IOpenDirectory[] {
+    const openDirectoies: IOpenDirectory[] = [];
+    FileIO.addOpenDirProp(path, openDirectoies);
+    return openDirectoies;
   }
 }
 

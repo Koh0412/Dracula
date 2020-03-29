@@ -1,13 +1,9 @@
 import { BrowserWindow, app, App, ipcMain as ipc } from "electron";
 
 import Processer from "./api/processer";
-import Shortcut from "./lib/shortcut";
-import FileIO from "./api/fileIO";
+import Dialog from "./api/dialog";
 
-import { IBaseElement } from "../common/definition/IBaseElement";
-import { IPCConstants } from "../common/constants/systemConstants";
 import { initLog, stopAppLog } from "../common/decorators";
-
 
 class Main {
   private window: BrowserWindow | null = null;
@@ -22,8 +18,6 @@ class Main {
     this.app.on("window-all-closed", this.onWindowAllClosed.bind(this));
     this.app.on("ready", this.create.bind(this));
     this.app.on("activate", this.onActivated.bind(this));
-
-    ipc.on(IPCConstants.OPEN_BYCLICK, (_, path: string) => FileIO.setPath(path));
   }
 
   @stopAppLog()
@@ -36,14 +30,9 @@ class Main {
 
     this.window = this.mainProcesser.createWindow();
     this.mainProcesser.setBrowserWindowConfig();
+    const win = this.window;
 
-    const baseElement: IBaseElement = {
-      window: this.window,
-      app: this.app,
-    };
-
-    this.shortcut(baseElement);
-
+    Dialog.ready(win);
     this.window.on("closed", () => {
       this.window = null;
     });
@@ -53,10 +42,6 @@ class Main {
       if (this.window === null) {
         this.create();
       }
-  }
-
-  private shortcut(baseElement: IBaseElement): Shortcut {
-    return new Shortcut(baseElement);
   }
 }
 

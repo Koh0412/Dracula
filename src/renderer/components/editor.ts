@@ -8,15 +8,17 @@ import "brace/theme/dracula";
 import "brace/ext/language_tools";
 
 import Status from "./status";
+import FileIO from "../api/fileIO";
 
 import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
-import { IOpenFile } from "../../common/definition/IOpenFile";
+import { ShortCut } from "../lib/shortCut";
 
 /** エディタエリア */
 class Editor {
   private textarea: ace.Editor = ace.edit("textarea");
   private mode: string = "typescript";
+  private shortCut = new ShortCut();
 
   private aceConf: IAceConf = {
     theme: "ace/theme/dracula",
@@ -33,13 +35,18 @@ class Editor {
   constructor() {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
-
     this.textarea.resize();
-    renderer.on(IPCConstants.OPEN_VALUE, (_, openFile: IOpenFile) => this.updateValue(openFile.path));
 
-    renderer.on(IPCConstants.SAVE_REQ, (event) => {
-      // Main側にeditorのtextを送る
-      event.sender.send(IPCConstants.SAVE_VALUE, this.value);
+    renderer.on(IPCConstants.OPEN_PATH, (_, path: string) => this.updateValue(path));
+    renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => FileIO.save(this.value, path));
+
+    this.shortCut.keyBind(this.shortCut.ctrlOrCmd("s"), () => {
+      if (FileIO.isEmptyPath) {
+        renderer.send(IPCConstants.SAVE_DIALOG);
+      } else {
+        FileIO.save(this.value, FileIO.filePath);
+        Status.addSaveMessage(FileIO.filePath);
+      }
     });
 
     this.changeCursor(() => {
@@ -83,6 +90,7 @@ class Editor {
    */
   public updateValue(path: string): void {
     let fileText: string = "";
+    FileIO.setPath(path);
 
     if (path) {
       fileText = fs.readFileSync(path, { encoding: "utf8" });
