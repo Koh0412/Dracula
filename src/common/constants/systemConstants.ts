@@ -2,7 +2,6 @@
 export const IPCConstants = {
   SAVE_DIALOG: "save-dialog",
   SAVE_PATH: "save-path",
-  OPEN_BYCLICK: "open-by-click",
   OPEN_DIALOG: "open-dialog",
   OPEN_PATH: "open-path",
   DIR_DIALOG: "dir-dialog",

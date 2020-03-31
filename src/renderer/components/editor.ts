@@ -99,19 +99,18 @@ class Editor {
    * @param openFile
    */
   public updateValue(path: string): void {
-    let fileText: string = "";
     FileIO.setPath(path);
 
     if (path) {
-      fileText = fs.readFileSync(path, { encoding: "utf8" });
+      const fileText = fs.readFileSync(path, { encoding: "utf8" });
       Status.setPath(path);
+      this.setValue(fileText);
     } else {
       Status.setPath(StatusMessage.UNTITLED);
+      this.setValue("");
     }
-    this.setValue(fileText);
 
     this.textarea.gotoLine(1);
-    renderer.send(IPCConstants.OPEN_BYCLICK, path);
   }
 
   /** エディタにvalueをセット */
