@@ -8,7 +8,6 @@ import { Elapsed } from "../../common/decorators";
 
 class FileIO {
   public filePath: string = "";
-  private openDirectoies: IOpenDirectory[] = [];
 
   public get isEmptyPath(): boolean {
     return this.filePath === "";
@@ -58,32 +57,13 @@ class FileIO {
   }
 
   /**
-   * フォルダを開く
-   *
-   * @param window
-   */
-  @Elapsed("dir")
-  public openDirectory(path: string): IOpenDirectory[] {
-    this.openDirectoies = [];
-    this.addOpenDirProp(path, this.openDirectoies);
-    return this.openDirectoies;
-  }
-
-  /**
-   * `path`をfilePathにセット
-   *
-   * @param path
-   */
-  public setPath(path: string): void {
-    this.filePath = path;
-  }
-
-  /**
-   * dirPath内にあるファイル名とパスとstatsをopenDirectoriesに追加
+   * - フォルダを開く
+   * - dirPath内にあるファイル名とパスとstatsをopenDirectoriesに追加
    *
    * @param dirPath
    */
-  public addOpenDirProp(dirPath: string, openDirectories: IOpenDirectory[]): void {
+  @Elapsed("dir")
+  public openDirectory(dirPath: string, directoryList: IOpenDirectory[]): void {
     const fileNames = fs.readdirSync(dirPath);
 
     fileNames.forEach((name) => {
@@ -95,12 +75,21 @@ class FileIO {
         fullPath,
         isDirectory: stats.isDirectory(),
       };
-      openDirectories.push(prop);
+      directoryList.push(prop);
 
       if (stats.isDirectory()) {
-        this.addOpenDirProp(fullPath, openDirectories);
+        this.openDirectory(fullPath, directoryList);
       }
     });
+  }
+
+  /**
+   * `path`をfilePathにセット
+   *
+   * @param path
+   */
+  public setPath(path: string): void {
+    this.filePath = path;
   }
 }
 

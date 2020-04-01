@@ -138,7 +138,7 @@ class SideMenu {
    */
   public openDirectory(path: string): IOpenDirectory[] {
     const openDirectoies: IOpenDirectory[] = [];
-    FileIO.addOpenDirProp(path, openDirectoies);
+    FileIO.openDirectory(path, openDirectoies);
     return openDirectoies;
   }
 }
