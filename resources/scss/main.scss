@@ -140,6 +140,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #1e2027;
 
     .editor-tab {
       margin: 0;
@@ -192,6 +193,15 @@ body {
       }
     }
 
+    .no-file-msg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color-text-no-file;
+    }
+
     .text-area {
       width: 100%;
       height: 100%;
@@ -224,6 +234,10 @@ body {
           background: $color-selection;
         }
       }
+    }
+
+    .hide {
+      display: none;
     }
   }
 }

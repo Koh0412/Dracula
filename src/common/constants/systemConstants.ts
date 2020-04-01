@@ -15,9 +15,15 @@ export const StatusMessage = {
   UNTITLED: "Untitled text",
 };
 
+/** サイドメニューのメッセージ */
 export const SideMenuMessage = {
   MISSING_MSG: "Missing Directory...",
   OPEN_DIR: "open directory",
+};
+
+/** エディタのメッセージ */
+export const EditorMessage = {
+  NO_FILE: "There are no files currently open"
 };
 
 /** カスタムのhtml属性の名前 */

@@ -13,13 +13,14 @@ import Tab from "./tab";
 import FileIO from "../api/fileIO";
 
 import Util from "../../common/util";
-import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
+import { IPCConstants, StatusMessage, EditorMessage } from "../../common/constants/systemConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
 import { ShortCut } from "../lib/shortCut";
 
 /** エディタエリア */
 class Editor {
   private textarea: ace.Editor = ace.edit("textarea");
+  private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
   private mode: string = "typescript";
   private shortCut = new ShortCut();
 
@@ -38,7 +39,7 @@ class Editor {
   constructor() {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
-    this.textarea.resize();
+    this.init();
 
     renderer.on(IPCConstants.OPEN_PATH, (_, path: string) => {
       const name = pathModule.basename(path);
@@ -90,27 +91,33 @@ class Editor {
 
    /** 初期化処理 */
   public init(): void {
-    this.updateValue("");
+    FileIO.setPath("");
+    Status.setPath(StatusMessage.UNTITLED);
+    this.setValue("");
+    this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
+
+    this.textarea.container.hidden = true;
+    Util.removeClass(this.noFileMsg, "hide");
+
+    this.resize();
   }
 
   /**
    * `path`のファイルのデータをStatusのpathとエディター内に流し込む
    *
-   * @param openFile
+   * @param path
    */
   public updateValue(path: string): void {
     FileIO.setPath(path);
+    this.textarea.container.hidden = false;
+    Util.addClass(this.noFileMsg, "hide");
 
-    if (path) {
-      const fileText = fs.readFileSync(path, { encoding: "utf8" });
-      Status.setPath(path);
-      this.setValue(fileText);
-    } else {
-      Status.setPath(StatusMessage.UNTITLED);
-      this.setValue("");
-    }
+    const fileText = fs.readFileSync(path, { encoding: "utf8" });
+    Status.setPath(path);
+    this.setValue(fileText);
 
     this.textarea.gotoLine(1);
+    this.resize();
   }
 
   /** エディタにvalueをセット */
@@ -127,6 +134,13 @@ class Editor {
     this.textarea.selection.addEventListener("changeCursor", () => {
       callback();
     });
+  }
+
+  /**
+   * エディタのリサイズを行う
+   */
+  private resize(): void {
+    this.textarea.resize();
   }
 }
 
