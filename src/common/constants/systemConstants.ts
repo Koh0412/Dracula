@@ -15,6 +15,11 @@ export const StatusMessage = {
   UNTITLED: "Untitled text",
 };
 
+export const SideMenuMessage = {
+  MISSING_MSG: "Missing Directory...",
+  OPEN_DIR: "open directory",
+};
+
 /** カスタムのhtml属性の名前 */
 export const AttributeName = {
   DATA_TYPE: "data-type",

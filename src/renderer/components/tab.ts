@@ -22,6 +22,10 @@ class Tab {
     return this.previous;
   }
 
+  public get isEmpty(): boolean {
+    return this.listItems.length === 0;
+  }
+
   /**
    * - タブの生成
    * - `text`をinnerHTMLに、`path`をtitleに流す

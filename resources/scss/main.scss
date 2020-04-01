@@ -114,9 +114,22 @@ body {
         }
       }
 
-      .miss-msg {
+      .not-dir {
         font-size: $font-size-general;
         padding: 8px;
+        .open-btn {
+          margin: $margin-open-btn;
+          background: $color-bg-open-btn;
+          color: $color-text-general;
+          border: none;
+          padding: 0.5rem 2rem;
+          cursor: pointer;
+          border-radius: 5px;
+          outline: none;
+          &:hover {
+            background-color: $color-bg-open-btn-hover;
+          }
+        }
       }
     }
   }

@@ -12,6 +12,7 @@ class Status {
 
   constructor() {
     this.lines = this.createStatusList(StatusMessage.INIT_POSITION);
+    this.path.innerHTML = StatusMessage.UNTITLED;
     renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => this.addSaveMessage(path));
   }
 

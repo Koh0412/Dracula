@@ -6,7 +6,7 @@ import FileIO from "../api/fileIO";
 
 import Util from "../../common/util";
 import Resize from "../api/resize";
-import { IPCConstants, IconName, AttributeName } from "../../common/constants/systemConstants";
+import { IPCConstants, AttributeName, SideMenuMessage } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 // TODO: 階層ツリーなstyleにしたい
@@ -14,12 +14,14 @@ import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
   private resize: HTMLElement = Util.getElement("resize");
+  private notDirContents: HTMLElement = Util.getElement("not-dir-contents");
   private listItems: HTMLElement[] = [];
 
   /** 一度でもディレクトリを開いたかどうか */
-  private notOpenDir: boolean = true;
+  private isOpenDir: boolean = false;
 
   constructor() {
+    this.createNotDirContents();
     Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
     const resize = new Resize(this.resize);
 
@@ -62,11 +64,28 @@ class SideMenu {
    * フォルダを開いたらメッセージを非表示に
    */
   private hideMessage() {
-    if (this.notOpenDir) {
-      const msg: HTMLElement = Util.getElement("missing-message");
-      msg.hidden = true;
+    if (!this.isOpenDir) {
+      this.notDirContents.hidden = true;
     }
-    this.notOpenDir = false;
+    this.isOpenDir = true;
+  }
+
+  /** フォルダが開かれてないときに表示するメニューの生成 */
+  private createNotDirContents() {
+    const missingMsg: HTMLElement = document.createElement("div");
+    missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
+    this.notDirContents.appendChild(missingMsg);
+
+    const openDirBtn: HTMLElement = document.createElement("button");
+    openDirBtn.innerHTML = SideMenuMessage.OPEN_DIR;
+    Util.addClass(openDirBtn, "open-btn");
+
+    // ディレクトリのダイアログを表示させる
+    openDirBtn.addEventListener("mousedown", () => {
+      renderer.send(IPCConstants.DIR_DIALOG);
+    });
+
+    this.notDirContents.appendChild(openDirBtn);
   }
 
   /**

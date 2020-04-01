@@ -145,9 +145,24 @@ body {
   font-size: 18px;
 }
 
-.editor .dir-menu .dir-menu-list .miss-msg {
+.editor .dir-menu .dir-menu-list .not-dir {
   font-size: 14px;
   padding: 8px;
+}
+
+.editor .dir-menu .dir-menu-list .not-dir .open-btn {
+  margin: 10px;
+  background: #49366f;
+  color: #bcb8c0;
+  border: none;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+}
+
+.editor .dir-menu .dir-menu-list .not-dir .open-btn:hover {
+  background-color: #3c2d58;
 }
 
 .editor .editor-main {
