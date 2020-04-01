@@ -110,7 +110,8 @@ body {
 }
 
 .editor .dir-menu .dir-menu-current {
-  padding: 6px;
+  padding: 4px 12px;
+  font-size: 14px;
   background: #3b3a61;
 }
 

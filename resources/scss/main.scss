@@ -85,7 +85,8 @@ body {
     }
 
     .dir-menu-current {
-      padding: 6px;
+      padding: 4px 12px;
+      font-size: $font-size-general;
       background: $color-bg-menu-title;
     }
 
