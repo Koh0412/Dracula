@@ -6,6 +6,7 @@ import "../config/lang";
 import "../config/snippets";
 import "brace/theme/dracula";
 import "brace/ext/language_tools";
+import "brace/ext/searchbox";
 
 import Status from "./status";
 import Tab from "./tab";
@@ -20,6 +21,7 @@ import { IAceConf } from "../../common/definition/IAceConf";
 class Editor {
   private textarea: ace.Editor = ace.edit("textarea");
   private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
+  private search: HTMLElement = Util.getElement("search-word");
 
   private mode: string = "typescript";
   private filePath: string = "";
@@ -40,6 +42,8 @@ class Editor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
     this.init();
+
+    this.search.addEventListener("mousedown", this.showSearchBox.bind(this));
 
     this.changeCursor(() => {
       if (Status.lines) {
@@ -104,6 +108,11 @@ class Editor {
     }
 
     FileIO.save(this.value, this.filePath);
+  }
+
+  /** 検索ボックス */
+  public showSearchBox() {
+    this.textarea.execCommand("find");
   }
 
   /**

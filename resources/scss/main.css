@@ -280,6 +280,60 @@ body {
   background: #5e636f;
 }
 
+.editor .editor-main .text-area .ace_scroller .ace_search {
+  background-color: #2e2b3e;
+  border: 1px solid #22212f;
+  -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form input,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form input {
+  background-color: #22212f;
+  border: none;
+  color: #bcb8c0;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form .ace_searchbtn,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form .ace_searchbtn {
+  border: none;
+  background-color: #2e2b3e;
+  color: #bcb8c0;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form .ace_searchbtn::after,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form .ace_searchbtn::after {
+  border-color: #bcb8c0;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form .ace_searchbtn:hover,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form .ace_searchbtn:hover {
+  background-color: #494563;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form .ace_searchbtn:last-child,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form .ace_searchbtn:last-child {
+  border-right: none;
+  border-radius: 0;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_form.ace_nomatch,
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_replace_form.ace_nomatch {
+  outline-color: #af2c26;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_options .ace_button {
+  color: #bcb8c0;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_search_options .ace_button:hover {
+  background-color: #494563;
+}
+
+.editor .editor-main .text-area .ace_scroller .ace_search .ace_searchbtn_close {
+  top: 11px;
+}
+
 .editor .editor-main .hide {
   display: none;
 }

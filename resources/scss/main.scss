@@ -140,7 +140,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #1e2027;
+    background-color: $color-bg-editor-main-display;
 
     .editor-tab {
       margin: 0;
@@ -232,6 +232,58 @@ body {
 
         .ace_selection {
           background: $color-selection;
+        }
+      }
+
+      .ace_scroller {
+        .ace_search {
+          background-color: $color-bg-search;
+          border: 1px solid $color-bg-search-form;
+          box-shadow: 0 0 6px 0 rgba(0,0,0,.5);
+
+          .ace_search_form,
+          .ace_replace_form {
+            input {
+              background-color: $color-bg-search-form;
+              border: none;
+              color: $color-text-general;
+            }
+
+            .ace_searchbtn {
+              border: none;
+              background-color: $color-bg-search;
+              color: $color-text-general;
+              &::after {
+                border-color: $color-text-general;
+              }
+
+              &:hover {
+                background-color: $color-bg-search-btn-hover;
+              }
+
+              &:last-child {
+                border-right: none;
+                border-radius: 0;
+              }
+            }
+
+            &.ace_nomatch {
+              outline-color: $color-outline-search;
+            }
+          }
+
+          .ace_search_options {
+            .ace_button {
+              color: $color-text-general;
+              &:hover {
+                background-color: $color-bg-search-btn-hover;
+              }
+            }
+          }
+
+          .ace_searchbtn_close {
+            top: 11px;
+          }
         }
       }
     }
