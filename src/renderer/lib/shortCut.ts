@@ -1,7 +1,5 @@
 import MouseTrap from "mousetrap-ts";
-import { ipcRenderer as renderer } from "electron";
-
-import { IPCConstants } from "../../common/constants/systemConstants";
+import CallDialog from "../api/callDialog";
 
 export class ShortCut {
   private mouseTrap: MouseTrap;
@@ -35,5 +33,5 @@ export class ShortCut {
 
 const shortCut = new ShortCut();
 // file関係
-shortCut.keyBind(shortCut.ctrlOrCmd("o"), () => renderer.send(IPCConstants.OPEN_DIALOG));
-shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => renderer.send(IPCConstants.DIR_DIALOG));
+shortCut.keyBind(shortCut.ctrlOrCmd("o"), () => CallDialog.open());
+shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir());

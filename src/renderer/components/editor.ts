@@ -11,6 +11,7 @@ import "brace/ext/language_tools";
 import Status from "./status";
 import Tab from "./tab";
 import FileIO from "../api/fileIO";
+import CallDialog from "../api/callDialog";
 
 import Util from "../../common/util";
 import { IPCConstants, StatusMessage, EditorMessage } from "../../common/constants/systemConstants";
@@ -53,7 +54,7 @@ class Editor {
 
     this.shortCut.keyBind(this.shortCut.ctrlOrCmd("s"), () => {
       if (FileIO.isEmptyPath) {
-        renderer.send(IPCConstants.SAVE_DIALOG);
+        CallDialog.save();
       } else {
         FileIO.save(this.value, FileIO.filePath);
         Status.addSaveMessage(FileIO.filePath);

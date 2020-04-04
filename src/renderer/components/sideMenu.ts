@@ -3,9 +3,10 @@ import { ipcRenderer as renderer } from "electron";
 import Tab from "./tab";
 import Editor from "./editor";
 import FileIO from "../api/fileIO";
+import Resize from "../api/resize";
+import CallDialog from "../api/callDialog";
 
 import Util from "../../common/util";
-import Resize from "../api/resize";
 import { IPCConstants, AttributeName, SideMenuMessage } from "../../common/constants/systemConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
@@ -22,7 +23,10 @@ class SideMenu {
 
   constructor() {
     this.createNotDirContents();
+
     Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
+    this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
+
     const resize = new Resize(this.resize);
 
     renderer.on(IPCConstants.DIR_PATH, (_, dirPath) => {
@@ -36,8 +40,6 @@ class SideMenu {
       this.listItems.forEach((item) => {
         this.dirMenuItem.appendChild(item);
       });
-
-      this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
     });
   }
 
@@ -81,9 +83,7 @@ class SideMenu {
     Util.addClass(openDirBtn, "open-btn");
 
     // ディレクトリのダイアログを表示させる
-    openDirBtn.addEventListener("mousedown", () => {
-      renderer.send(IPCConstants.DIR_DIALOG);
-    });
+    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir());
 
     this.notDirContents.appendChild(openDirBtn);
   }
