@@ -3,6 +3,7 @@ import Editor from "./editor";
 import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 
+/** タブに関するクラス */
 class Tab {
   private previous: HTMLElement | null = null;
   private index: number | null = null;

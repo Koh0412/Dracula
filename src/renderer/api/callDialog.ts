@@ -1,18 +1,45 @@
 import { ipcRenderer as renderer } from "electron";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
-/** ダイアログの呼び出し */
+/** メインプロセスのダイアログの呼び出しクラス */
 class CallDialog {
-  public save() {
+  /**
+   * セーブダイアログ
+   * @param callback
+   */
+  public save(callback?: (path: string) => void) {
     renderer.send(IPCConstants.SAVE_DIALOG);
+    if (callback) {
+      renderer.on(IPCConstants.SAVE_PATH, (_, path) => {
+        callback(path);
+      });
+    }
   }
 
-  public open() {
+  /**
+   * オープンファイルのダイアログ
+   * @param callback
+   */
+  public open(callback?: (path: string) => void) {
     renderer.send(IPCConstants.OPEN_DIALOG);
+    if (callback) {
+      renderer.on(IPCConstants.OPEN_PATH, (_, path) => {
+        callback(path);
+      });
+    }
   }
 
-  public openDir() {
+  /**
+   * オープンディレクトリのダイアログ
+   * @param callback
+   */
+  public openDir(callback?: (path: string) => void) {
     renderer.send(IPCConstants.DIR_DIALOG);
+    if (callback) {
+      renderer.on(IPCConstants.DIR_PATH, (_, path) => {
+        callback(path);
+      });
+    }
   }
 }
 

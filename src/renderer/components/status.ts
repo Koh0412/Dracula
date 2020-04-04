@@ -1,7 +1,5 @@
-import { ipcRenderer as renderer } from "electron";
-
 import Util from "../../common/util";
-import { IPCConstants, StatusMessage } from "../../common/constants/systemConstants";
+import { StatusMessage } from "../../common/constants/messageConstants";
 
 /** ステータスバー */
 class Status {
@@ -13,7 +11,6 @@ class Status {
   constructor() {
     this.lines = this.createStatusList(StatusMessage.INIT_POSITION);
     this.path.innerHTML = StatusMessage.UNTITLED;
-    renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => this.addSaveMessage(path));
   }
 
   /**

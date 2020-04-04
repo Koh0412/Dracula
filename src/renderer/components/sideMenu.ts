@@ -7,7 +7,8 @@ import Resize from "../api/resize";
 import CallDialog from "../api/callDialog";
 
 import Util from "../../common/util";
-import { IPCConstants, AttributeName, SideMenuMessage } from "../../common/constants/systemConstants";
+import { IPCConstants, AttributeName } from "../../common/constants/systemConstants";
+import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 // TODO: 階層ツリーなstyleにしたい

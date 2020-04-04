@@ -1,4 +1,3 @@
-import { ipcRenderer as renderer } from "electron";
 import * as fs from "fs-extra";
 import * as pathModule from "path";
 
@@ -14,16 +13,16 @@ import FileIO from "../api/fileIO";
 import CallDialog from "../api/callDialog";
 
 import Util from "../../common/util";
-import { IPCConstants, StatusMessage, EditorMessage } from "../../common/constants/systemConstants";
+import { StatusMessage, EditorMessage } from "../../common/constants/messageConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
-import { ShortCut } from "../lib/shortCut";
 
 /** エディタエリア */
 class Editor {
   private textarea: ace.Editor = ace.edit("textarea");
   private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
+
   private mode: string = "typescript";
-  private shortCut = new ShortCut();
+  private filePath: string = "";
 
   private aceConf: IAceConf = {
     theme: "ace/theme/dracula",
@@ -41,25 +40,6 @@ class Editor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
     this.init();
-
-    renderer.on(IPCConstants.OPEN_PATH, (_, path: string) => {
-      const name = pathModule.basename(path);
-      const stats = fs.statSync(path);
-      const icon = Util.createMenuIcon(stats.isDirectory());
-
-      Tab.create(icon.outerHTML + name, path);
-      this.updateValue(path);
-    });
-    renderer.on(IPCConstants.SAVE_PATH, (_, path: string) => FileIO.save(this.value, path));
-
-    this.shortCut.keyBind(this.shortCut.ctrlOrCmd("s"), () => {
-      if (FileIO.isEmptyPath) {
-        CallDialog.save();
-      } else {
-        FileIO.save(this.value, FileIO.filePath);
-        Status.addSaveMessage(FileIO.filePath);
-      }
-    });
 
     this.changeCursor(() => {
       if (Status.lines) {
@@ -101,6 +81,29 @@ class Editor {
     Util.removeClass(this.noFileMsg, "hide");
 
     this.resize();
+  }
+
+  /** `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み */
+  public openfile(path: string): void {
+    const name = pathModule.basename(path);
+    const stats = fs.statSync(path);
+    const icon = Util.createMenuIcon(stats.isDirectory());
+
+    Tab.create(icon.outerHTML + name, path);
+    this.updateValue(path);
+  }
+
+  /** エディタ内のvalueのセーブ */
+  public save() {
+    this.filePath = FileIO.filePath;
+
+    if (FileIO.isEmptyPath) {
+      CallDialog.save((path) => this.filePath = path);
+    } else {
+      Status.addSaveMessage(this.filePath);
+    }
+
+    FileIO.save(this.value, this.filePath);
   }
 
   /**
