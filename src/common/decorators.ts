@@ -1,7 +1,9 @@
 export const date = new Date();
 export const info = `[${date.toUTCString()}]: INFO:`;
 
-export function Elapsed(label?: string) {
+export type IDecorator = (target: any, name: string, descriptor: PropertyDescriptor) => void;
+
+export function Elapsed(label?: string): IDecorator {
   return (target: any, name: string, descriptor: PropertyDescriptor) => {
     const method = descriptor.value;
     descriptor.value = function() {
@@ -12,7 +14,7 @@ export function Elapsed(label?: string) {
   };
 }
 
-export function initLog() {
+export function initLog(): IDecorator {
   return (target: any, name: string, descriptor: PropertyDescriptor) => {
     const method = descriptor.value;
     descriptor.value = function() {
@@ -25,7 +27,7 @@ export function initLog() {
   };
 }
 
-export function stopAppLog() {
+export function stopAppLog(): IDecorator {
   return (target: any, name: string, descriptor: PropertyDescriptor) => {
     const method = descriptor.value;
     descriptor.value = function() {
