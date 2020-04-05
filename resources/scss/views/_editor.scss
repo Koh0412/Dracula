@@ -46,7 +46,7 @@
       }
     }
 
-    .dir-menu-current {
+    .dir-menu-current-dir {
       padding: 4px 12px;
       font-size: $font-size-general;
       background: $color-bg-menu-title;
@@ -77,7 +77,7 @@
         }
       }
 
-      .not-dir {
+      .not-dir-contents {
         font-size: $font-size-general;
         padding: 8px;
         .open-btn {

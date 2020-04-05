@@ -1,3 +1,5 @@
+import pathModule from "path";
+
 import Tab from "./tab";
 import Editor from "./editor";
 import FileIO from "../api/fileIO";
@@ -36,6 +38,9 @@ class SideMenu {
    * @param dirPath
    */
   public addDirectories(dirPath: string): void {
+    const currentDir: HTMLElement = Util.getElement("current-dir");
+    currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
+
     const openDirectories = this.openDirectory(dirPath);
     this.hideMessage();
     // 初期化

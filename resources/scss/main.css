@@ -109,7 +109,7 @@ body {
   font-size: 22px;
 }
 
-.editor .dir-menu .dir-menu-current {
+.editor .dir-menu .dir-menu-current-dir {
   padding: 4px 12px;
   font-size: 14px;
   background: #3b3a61;
@@ -146,12 +146,12 @@ body {
   font-size: 18px;
 }
 
-.editor .dir-menu .dir-menu-list .not-dir {
+.editor .dir-menu .dir-menu-list .not-dir-contents {
   font-size: 14px;
   padding: 8px;
 }
 
-.editor .dir-menu .dir-menu-list .not-dir .open-btn {
+.editor .dir-menu .dir-menu-list .not-dir-contents .open-btn {
   margin: 10px;
   background: #49366f;
   color: #bcb8c0;
@@ -162,7 +162,7 @@ body {
   outline: none;
 }
 
-.editor .dir-menu .dir-menu-list .not-dir .open-btn:hover {
+.editor .dir-menu .dir-menu-list .not-dir-contents .open-btn:hover {
   background-color: #3c2d58;
 }
 
