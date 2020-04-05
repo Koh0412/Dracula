@@ -1,0 +1,35 @@
+::-webkit-scrollbar {
+  width: $font-size-general
+}
+::-webkit-scrollbar-track {
+  background: $color-scrollbar-track;
+}
+::-webkit-scrollbar-thumb {
+  background: $color-scrollbar-thumb;
+}
+
+body {
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  margin: 0;
+}
+
+.focus-item {
+  background: $color-bg-hover-menu;
+}
+
+.resize {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  right: 0;
+  cursor: ew-resize;
+}
+
+.titlebar {
+  color: $color-text-general !important;
+}
+
+.container-after-titlebar {
+  display: flex;
+  flex-direction: column;
+}
