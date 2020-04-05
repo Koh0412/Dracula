@@ -4,7 +4,8 @@ import { IPCConstants } from "../../common/constants/systemConstants";
 /** メインプロセスのダイアログの呼び出しクラス */
 class CallDialog {
   /**
-   * セーブダイアログ
+   * - セーブダイアログ
+   * - `path`にセーブしたパスが返ってくる
    * @param callback
    */
   public save(callback?: (path: string) => void) {
@@ -17,7 +18,8 @@ class CallDialog {
   }
 
   /**
-   * オープンファイルのダイアログ
+   * - オープンファイルのダイアログ
+   * - `path`に開いたファイルのパスが返ってくる
    * @param callback
    */
   public open(callback?: (path: string) => void) {
@@ -30,7 +32,8 @@ class CallDialog {
   }
 
   /**
-   * オープンディレクトリのダイアログ
+   * - オープンディレクトリのダイアログ
+   * - `path`に開いたファイルのパスが返ってくる
    * @param callback
    */
   public openDir(callback?: (path: string) => void) {
