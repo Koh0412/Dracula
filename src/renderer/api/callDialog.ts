@@ -8,7 +8,7 @@ class CallDialog {
    * - `path`にセーブしたパスが返ってくる
    * @param callback
    */
-  public save(callback?: (path: string) => void) {
+  public save(callback?: (path: string) => void): void {
     renderer.send(IPCConstants.SAVE_DIALOG);
     if (callback) {
       renderer.on(IPCConstants.SAVE_PATH, (_, path) => {
@@ -22,7 +22,7 @@ class CallDialog {
    * - `path`に開いたファイルのパスが返ってくる
    * @param callback
    */
-  public open(callback?: (path: string) => void) {
+  public open(callback?: (path: string) => void): void {
     renderer.send(IPCConstants.OPEN_DIALOG);
     if (callback) {
       renderer.on(IPCConstants.OPEN_PATH, (_, path) => {
@@ -36,7 +36,7 @@ class CallDialog {
    * - `path`に開いたファイルのパスが返ってくる
    * @param callback
    */
-  public openDir(callback?: (path: string) => void) {
+  public openDir(callback?: (path: string) => void): void {
     renderer.send(IPCConstants.DIR_DIALOG);
     if (callback) {
       renderer.on(IPCConstants.DIR_PATH, (_, path) => {

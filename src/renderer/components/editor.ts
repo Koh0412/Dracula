@@ -98,7 +98,7 @@ class Editor {
   }
 
   /** エディタ内のvalueのセーブ */
-  public save() {
+  public save(): void {
     this.filePath = FileIO.filePath;
 
     if (FileIO.isEmptyPath) {
@@ -111,7 +111,7 @@ class Editor {
   }
 
   /** 検索ボックス */
-  public showSearchBox() {
+  public showSearchBox(): void {
     this.textarea.execCommand("find");
   }
 

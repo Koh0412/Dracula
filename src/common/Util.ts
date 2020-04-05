@@ -35,7 +35,7 @@ class Util {
    * @param element
    * @param className
    */
-  public removeClass(element: HTMLElement, className: string) {
+  public removeClass(element: HTMLElement, className: string): void {
     element.classList.remove(className);
   }
 
@@ -62,7 +62,7 @@ class Util {
    *
    * @param list
    */
-  public clearFocus(list: HTMLElement[]) {
+  public clearFocus(list: HTMLElement[]): void {
     list.forEach((item) => {
       this.removeClass(item, "focus-item");
     });
@@ -75,7 +75,7 @@ class Util {
    * @param list
    * @param compareElementTitle
    */
-  public updateFocus(list: HTMLElement[], compareElementTitle: string) {
+  public updateFocus(list: HTMLElement[], compareElementTitle: string): void {
     this.clearFocus(list);
     list.forEach((item) => {
       if (compareElementTitle === item.title) {

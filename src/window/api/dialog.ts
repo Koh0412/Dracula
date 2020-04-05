@@ -22,7 +22,7 @@ class Dialog {
    *
    * @param win
    */
-  public ready(win: BrowserWindow) {
+  public ready(win: BrowserWindow): void {
     ipc.on(IPCConstants.OPEN_DIALOG, () => {
       const paths = this.createOpenDialog("openFile");
       if (paths) {

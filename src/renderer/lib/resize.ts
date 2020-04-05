@@ -21,7 +21,7 @@ export default class Resize {
    *
    * @param callback
    */
-  private fire(callback: (e: MouseEvent) => void) {
+  private fire(callback: (e: MouseEvent) => void): void {
     this.resizeable.addEventListener("mousedown", () => {
       this.isResize = true;
     });

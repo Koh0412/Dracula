@@ -18,18 +18,18 @@ export class ShortCut {
    * @param callback
    * @param isElementActive
    */
-  public keyBind(keys: string | string[], callback: () => void, isElementActive: boolean = false) {
+  public keyBind(keys: string | string[], callback: () => void, isElementActive: boolean = false): void {
     this.mouseTrap.bind(keys, () => {
       callback();
       return isElementActive;
     }, "keydown");
   }
 
-  public ctrlOrCmd(key: string) {
+  public ctrlOrCmd(key: string): string[] {
     return [`ctrl+${key}`, `command+${key}`];
   }
 
-  public ctrlOrCmdShift(key: string) {
+  public ctrlOrCmdShift(key: string): string[] {
     return [`ctrl+shift+${key}`, `command+shift+${key}`];
   }
 }

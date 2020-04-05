@@ -34,7 +34,7 @@ class SideMenu {
    *
    * @param dirPath
    */
-  public addDirectories(dirPath: string) {
+  public addDirectories(dirPath: string): void {
     const openDirectories = this.openDirectory(dirPath);
     this.hideMessage();
     // 初期化
@@ -69,7 +69,7 @@ class SideMenu {
   /**
    * フォルダを開いたらメッセージを非表示に
    */
-  private hideMessage() {
+  private hideMessage(): void {
     if (!this.isOpenDir) {
       this.notDirContents.hidden = true;
     }
@@ -77,7 +77,7 @@ class SideMenu {
   }
 
   /** フォルダが開かれてないときに表示するメニューの生成 */
-  private createNotDirContents() {
+  private createNotDirContents(): void {
     const missingMsg: HTMLElement = document.createElement("div");
     missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
     this.notDirContents.appendChild(missingMsg);
@@ -117,7 +117,7 @@ class SideMenu {
    *
    * @param ev
    */
-  private tabClick(ev: MouseEvent) {
+  private tabClick(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
     const prevTab: HTMLElement | null = Tab.previousTab;
 
