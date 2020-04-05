@@ -8,6 +8,7 @@ import Util from "../../common/util";
 import { AttributeName } from "../../common/constants/systemConstants";
 import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
+import { IElementOptions } from "../../common/definition/IElementOptions";
 
 // TODO: 階層ツリーなstyleにしたい
 /** サイドメニュー */
@@ -54,15 +55,22 @@ class SideMenu {
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      const icon = Util.createMenuIcon(opendir.isDirectory);
-      const li: HTMLLIElement = Util.createListItemElement({
+      const icon: HTMLElement = Util.createMenuIcon(opendir.isDirectory);
+      const elementOptions: IElementOptions = {
         text: icon.outerHTML + opendir.filename,
         title: opendir.fullPath,
-      });
+      };
 
-      li.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
+      let element: HTMLElement;
 
-      return li;
+      if (opendir.isDirectory) {
+        element = Util.createListItemElement("ul", elementOptions);
+      } else {
+        element = Util.createListItemElement("li", elementOptions);
+      }
+      element.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
+
+      return element;
     });
   }
 

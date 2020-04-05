@@ -1,12 +1,8 @@
 import { IconName, AttributeName } from "./constants/systemConstants";
 import { ITargetInfo } from "./definition/ITargetInfo";
-import { IOpenDirectory } from "./definition/IOpenDirectory";
+import { IElementOptions } from "./definition/IElementOptions";
 
-interface IElementOptions {
-  text: string;
-  title?: string;
-  isClose?: boolean;
-}
+type ListItemType = "li" | "ul" | "ol";
 
 class Util {
   /**
@@ -89,8 +85,8 @@ class Util {
    *
    * @param options
    */
-  public createListItemElement(options: IElementOptions): HTMLLIElement {
-    const li: HTMLLIElement = document.createElement("li");
+  public createListItemElement(tagName: ListItemType, options: IElementOptions): HTMLElement {
+    const li: HTMLElement = document.createElement(tagName);
     li.innerHTML = options.text;
 
     if (options.title) {

@@ -60,7 +60,7 @@
         list-style: none;
         font-size: $font-size-general;
 
-        li {
+        li, ul {
           padding: 4px 8px 4px 22px;
           text-align: start;
           display: flex;

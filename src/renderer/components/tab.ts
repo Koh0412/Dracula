@@ -35,7 +35,7 @@ class Tab {
    * @param path
    */
   public create(text: string, path: string): void {
-    const li: HTMLLIElement = Util.createListItemElement({
+    const li: HTMLElement = Util.createListItemElement("li", {
       text,
       title: path,
       isClose: true,

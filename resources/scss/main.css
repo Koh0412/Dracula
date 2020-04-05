@@ -125,7 +125,7 @@ body {
   font-size: 14px;
 }
 
-.editor .dir-menu .dir-menu-list .dir-menu-item li {
+.editor .dir-menu .dir-menu-list .dir-menu-item li, .editor .dir-menu .dir-menu-list .dir-menu-item ul {
   padding: 4px 8px 4px 22px;
   text-align: start;
   display: -webkit-box;
@@ -137,11 +137,11 @@ body {
   cursor: pointer;
 }
 
-.editor .dir-menu .dir-menu-list .dir-menu-item li:hover {
+.editor .dir-menu .dir-menu-list .dir-menu-item li:hover, .editor .dir-menu .dir-menu-list .dir-menu-item ul:hover {
   background: #3d405087;
 }
 
-.editor .dir-menu .dir-menu-list .dir-menu-item li .material-icons {
+.editor .dir-menu .dir-menu-list .dir-menu-item li .material-icons, .editor .dir-menu .dir-menu-list .dir-menu-item ul .material-icons {
   margin-right: 4px;
   font-size: 18px;
 }
