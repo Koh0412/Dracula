@@ -1,4 +1,4 @@
-import { BrowserWindow, app, App, ipcMain as ipc } from "electron";
+import { BrowserWindow, app, App } from "electron";
 
 import Processer from "./api/processer";
 import Dialog from "./api/dialog";
