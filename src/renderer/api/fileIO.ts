@@ -17,7 +17,7 @@ class FileIO {
    * テキストの保存
    *
    * @param value
-   * @param window
+   * @param path
    */
   public save(value: string, path: string): void {
     if (this.isEmptyPath) {
@@ -42,7 +42,7 @@ class FileIO {
   /**
    * ファイルを開いてその中身を流し込む
    *
-   * @param window
+   * @param path
    */
   @Elapsed("open")
   public open(path: string): IOpenFile {
@@ -58,9 +58,10 @@ class FileIO {
 
   /**
    * - フォルダを開く
-   * - dirPath内にあるファイル名とパスとstatsをopenDirectoriesに追加
+   * - `dirPath`内にあるファイル名とパスとstatsを`directoryList`に追加
    *
    * @param dirPath
+   * @param directoryList
    */
   @Elapsed("dir")
   public openDirectory(dirPath: string, directoryList: IOpenDirectory[]): void {

@@ -1,6 +1,7 @@
 import MouseTrap from "mousetrap-ts";
 import CallDialog from "../api/callDialog";
 import Editor from "../components/editor";
+import SideMenu from "../components/sideMenu";
 
 /** ショートカットキーの作成クラス */
 export class ShortCut {
@@ -36,5 +37,5 @@ export class ShortCut {
 const shortCut = new ShortCut();
 // file関係
 shortCut.keyBind(shortCut.ctrlOrCmd("o"), () => CallDialog.open((path) => Editor.openfile(path)));
-shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir());
+shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir((path) => SideMenu.addDirectories(path)));
 shortCut.keyBind(shortCut.ctrlOrCmd("s"), () => Editor.save());

@@ -1,13 +1,11 @@
-import { ipcRenderer as renderer } from "electron";
-
 import Tab from "./tab";
 import Editor from "./editor";
 import FileIO from "../api/fileIO";
-import Resize from "../api/resize";
 import CallDialog from "../api/callDialog";
+import Resize from "../lib/resize";
 
 import Util from "../../common/util";
-import { IPCConstants, AttributeName } from "../../common/constants/systemConstants";
+import { AttributeName } from "../../common/constants/systemConstants";
 import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
@@ -29,18 +27,23 @@ class SideMenu {
     this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
 
     const resize = new Resize(this.resize);
+  }
 
-    renderer.on(IPCConstants.DIR_PATH, (_, dirPath) => {
-      const openDirectories = this.openDirectory(dirPath);
-      this.hideMessage();
-      // 初期化
-      this.dirMenuItem.innerHTML = "";
+  /**
+   * `dirPath`のフォルダとファイルをdirMenuItem内に追加
+   *
+   * @param dirPath
+   */
+  public addDirectories(dirPath: string) {
+    const openDirectories = this.openDirectory(dirPath);
+    this.hideMessage();
+    // 初期化
+    this.dirMenuItem.innerHTML = "";
 
-      this.listItems = this.DirectoryList(openDirectories);
-      // listItemをセット
-      this.listItems.forEach((item) => {
-        this.dirMenuItem.appendChild(item);
-      });
+    this.listItems = this.DirectoryList(openDirectories);
+    // listItemをセット
+    this.listItems.forEach((item) => {
+      this.dirMenuItem.appendChild(item);
     });
   }
 
@@ -84,7 +87,7 @@ class SideMenu {
     Util.addClass(openDirBtn, "open-btn");
 
     // ディレクトリのダイアログを表示させる
-    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir());
+    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.addDirectories(path)));
 
     this.notDirContents.appendChild(openDirBtn);
   }
@@ -135,9 +138,9 @@ class SideMenu {
   /**
    * フォルダを開く
    *
-   * @param window
+   * @param path
    */
-  public openDirectory(path: string): IOpenDirectory[] {
+  private openDirectory(path: string): IOpenDirectory[] {
     const openDirectoies: IOpenDirectory[] = [];
     FileIO.openDirectory(path, openDirectoies);
     return openDirectoies;
