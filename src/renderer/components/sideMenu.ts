@@ -12,7 +12,7 @@ import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { IElementOptions } from "../../common/definition/IElementOptions";
 
-// TODO: 階層ツリーなstyleにしたい
+// TODO: 階層ツリーのスタイルを直す
 /** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
@@ -49,7 +49,12 @@ class SideMenu {
     this.listItems = this.DirectoryList(openDirectories);
     // listItemをセット
     this.listItems.forEach((item) => {
-      this.dirMenuItem.appendChild(item);
+      const subordinateDir = this.getSubordinateDirectroy(item);
+      if (subordinateDir) {
+        subordinateDir.appendChild(item);
+      } else {
+        this.dirMenuItem.appendChild(item);
+      }
     });
   }
 
@@ -106,6 +111,33 @@ class SideMenu {
   }
 
   /**
+   * 配下のディレクトリを返す
+   * @param element
+   */
+  private getSubordinateDirectroy(element: HTMLElement): HTMLElement | undefined {
+    const includePathDirectoryList: HTMLElement[] = this.listItems.filter((compareElement) => {
+      // 比較要素のpathを含むか
+      return element.title.indexOf(compareElement.title) !== -1
+        && this.isDirectory(compareElement)
+        // 比較要素と全く同じpathでないか
+        && element.title !== compareElement.title;
+    });
+    // 最後のディレクトリを返す
+    if (includePathDirectoryList) {
+      return includePathDirectoryList.pop();
+    }
+  }
+
+  /**
+   * `searchElement`がディレクトリかどうか
+   * @param searchElement
+   */
+  private isDirectory(searchElement: HTMLElement): boolean {
+    const isDirectory = searchElement.getAttribute("data-isDirectory");
+    return isDirectory === "true";
+  }
+
+  /**
    * 要素をクリックしてファイルを開く
    *
    * @param ev
@@ -118,7 +150,7 @@ class SideMenu {
     Util.addClassChildItem(this.dirMenuItem, target.element, "focus-item");
 
     // ディレクトリでなければ処理
-    if (target.attritube.dataIsDirectory === "false" && path) {
+    if (!this.isDirectory(target.element) && path) {
       // タブを生成
       Tab.create(target.element.innerHTML, path);
       Editor.updateValue(path);
