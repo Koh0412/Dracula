@@ -54,10 +54,6 @@ body {
   color: #c79e67;
 }
 
-.directory::before::before {
-  content: "\E2C8";
-}
-
 .open-directory::before {
   content: "\E2C8";
 }

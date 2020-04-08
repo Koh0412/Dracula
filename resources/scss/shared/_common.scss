@@ -47,9 +47,6 @@ body {
   &::before {
     content: "\E2C7";
     color: $color-text-directory;
-    &::before {
-      content: "\E2C8";
-    }
   }
 }
 
