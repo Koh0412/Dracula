@@ -59,7 +59,11 @@ class Editor {
 
   /** 現在のカーソルの位置を取得 */
   private get cursorPosition(): ace.Position {
-    return this.textarea.getCursorPosition();
+    const cursorPosition = this.textarea.getCursorPosition();
+    const row = cursorPosition.row + 1;
+    const column = cursorPosition.column + 1;
+
+    return { row, column };
   }
 
   /** カーソルの行 */
