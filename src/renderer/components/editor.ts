@@ -15,6 +15,7 @@ import CallDialog from "../api/callDialog";
 
 import Util from "../../common/util";
 import { StatusMessage, EditorMessage } from "../../common/constants/messageConstants";
+import { aceDefault, acePrefix } from "../../common/constants/editorConstants";
 import { IAceConf } from "../../common/definition/IAceConf";
 
 /** エディタエリア */
@@ -23,12 +24,11 @@ class Editor {
   private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
   private search: HTMLElement = Util.getElement("search-word");
 
-  private mode: string = "typescript";
   private filePath: string = "";
 
   private aceConf: IAceConf = {
-    theme: "ace/theme/dracula",
-    mode: `ace/mode/${this.mode}`,
+    theme: aceDefault.THEME,
+    mode: aceDefault.MODE,
     showPrintMargin: false,
     tabSize: 2,
     wrap: true,
@@ -110,6 +110,14 @@ class Editor {
     }
 
     FileIO.save(this.value, this.filePath);
+  }
+
+  /**
+   * モードを設定
+   * @param mode
+   */
+  public setMode(mode: string) {
+    this.textarea.session.setMode(acePrefix.MODE + mode);
   }
 
   /** 検索ボックス */

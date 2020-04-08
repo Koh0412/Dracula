@@ -40,6 +40,7 @@ class Tab {
       title: path,
       isClose: true,
     });
+    Util.addClass(li, "file");
 
     const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
     if (!isDuplicated) {
