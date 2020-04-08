@@ -33,9 +33,9 @@ class SideMenu {
   }
 
   /**
-   * `dirPath`のフォルダとファイルをdirMenuItem内に追加
-   *
+   * `dirPath`のフォルダとファイルを`parent`内に追加
    * @param dirPath
+   * @param parent
    */
   public addDirectories(dirPath: string, parent: HTMLElement): void {
     const openDirectories = this.openDirectory(dirPath);

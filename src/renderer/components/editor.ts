@@ -89,7 +89,10 @@ class Editor {
     this.resize();
   }
 
-  /** `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み */
+  /**
+   * `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み
+   * @param path
+   */
   public openfile(path: string): void {
     const name = pathModule.basename(path);
     const stats = fs.statSync(path);
@@ -143,7 +146,10 @@ class Editor {
     this.resize();
   }
 
-  /** エディタにvalueをセット */
+  /**
+   * エディタにvalueをセット
+   * @param value
+   */
   private setValue(value: string): string {
     return this.textarea.setValue(value);
   }
