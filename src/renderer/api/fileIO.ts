@@ -63,7 +63,6 @@ class FileIO {
    * @param dirPath
    * @param directoryList
    */
-  @Elapsed("dir")
   public openDirectory(dirPath: string, directoryList: IOpenDirectory[]): void {
     const fileNames = fs.readdirSync(dirPath);
 
@@ -77,10 +76,6 @@ class FileIO {
         isDirectory: stats.isDirectory(),
       };
       directoryList.push(prop);
-
-      if (stats.isDirectory()) {
-        this.openDirectory(fullPath, directoryList);
-      }
     });
   }
 

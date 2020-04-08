@@ -35,6 +35,10 @@ class Util {
     element.classList.remove(className);
   }
 
+  public toggleClass(element: HTMLElement, className: string): void {
+    element.classList.toggle(className);
+  }
+
   /**
    * - `parent`の子要素の`target`にクラスを追加
    * - `target`以外の子要素にクラスがついている場合は削除

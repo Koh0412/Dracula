@@ -53,7 +53,25 @@
     }
 
     .dir-menu-list {
-      height: 100%;
+      height: calc(100% - #{$height-footer});
+      overflow-y: overlay;
+      &::-webkit-scrollbar {
+        width: 5px;
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar:horizontal {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $color-scrollbar-thumb;
+        display: none;
+      }
+
+      &::-webkit-scrollbar-track {
+        display: none;
+      }
 
       .dir-menu-item {
         padding: 0;
@@ -61,11 +79,17 @@
         font-size: $font-size-general;
 
         li, ul {
-          padding: 4px 8px 4px 22px;
+          padding: 4px 8px 4px 10px;
           text-align: start;
-          display: flex;
+          display: block;
           align-items: center;
           cursor: pointer;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &.hide {
+            display: none;
+          }
           &:hover {
             background: $color-bg-hover-menu;
           }

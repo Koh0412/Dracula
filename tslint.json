@@ -21,6 +21,7 @@
     "eofline": false,
     "no-shadowed-variable": false,
     "only-arrow-functions": false,
-    "ban-types": false
+    "ban-types": false,
+    "prefer-for-of": false
   }
 }

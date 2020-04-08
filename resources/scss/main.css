@@ -42,6 +42,31 @@ body {
           flex-direction: column;
 }
 
+.directory::before, .open-directory::before, .file::before {
+  font-family: 'Material Icons';
+  font-size: 18px;
+  padding-right: 4px;
+  vertical-align: bottom;
+}
+
+.directory::before {
+  content: "\E2C7";
+  color: #c79e67;
+}
+
+.directory::before::before {
+  content: "\E2C8";
+}
+
+.open-directory::before {
+  content: "\E2C8";
+}
+
+.file::before {
+  content: "\E24D";
+  color: #ada9b3;
+}
+
 .editor {
   width: 100%;
   height: 100%;
@@ -116,7 +141,26 @@ body {
 }
 
 .editor .dir-menu .dir-menu-list {
-  height: 100%;
+  height: calc(100% - 25px);
+  overflow-y: overlay;
+}
+
+.editor .dir-menu .dir-menu-list::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.editor .dir-menu .dir-menu-list::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+.editor .dir-menu .dir-menu-list::-webkit-scrollbar-thumb {
+  background: #818999c2;
+  display: none;
+}
+
+.editor .dir-menu .dir-menu-list::-webkit-scrollbar-track {
+  display: none;
 }
 
 .editor .dir-menu .dir-menu-list .dir-menu-item {
@@ -126,15 +170,20 @@ body {
 }
 
 .editor .dir-menu .dir-menu-list .dir-menu-item li, .editor .dir-menu .dir-menu-list .dir-menu-item ul {
-  padding: 4px 8px 4px 22px;
+  padding: 4px 8px 4px 10px;
   text-align: start;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor .dir-menu .dir-menu-list .dir-menu-item li.hide, .editor .dir-menu .dir-menu-list .dir-menu-item ul.hide {
+  display: none;
 }
 
 .editor .dir-menu .dir-menu-list .dir-menu-item li:hover, .editor .dir-menu .dir-menu-list .dir-menu-item ul:hover {

@@ -33,3 +33,35 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.directory, .open-directory, .file {
+  &::before {
+    font-family: 'Material Icons';
+    font-size: $font-size-list-icon;
+    padding-right: 4px;
+    vertical-align: bottom;
+  }
+}
+
+.directory {
+  &::before {
+    content: "\E2C7";
+    color: $color-text-directory;
+    &::before {
+      content: "\E2C8";
+    }
+  }
+}
+
+.open-directory {
+  &::before {
+    content: "\E2C8";
+  }
+}
+
+.file {
+  &::before {
+    content: "\E24D";
+    color: $color-text-file;
+  }
+}

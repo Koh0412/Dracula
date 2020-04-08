@@ -37,25 +37,27 @@ class SideMenu {
    *
    * @param dirPath
    */
-  public addDirectories(dirPath: string): void {
+  public addDirectories(dirPath: string, parent: HTMLElement): void {
+    const openDirectories = this.openDirectory(dirPath);
+    const directoryList = this.DirectoryList(openDirectories);
+    directoryList.forEach((list) => {
+      this.listItems.push(list);
+      parent.appendChild(list);
+    });
+  }
+
+  /**
+   * ディレクトリツリーの初期化
+   * @param dirPath
+   */
+  public initDirectoryTree(dirPath: string) {
     const currentDir: HTMLElement = Util.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 
-    const openDirectories = this.openDirectory(dirPath);
     this.hideMessage();
     // 初期化
     this.dirMenuItem.innerHTML = "";
-
-    this.listItems = this.DirectoryList(openDirectories);
-    // listItemをセット
-    this.listItems.forEach((item) => {
-      const subordinateDir = this.getSubordinateDirectroy(item);
-      if (subordinateDir) {
-        subordinateDir.appendChild(item);
-      } else {
-        this.dirMenuItem.appendChild(item);
-      }
-    });
+    this.addDirectories(dirPath, this.dirMenuItem);
   }
 
   /**
@@ -65,9 +67,8 @@ class SideMenu {
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
     return openDirectories.map((opendir) => {
-      const icon: HTMLElement = Util.createMenuIcon(opendir.isDirectory);
       const elementOptions: IElementOptions = {
-        text: icon.outerHTML + opendir.filename,
+        text: opendir.filename,
         title: opendir.fullPath,
       };
 
@@ -75,8 +76,10 @@ class SideMenu {
 
       if (opendir.isDirectory) {
         element = Util.createListItemElement("ul", elementOptions);
+        Util.addClass(element, "directory");
       } else {
         element = Util.createListItemElement("li", elementOptions);
+        Util.addClass(element, "file");
       }
       element.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
 
@@ -105,27 +108,9 @@ class SideMenu {
     Util.addClass(openDirBtn, "open-btn");
 
     // ディレクトリのダイアログを表示させる
-    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.addDirectories(path)));
+    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.initDirectoryTree(path)));
 
     this.notDirContents.appendChild(openDirBtn);
-  }
-
-  /**
-   * 配下のディレクトリを返す
-   * @param element
-   */
-  private getSubordinateDirectroy(element: HTMLElement): HTMLElement | undefined {
-    const includePathDirectoryList: HTMLElement[] = this.listItems.filter((compareElement) => {
-      // 比較要素のpathを含むか
-      return element.title.indexOf(compareElement.title) !== -1
-        && this.isDirectory(compareElement)
-        // 比較要素と全く同じpathでないか
-        && element.title !== compareElement.title;
-    });
-    // 最後のディレクトリを返す
-    if (includePathDirectoryList) {
-      return includePathDirectoryList.pop();
-    }
   }
 
   /**
@@ -138,19 +123,27 @@ class SideMenu {
   }
 
   /**
-   * 要素をクリックしてファイルを開く
+   * - 要素をクリックしてファイルもしくはディレクトリを開く
    *
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
+    const children = target.element.children;
     const path: string = target.title;
 
     // target要素にクラスを追加
     Util.addClassChildItem(this.dirMenuItem, target.element, "focus-item");
 
-    // ディレクトリでなければ処理
-    if (!this.isDirectory(target.element) && path) {
+    if (this.isDirectory(target.element)) {
+      if (children.length === 0) {
+        this.addDirectories(path, target.element);
+      } else {
+        for (let i: number = 0; i < children.length; i++) {
+          Util.toggleClass(children[i] as HTMLElement, "hide");
+        }
+      }
+    } else {
       // タブを生成
       Tab.create(target.element.innerHTML, path);
       Editor.updateValue(path);

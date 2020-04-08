@@ -37,5 +37,7 @@ export class ShortCut {
 const shortCut = new ShortCut();
 // file関係
 shortCut.keyBind(shortCut.ctrlOrCmd("o"), () => CallDialog.open((path) => Editor.openfile(path)));
-shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir((path) => SideMenu.addDirectories(path)));
+shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir((path) => {
+  SideMenu.initDirectoryTree(path);
+}));
 shortCut.keyBind(shortCut.ctrlOrCmd("s"), () => Editor.save());
