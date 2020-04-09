@@ -70,6 +70,6 @@
     "./src/**/*",
   ],
   "exclude": [
-    "node_modules", "./src/renderer/**/*"
+    "node_modules", "./src/browser/**/*"
   ]
 }
