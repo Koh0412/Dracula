@@ -136,6 +136,7 @@ class SideMenu {
     Util.addClassChildItem(this.dirMenuItem, target.element, "focus-item");
 
     if (this.isDirectory(target.element)) {
+      Util.toggleClass(target.element, "open-directory");
       if (children.length === 0) {
         this.addDirectories(path, target.element);
       } else {
