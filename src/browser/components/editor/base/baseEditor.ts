@@ -11,7 +11,7 @@ import CallDialog from "../../../api/callDialog";
 import Util from "../../../../common/util";
 import Events from "../../../../common/events";
 import { EditorMessage, StatusMessage } from "../../../../common/constants/messageConstants";
-import { aceDefault, acePrefix } from "../../../../common/constants/editorConstants";
+import { aceDefault } from "../../../../common/constants/editorConstants";
 import { IAceConf } from "../../../../common/definition/IAceConf";
 
 /** エディタエリア */
@@ -90,14 +90,6 @@ export class BaseEditor {
     }
 
     FileIO.save(this.value, this.filePath);
-  }
-
-  /**
-   * モードを設定
-   * @param mode
-   */
-  public setMode(mode: string): void {
-    this.textarea.session.setMode(acePrefix.MODE + mode);
   }
 
   /**
