@@ -1,7 +1,8 @@
-import "./components/editor";
+import "./components/editor/base/baseEditor";
+import "./components/editor/search";
 import "./components/sideMenu";
 import "./components/tab";
 import "./components/status";
-import "./components/titleBar";
 
+import "./lib/titleBar";
 import "./lib/shortCut";

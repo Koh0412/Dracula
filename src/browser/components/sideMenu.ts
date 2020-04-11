@@ -1,7 +1,7 @@
 import pathModule from "path";
 
 import Tab from "./tab";
-import Editor from "./editor";
+import Editor from "./editor/base/baseEditor";
 import FileIO from "../api/fileIO";
 import CallDialog from "../api/callDialog";
 import Resize from "../lib/resize";
@@ -60,6 +60,22 @@ class SideMenu {
     this.addDirectories(dirPath, this.dirMenuItem);
   }
 
+  /** フォルダが開かれてないときに表示するメニューの生成 */
+  private createNotDirContents(): void {
+    const missingMsg: HTMLElement = document.createElement("div");
+    missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
+    this.notDirContents.appendChild(missingMsg);
+
+    const openDirBtn: HTMLElement = document.createElement("button");
+    openDirBtn.innerHTML = SideMenuMessage.OPEN_DIR;
+    Util.addClass(openDirBtn, "open-btn");
+
+    // ディレクトリのダイアログを表示させる
+    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.initDirectoryTree(path)));
+
+    this.notDirContents.appendChild(openDirBtn);
+  }
+
   /**
    * 取得したファイルとディレクトリをlistItemにmapして配列として返す
    *
@@ -95,22 +111,6 @@ class SideMenu {
       this.notDirContents.hidden = true;
     }
     this.isOpenDir = true;
-  }
-
-  /** フォルダが開かれてないときに表示するメニューの生成 */
-  private createNotDirContents(): void {
-    const missingMsg: HTMLElement = document.createElement("div");
-    missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
-    this.notDirContents.appendChild(missingMsg);
-
-    const openDirBtn: HTMLElement = document.createElement("button");
-    openDirBtn.innerHTML = SideMenuMessage.OPEN_DIR;
-    Util.addClass(openDirBtn, "open-btn");
-
-    // ディレクトリのダイアログを表示させる
-    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.initDirectoryTree(path)));
-
-    this.notDirContents.appendChild(openDirBtn);
   }
 
   /**
@@ -152,6 +152,17 @@ class SideMenu {
   }
 
   /**
+   * フォルダを開く
+   *
+   * @param path
+   */
+  private openDirectory(path: string): IOpenDirectory[] {
+    const openDirectoies: IOpenDirectory[] = [];
+    FileIO.openDirectory(path, openDirectoies);
+    return openDirectoies;
+  }
+
+  /**
    * タブをクリックしたときのsidemenu側での処理
    *
    * @param ev
@@ -172,17 +183,6 @@ class SideMenu {
         Util.updateFocus(this.listItems, target.title);
       }
     }
-  }
-
-  /**
-   * フォルダを開く
-   *
-   * @param path
-   */
-  private openDirectory(path: string): IOpenDirectory[] {
-    const openDirectoies: IOpenDirectory[] = [];
-    FileIO.openDirectory(path, openDirectoies);
-    return openDirectoies;
   }
 }
 

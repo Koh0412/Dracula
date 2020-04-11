@@ -1,6 +1,6 @@
 import MouseTrap from "mousetrap-ts";
 import CallDialog from "../api/callDialog";
-import Editor from "../components/editor";
+import Editor from "../components/editor/base/baseEditor";
 import SideMenu from "../components/sideMenu";
 
 /** ショートカットキーの作成クラス */

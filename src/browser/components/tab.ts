@@ -1,4 +1,4 @@
-import Editor from "./editor";
+import Editor from "./editor/base/baseEditor";
 
 import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";

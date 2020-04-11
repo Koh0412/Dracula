@@ -2,27 +2,22 @@ import * as fs from "fs-extra";
 import * as pathModule from "path";
 
 import * as ace from "brace";
-import "../config/lang";
-import "../config/snippets";
-import "brace/theme/dracula";
-import "brace/ext/language_tools";
-import "brace/ext/searchbox";
+import "../../../config/editorconfig";
 
-import Status from "./status";
-import Tab from "./tab";
-import FileIO from "../api/fileIO";
-import CallDialog from "../api/callDialog";
+import Status from "../../status";
+import Tab from "../../tab";
+import FileIO from "../../../api/fileIO";
+import CallDialog from "../../../api/callDialog";
 
-import Util from "../../common/util";
-import { StatusMessage, EditorMessage } from "../../common/constants/messageConstants";
-import { aceDefault, acePrefix } from "../../common/constants/editorConstants";
-import { IAceConf } from "../../common/definition/IAceConf";
+import Util from "../../../../common/util";
+import { StatusMessage, EditorMessage } from "../../../../common/constants/messageConstants";
+import { aceDefault, acePrefix } from "../../../../common/constants/editorConstants";
+import { IAceConf } from "../../../../common/definition/IAceConf";
 
 /** エディタエリア */
-class Editor {
-  private textarea: ace.Editor = ace.edit("textarea");
+export class BaseEditor {
+  protected textarea: ace.Editor = ace.edit("textarea");
   private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
-  private search: HTMLElement = Util.getElement("search-word");
 
   private filePath: string = "";
 
@@ -42,8 +37,6 @@ class Editor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
     this.init();
-
-    this.search.addEventListener("mousedown", this.showSearchBox.bind(this));
 
     this.changeCursor(() => {
       if (Status.lines) {
@@ -123,11 +116,6 @@ class Editor {
     this.textarea.session.setMode(acePrefix.MODE + mode);
   }
 
-  /** 検索ボックス */
-  public showSearchBox(): void {
-    this.textarea.execCommand("find");
-  }
-
   /**
    * `path`のファイルのデータをStatusのpathとエディター内に流し込む
    *
@@ -173,4 +161,4 @@ class Editor {
   }
 }
 
-export default new Editor();
+export default new BaseEditor();
