@@ -10,7 +10,7 @@ import CallDialog from "../../../api/callDialog";
 
 import Util from "../../../../common/util";
 import Events from "../../../../common/events";
-import { EditorMessage } from "../../../../common/constants/messageConstants";
+import { EditorMessage, StatusMessage } from "../../../../common/constants/messageConstants";
 import { aceDefault, acePrefix } from "../../../../common/constants/editorConstants";
 import { IAceConf } from "../../../../common/definition/IAceConf";
 
@@ -39,6 +39,11 @@ export class BaseEditor {
     this.init();
   }
 
+  /** テキストエリアがhiddenかどうか */
+  private get hidden(): boolean {
+    return this.textarea.container.hidden;
+  }
+
   /** エディタ内のvalueを取得 */
   private get value(): string {
     return this.textarea.getValue();
@@ -49,6 +54,7 @@ export class BaseEditor {
     FileIO.setPath("");
     this.setValue("");
     this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
+    Events.fileEvent("update", StatusMessage.UNTITLED);
 
     this.textarea.container.hidden = true;
     Util.removeClass(this.noFileMsg, "hide");
@@ -71,6 +77,10 @@ export class BaseEditor {
 
   /** エディタ内のvalueのセーブ */
   public save(): void {
+    // テキストエリアが無効なら何もしない
+    if (this.hidden) {
+      return;
+    }
     this.filePath = FileIO.filePath;
 
     if (FileIO.isEmptyPath) {

@@ -2,6 +2,19 @@ import { IFileEvent } from "./definition/event/IFileEvent";
 
 /** イベントクラス */
 class Events {
+
+  /**
+   * customEventの作成
+   * @param typeArg
+   * @param options
+   */
+  public createEvent<T>(typeArg: string, options: { eventInitDict?: T, element?: HTMLElement }) {
+    const event = new CustomEvent(typeArg, { detail: options.eventInitDict });
+    if (!options.element) {
+      options.element = document.body;
+    }
+    options.element.dispatchEvent(event);
+  }
   /**
    * ファイルに関する操作で発火
    * @param typeArg
@@ -11,8 +24,7 @@ class Events {
     const fileProp: IFileEvent = {
       filePath: path,
     };
-    const event = new CustomEvent(typeArg, { detail: fileProp });
-    document.body.dispatchEvent(event);
+    this.createEvent<IFileEvent>(typeArg, { eventInitDict: fileProp });
   }
 }
 
