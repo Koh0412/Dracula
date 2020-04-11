@@ -1,16 +1,29 @@
+import Cursor from "./editor/cursor";
+
+import { IFileEvent } from "../../common/definition/event/IFileEvent";
 import Util from "../../common/util";
 import { StatusMessage } from "../../common/constants/messageConstants";
 
 /** ステータスバー */
 class Status {
-  public lines: HTMLElement | null = null;
-
   private path: HTMLElement = Util.getElement("status-path");
   private item: HTMLElement = Util.getElement("status-item");
 
   constructor() {
-    this.lines = this.createStatusList(StatusMessage.INIT_POSITION);
+    const lines = this.createStatusList(StatusMessage.INIT_POSITION);
     this.path.innerHTML = StatusMessage.UNTITLED;
+
+    Cursor.change(() => {
+      lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
+    });
+
+    Util.addCustomEventListener<IFileEvent>("save", (e) => {
+      this.addSaveMessage(e.detail.filePath);
+    });
+
+    Util.addCustomEventListener<IFileEvent>("update", (e) => {
+      this.setPath(e.detail.filePath);
+    });
   }
 
   /**

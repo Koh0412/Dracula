@@ -4,13 +4,13 @@ import * as pathModule from "path";
 import * as ace from "brace";
 import "../../../config/editorconfig";
 
-import Status from "../../status";
 import Tab from "../../tab";
 import FileIO from "../../../api/fileIO";
 import CallDialog from "../../../api/callDialog";
 
 import Util from "../../../../common/util";
-import { StatusMessage, EditorMessage } from "../../../../common/constants/messageConstants";
+import Events from "../../../../common/events";
+import { EditorMessage } from "../../../../common/constants/messageConstants";
 import { aceDefault, acePrefix } from "../../../../common/constants/editorConstants";
 import { IAceConf } from "../../../../common/definition/IAceConf";
 
@@ -37,12 +37,6 @@ export class BaseEditor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
     this.init();
-
-    this.changeCursor(() => {
-      if (Status.lines) {
-        Status.lines.innerHTML = `Ln ${this.row}, Col ${this.column}`;
-      }
-    });
   }
 
   /** エディタ内のvalueを取得 */
@@ -50,29 +44,9 @@ export class BaseEditor {
     return this.textarea.getValue();
   }
 
-  /** 現在のカーソルの位置を取得 */
-  private get cursorPosition(): ace.Position {
-    const cursorPosition = this.textarea.getCursorPosition();
-    const row = cursorPosition.row + 1;
-    const column = cursorPosition.column + 1;
-
-    return { row, column };
-  }
-
-  /** カーソルの行 */
-  private get row(): number {
-    return this.cursorPosition.row;
-  }
-
-  /** カーソルの列 */
-  private get column(): number {
-    return this.cursorPosition.column;
-  }
-
    /** 初期化処理 */
   public init(): void {
     FileIO.setPath("");
-    Status.setPath(StatusMessage.UNTITLED);
     this.setValue("");
     this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
 
@@ -102,7 +76,7 @@ export class BaseEditor {
     if (FileIO.isEmptyPath) {
       CallDialog.save((path) => this.filePath = path);
     } else {
-      Status.addSaveMessage(this.filePath);
+      Events.fileEvent("save", this.filePath);
     }
 
     FileIO.save(this.value, this.filePath);
@@ -112,7 +86,7 @@ export class BaseEditor {
    * モードを設定
    * @param mode
    */
-  public setMode(mode: string) {
+  public setMode(mode: string): void {
     this.textarea.session.setMode(acePrefix.MODE + mode);
   }
 
@@ -127,7 +101,7 @@ export class BaseEditor {
     Util.addClass(this.noFileMsg, "hide");
 
     const fileText = fs.readFileSync(path, { encoding: "utf8" });
-    Status.setPath(path);
+    Events.fileEvent("update", path);
     this.setValue(fileText);
 
     this.textarea.gotoLine(1);
@@ -140,17 +114,6 @@ export class BaseEditor {
    */
   private setValue(value: string): string {
     return this.textarea.setValue(value);
-  }
-
-  /**
-   * カーソルが動いた時の処理
-   *
-   * @param callback
-   */
-  private changeCursor(callback: () => void): void {
-    this.textarea.selection.addEventListener("changeCursor", () => {
-      callback();
-    });
   }
 
   /**

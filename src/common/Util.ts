@@ -168,6 +168,12 @@ class Util {
     };
     return info;
   }
+
+  public addCustomEventListener<T = any>(type: string, callback: (event: CustomEvent<T>) => void) {
+    document.body.addEventListener(type, (e) => {
+      callback(e as CustomEvent<T>);
+    });
+  }
 }
 
 export default new Util();
