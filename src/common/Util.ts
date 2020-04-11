@@ -169,6 +169,11 @@ class Util {
     return info;
   }
 
+  /**
+   * カスタムイベントの登録
+   * @param type
+   * @param callback
+   */
   public addCustomEventListener<T = any>(type: string, callback: (event: CustomEvent<T>) => void) {
     document.body.addEventListener(type, (e) => {
       callback(e as CustomEvent<T>);

@@ -1,8 +1,10 @@
+/** プリフィックス */
 export const acePrefix = {
   MODE: "ace/mode/",
   THEME: "ace/theme/",
 };
 
+/** エディタのデフォルト */
 export const aceDefault = {
   MODE: acePrefix.MODE + "typescript",
   THEME: acePrefix.THEME + "dracula",

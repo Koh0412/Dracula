@@ -1,5 +1,6 @@
 import { IFileEvent } from "./definition/event/IFileEvent";
 
+/** イベントクラス */
 class Events {
   /**
    * ファイルに関する操作で発火
