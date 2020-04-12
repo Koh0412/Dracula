@@ -20,6 +20,10 @@ body {
   background: #3d405087;
 }
 
+.focus-item .tab-close {
+  display: block !important;
+}
+
 .resize {
   position: absolute;
   width: 5px;

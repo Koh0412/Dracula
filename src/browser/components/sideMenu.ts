@@ -18,7 +18,9 @@ class SideMenu {
   private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
   private resize: HTMLElement = Util.getElement("resize");
   private notDirContents: HTMLElement = Util.getElement("not-dir-contents");
+
   private listItems: HTMLElement[] = [];
+  private dirPath: string = "";
 
   /** 一度でもディレクトリを開いたかどうか */
   private isOpenDir: boolean = false;
@@ -38,8 +40,11 @@ class SideMenu {
    * @param parent
    */
   public addDirectories(dirPath: string, parent: HTMLElement): void {
+    this.listItems = [];
+
     const openDirectories = this.openDirectory(dirPath);
     const directoryList = this.DirectoryList(openDirectories);
+
     directoryList.forEach((list) => {
       this.listItems.push(list);
       parent.appendChild(list);
@@ -51,6 +56,7 @@ class SideMenu {
    * @param dirPath
    */
   public initDirectoryTree(dirPath: string) {
+    this.dirPath = dirPath;
     const currentDir: HTMLElement = Util.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 

@@ -15,6 +15,9 @@ body {
 
 .focus-item {
   background: $color-bg-hover-menu;
+  .tab-close {
+    display: block !important;
+  }
 }
 
 .resize {

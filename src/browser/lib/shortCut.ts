@@ -41,3 +41,4 @@ shortCut.keyBind(shortCut.ctrlOrCmdShift("o"), () => CallDialog.openDir((path) =
   SideMenu.initDirectoryTree(path);
 }));
 shortCut.keyBind(shortCut.ctrlOrCmd("s"), () => Editor.save());
+shortCut.keyBind(shortCut.ctrlOrCmdShift("s"), () => Editor.saveAs());

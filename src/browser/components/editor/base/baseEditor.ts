@@ -40,7 +40,7 @@ export class BaseEditor {
   }
 
   /** テキストエリアがhiddenかどうか */
-  private get hidden(): boolean {
+  protected get hidden(): boolean {
     return this.textarea.container.hidden;
   }
 
@@ -68,28 +68,22 @@ export class BaseEditor {
    */
   public openfile(path: string): void {
     const name = pathModule.basename(path);
-    const stats = fs.statSync(path);
-    const icon = Util.createMenuIcon(stats.isDirectory());
-
-    Tab.create(icon.outerHTML + name, path);
+    Tab.create(name, path);
     this.updateValue(path);
   }
 
   /** エディタ内のvalueのセーブ */
   public save(): void {
-    // テキストエリアが無効なら何もしない
-    if (this.hidden) {
-      return;
+    if (!this.hidden) {
+      FileIO.save(this.value);
     }
-    this.filePath = FileIO.filePath;
+  }
 
-    if (FileIO.isEmptyPath) {
-      CallDialog.save((path) => this.filePath = path);
-    } else {
-      Events.fileEvent("save", this.filePath);
+  /** 名前を付けて保存 */
+  public saveAs(): void {
+    if (!this.hidden) {
+      FileIO.saveAs(this.value);
     }
-
-    FileIO.save(this.value, this.filePath);
   }
 
   /**

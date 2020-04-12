@@ -5,11 +5,13 @@ import * as path from "path";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { Elapsed } from "../../common/decorators";
+import CallDialog from "./callDialog";
+import Events from "../../common/events";
 
 class FileIO {
-  public filePath: string = "";
+  private filePath: string = "";
 
-  public get isEmptyPath(): boolean {
+  private get isEmptyPath(): boolean {
     return this.filePath === "";
   }
 
@@ -17,26 +19,34 @@ class FileIO {
    * テキストの保存
    *
    * @param value
-   * @param path
    */
-  public save(value: string, path: string): void {
+  public save(value: string): void {
     if (this.isEmptyPath) {
-      if (!path) {
-        return;
-      }
-      this.setPath(path);
+      CallDialog.save((path) => {
+        if (!path) {
+          return;
+        }
+        this.setPath(path);
+        this.writeFile(value);
+      });
+    } else {
+      this.writeFile(value);
     }
-    fs.writeFileSync(this.filePath, value);
   }
 
   /**
    * 名前を付けて保存する
    *
    * @param value
-   * @param window
    */
-  public saveAs(value: string, window: BrowserWindow) {
-    // 後々作る
+  public saveAs(value: string) {
+    CallDialog.save((path) => {
+      if (!path) {
+        return;
+      }
+      this.setPath(path);
+      this.writeFile(value);
+    });
   }
 
   /**
@@ -86,6 +96,15 @@ class FileIO {
    */
   public setPath(path: string): void {
     this.filePath = path;
+  }
+
+  /**
+   * セーブする値の書き込み
+   * @param value
+   */
+  private writeFile(value: string) {
+    Events.fileEvent("save", this.filePath);
+    fs.writeFileSync(this.filePath, value);
   }
 }
 
