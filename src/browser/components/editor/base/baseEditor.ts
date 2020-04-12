@@ -6,7 +6,6 @@ import "../../../config/editorconfig";
 
 import Tab from "../../tab";
 import FileIO from "../../../api/fileIO";
-import CallDialog from "../../../api/callDialog";
 
 import Util from "../../../../common/util";
 import Events from "../../../../common/events";
@@ -18,8 +17,6 @@ import { IAceConf } from "../../../../common/definition/IAceConf";
 export class BaseEditor {
   protected textarea: ace.Editor = ace.edit("textarea");
   private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
-
-  private filePath: string = "";
 
   private aceConf: IAceConf = {
     theme: aceDefault.THEME,
