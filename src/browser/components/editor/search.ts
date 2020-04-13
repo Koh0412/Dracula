@@ -6,9 +6,7 @@ class Search extends BaseEditor {
 
   constructor() {
     super();
-    if (!this.hidden) {
-      this.search.addEventListener("mousedown", this.showSearchBox.bind(this));
-    }
+    this.search.addEventListener("mousedown", this.showSearchBox.bind(this));
   }
 
   /** 検索ボックス */
