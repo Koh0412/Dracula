@@ -1,17 +1,13 @@
-import * as fs from "fs-extra";
-import * as pathModule from "path";
-
 import * as ace from "brace";
-import "../../../config/editorconfig";
-
-import Tab from "../../tab";
 import FileIO from "../../../api/fileIO";
+import "../../../config/editorconfig";
 
 import Util from "../../../../common/util";
 import Events from "../../../../common/events";
 import { EditorMessage, StatusMessage } from "../../../../common/constants/messageConstants";
 import { aceDefault } from "../../../../common/constants/editorConstants";
 import { IAceConf } from "../../../../common/definition/IAceConf";
+import { IOpenFile } from "../../../../common/definition/IOpenFile";
 
 /** エディタエリア */
 export class BaseEditor {
@@ -34,6 +30,18 @@ export class BaseEditor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(this.aceConf);
     this.init();
+
+    Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
+      this.updateValue(e.detail.path);
+    });
+
+    Util.addCustomEventListener<HTMLElement>("tab", (e) => {
+      if (e.detail) {
+        this.updateValue(e.detail.title);
+      } else {
+        this.init();
+      }
+    });
   }
 
   /** テキストエリアがhiddenかどうか */
@@ -46,26 +54,12 @@ export class BaseEditor {
     return this.textarea.getValue();
   }
 
-   /** 初期化処理 */
-  public init(): void {
-    FileIO.setPath("");
-    this.setValue("");
-    this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
-    Events.fileEvent("update", StatusMessage.UNTITLED);
-
-    this.textarea.container.hidden = true;
-    Util.removeClass(this.noFileMsg, "hide");
-
-    this.resize();
-  }
-
   /**
    * `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み
    * @param path
    */
   public openfile(path: string): void {
-    const name = pathModule.basename(path);
-    Tab.create(name, path);
+    Events.fileEvent("open", path);
     this.updateValue(path);
   }
 
@@ -83,19 +77,30 @@ export class BaseEditor {
     }
   }
 
+   /** 初期化処理 */
+  private init(): void {
+    FileIO.setPath("");
+    this.setValue("");
+    this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
+    Events.fileEvent("update", StatusMessage.UNTITLED);
+
+    this.textarea.container.hidden = true;
+    Util.removeClass(this.noFileMsg, "hide");
+
+    this.resize();
+  }
+
   /**
    * `path`のファイルのデータをStatusのpathとエディター内に流し込む
    *
    * @param path
    */
-  public updateValue(path: string): void {
-    FileIO.setPath(path);
+  private updateValue(path: string): void {
     this.textarea.container.hidden = false;
     Util.addClass(this.noFileMsg, "hide");
 
-    const fileText = fs.readFileSync(path, { encoding: "utf8" });
-    Events.fileEvent("update", path);
-    this.setValue(fileText);
+    const openFile = FileIO.open(path);
+    this.setValue(openFile.text);
 
     this.textarea.gotoLine(1);
     this.resize();

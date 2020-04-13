@@ -1,7 +1,5 @@
 import pathModule from "path";
 
-import Tab from "./tab";
-import Editor from "./editor/base/baseEditor";
 import FileIO from "../api/fileIO";
 import CallDialog from "../api/callDialog";
 import Resize from "../lib/resize";
@@ -11,6 +9,7 @@ import { AttributeName } from "../../common/constants/systemConstants";
 import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { IElementOptions } from "../../common/definition/IElementOptions";
+import Events from "../../common/events";
 
 // TODO: 階層ツリーのスタイルを直す
 /** サイドメニュー */
@@ -27,8 +26,6 @@ class SideMenu {
 
   constructor() {
     this.createNotDirContents();
-
-    Tab.element.addEventListener("mousedown", this.tabClick.bind(this));
     this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
 
     const resize = new Resize(this.resize);
@@ -62,7 +59,7 @@ class SideMenu {
 
     this.hideMessage();
     // 初期化
-    this.dirMenuItem.innerHTML = "";
+    this.dirMenuItem.textContent = "";
     this.addDirectories(dirPath, this.dirMenuItem);
   }
 
@@ -138,9 +135,6 @@ class SideMenu {
     const children = target.element.children;
     const path: string = target.title;
 
-    // target要素にクラスを追加
-    Util.addClassChildItem(this.dirMenuItem, target.element, "focus-item");
-
     if (this.isDirectory(target.element)) {
       Util.toggleClass(target.element, "open-directory");
       if (children.length === 0) {
@@ -151,9 +145,7 @@ class SideMenu {
         }
       }
     } else {
-      // タブを生成
-      Tab.create(target.element.innerHTML, path);
-      Editor.updateValue(path);
+      Events.clickTypeEvent("fileClick", { text: target.element.innerHTML, path });
     }
   }
 
@@ -166,29 +158,6 @@ class SideMenu {
     const openDirectoies: IOpenDirectory[] = [];
     FileIO.openDirectory(path, openDirectoies);
     return openDirectoies;
-  }
-
-  /**
-   * タブをクリックしたときのsidemenu側での処理
-   *
-   * @param ev
-   */
-  private tabClick(ev: MouseEvent): void {
-    const target = Util.EventTargetInfo(ev);
-    const prevTab: HTMLElement | null = Tab.previousTab;
-
-    // tabのクローズを押したかどうか
-    if (target.attritube.dataType === "close") {
-      if (prevTab) {
-        Util.updateFocus(this.listItems, prevTab.title);
-      } else {
-        Util.clearFocus(this.listItems);
-      }
-    } else {
-      if (target.title) {
-        Util.updateFocus(this.listItems, target.title);
-      }
-    }
   }
 }
 

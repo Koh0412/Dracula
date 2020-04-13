@@ -1,10 +1,8 @@
-import { BrowserWindow } from "electron";
 import * as fs from "fs-extra";
 import * as path from "path";
 
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-import { Elapsed } from "../../common/decorators";
 import CallDialog from "./callDialog";
 import Events from "../../common/events";
 
@@ -22,13 +20,7 @@ class FileIO {
    */
   public save(value: string): void {
     if (this.isEmptyPath) {
-      CallDialog.save((path) => {
-        if (!path) {
-          return;
-        }
-        this.setPath(path);
-        this.writeFile(value);
-      });
+      this.saveAs(value);
     } else {
       this.writeFile(value);
     }
@@ -54,15 +46,15 @@ class FileIO {
    *
    * @param path
    */
-  @Elapsed("open")
   public open(path: string): IOpenFile {
-    this.filePath = path;
-    const text: string = fs.readFileSync(this.filePath, { encoding: "utf8" });
+    this.setPath(path);
+    const text: string = fs.readFileSync(path, { encoding: "utf8" });
     // ファイルの中身とパスをまとめる
     const openFileProp: IOpenFile = {
       text,
       path: this.filePath,
     };
+    Events.fileEvent("update", path);
     return openFileProp;
   }
 

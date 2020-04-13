@@ -1,4 +1,6 @@
 import { IFileEvent } from "./definition/event/IFileEvent";
+import { IOpenFile } from "./definition/IOpenFile";
+import { ITargetInfo } from "./definition/ITargetInfo";
 
 /** イベントクラス */
 class Events {
@@ -25,6 +27,24 @@ class Events {
       filePath: path,
     };
     this.createEvent<IFileEvent>(typeArg, { eventInitDict: fileProp });
+  }
+
+  /**
+   * クリックに関するより詳細なイベント
+   * @param typeArg
+   * @param openFile
+   */
+  public clickTypeEvent(typeArg: string, openFile: IOpenFile): void {
+    this.createEvent<IOpenFile>(typeArg, { eventInitDict: { text: openFile.text, path: openFile.path } });
+  }
+
+  /**
+   * タブに関するイベント
+   * @param typeArg
+   * @param info
+   */
+  public tabEvent(typeArg: string, element: HTMLElement): void {
+    this.createEvent<HTMLElement>(typeArg, { eventInitDict: element });
   }
 }
 

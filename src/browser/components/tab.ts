@@ -1,7 +1,10 @@
-import Editor from "./editor/base/baseEditor";
+import pathModule from "path";
 
 import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
+import { IOpenFile } from "../../common/definition/IOpenFile";
+import Events from "../../common/events";
+import { IFileEvent } from "../../common/definition/event/IFileEvent";
 
 /** タブに関するクラス */
 class Tab {
@@ -11,20 +14,20 @@ class Tab {
 
   constructor() {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
+
+    Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
+      this.create(e.detail.text, e.detail.path);
+    });
+
+    Util.addCustomEventListener<IFileEvent>("open", (e) => {
+      const name = pathModule.basename(e.detail.filePath);
+      this.create(name, e.detail.filePath);
+    });
   }
 
   public get element(): HTMLElement {
     const element: HTMLElement = Util.getElement("tab");
     return element;
-  }
-
-  /** フォーカスのあるタブの一個前のタブ */
-  public get previousTab(): HTMLElement | null {
-    return this.previous;
-  }
-
-  public get isEmpty(): boolean {
-    return this.listItems.length === 0;
   }
 
   /**
@@ -34,7 +37,7 @@ class Tab {
    * @param textContent
    * @param path
    */
-  public create(text: string, path: string): void {
+  private create(text: string, path: string): void {
     const li: HTMLElement = Util.createListItemElement("li", {
       text,
       title: path,
@@ -79,13 +82,10 @@ class Tab {
       this.index++;
     }
     this.previous = this.listItems[this.index];
+    Events.tabEvent("tab", this.previous);
 
     if (this.previous) {
       Util.addClass(this.previous, "focus-item");
-      const path: string = this.previous.title;
-      Editor.updateValue(path);
-    } else {
-      Editor.init();
     }
     return;
   }
@@ -96,7 +96,7 @@ class Tab {
    * @param target
    */
   private remove(target: ITargetInfo): void {
-    this.element.innerHTML = "";
+    this.element.textContent = "";
     if (target.element.classList.contains("focus-item")) {
       // removeするタブがフォーカスを持っている場合の処理
       this.focusTab(target);
@@ -129,7 +129,7 @@ class Tab {
 
     Util.clearFocus(this.listItems);
     Util.addClass(target.element, "focus-item");
-    Editor.updateValue(target.title);
+    Events.tabEvent("tab", target.element);
   }
 }
 

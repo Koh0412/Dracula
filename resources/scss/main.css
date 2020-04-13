@@ -186,10 +186,6 @@ body {
   display: none;
 }
 
-.editor .dir-menu .dir-menu-list .dir-menu-item li:hover, .editor .dir-menu .dir-menu-list .dir-menu-item ul:hover {
-  background: #3d405087;
-}
-
 .editor .dir-menu .dir-menu-list .dir-menu-item li .material-icons, .editor .dir-menu .dir-menu-list .dir-menu-item ul .material-icons {
   margin-right: 4px;
   font-size: 18px;
