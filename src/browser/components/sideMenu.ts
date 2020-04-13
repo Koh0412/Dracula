@@ -81,7 +81,6 @@ class SideMenu {
 
   /**
    * 取得したファイルとディレクトリをlistItemにmapして配列として返す
-   *
    * @param openDirectories
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
@@ -127,7 +126,6 @@ class SideMenu {
 
   /**
    * - 要素をクリックしてファイルもしくはディレクトリを開く
-   *
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
@@ -151,7 +149,6 @@ class SideMenu {
 
   /**
    * フォルダを開く
-   *
    * @param path
    */
   private openDirectory(path: string): IOpenDirectory[] {

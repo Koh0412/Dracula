@@ -18,7 +18,6 @@ export default class Resize {
 
   /**
    * reisze発火時の処理
-   *
    * @param callback
    */
   private fire(callback: (e: MouseEvent) => void): void {

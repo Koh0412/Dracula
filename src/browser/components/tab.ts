@@ -33,8 +33,7 @@ class Tab {
   /**
    * - タブの生成
    * - `text`をinnerHTMLに、`path`をtitleに流す
-   *
-   * @param textContent
+   * @param text
    * @param path
    */
   private create(text: string, path: string): void {
@@ -61,7 +60,6 @@ class Tab {
 
   /**
    * `checkList`の中に`newNode`との重複がないかをチェック
-   *
    * @param ckeckList
    * @param newNode
    */
@@ -71,7 +69,6 @@ class Tab {
 
   /**
    * 前のタブにフォーカスを移す, ただし、最初のタブの場合は後ろにフォーカスを当てる
-   *
    * @param target
    */
   private focusTab(target: ITargetInfo): void {
@@ -92,7 +89,6 @@ class Tab {
 
   /**
    * `target`のタブを削除
-   *
    * @param target
    */
   private remove(target: ITargetInfo): void {
@@ -113,7 +109,6 @@ class Tab {
 
   /**
    * タブをクリックしてファイルを開く
-   *
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {

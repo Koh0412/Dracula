@@ -7,7 +7,6 @@ type ListItemType = "li" | "ul" | "ol";
 class Util {
   /**
    * 指定の`id`属性の要素を取得
-   *
    * @param id
    */
   public getElement<T>(id: string): T {
@@ -17,7 +16,6 @@ class Util {
 
   /**
    * クラスの追加
-   *
    * @param element
    * @param className
    */
@@ -27,7 +25,6 @@ class Util {
 
   /**
    * クラスの削除
-   *
    * @param element
    * @param className
    */
@@ -40,26 +37,7 @@ class Util {
   }
 
   /**
-   * - `parent`の子要素の`target`にクラスを追加
-   * - `target`以外の子要素にクラスがついている場合は削除
-   *
-   * @param parent
-   * @param target
-   * @param className
-   */
-  public addClassChildItem(parent: HTMLElement, target: HTMLElement, className: string): void {
-    parent.childNodes.forEach((node) => {
-      this.removeClass((node as HTMLElement), className);
-    });
-
-    if (!target.isEqualNode(parent)) {
-      this.addClass(target, className);
-    }
-  }
-
-  /**
    * `list`の各アイテムのフォーカスをクリア
-   *
    * @param list
    */
   public clearFocus(list: HTMLElement[]): void {
@@ -71,7 +49,6 @@ class Util {
   /**
    * - `list`のアイテムをクリアした上で、`compareElementTitle`で各アイテムを比較して
    * - 一致するものにフォーカスを与える
-   *
    * @param list
    * @param compareElementTitle
    */
@@ -86,7 +63,7 @@ class Util {
 
   /**
    * <li>要素を生成 optionsで設定
-   *
+   * @param tagName
    * @param options
    */
   public createListItemElement(tagName: ListItemType, options: IElementOptions): HTMLElement {
@@ -114,7 +91,6 @@ class Util {
 
   /**
    * material iconを作成
-   *
    * @param iconName
    */
   public createMaterialIcon(iconName: IconName): HTMLElement {
@@ -126,28 +102,7 @@ class Util {
   }
 
   /**
-   * - 詳細設定をしたicon生成して返す
-   * - ディレクトリかファイルかによってアイコンが変わる
-   *
-   * @param openDir
-   */
-  public createMenuIcon(isDirectory: boolean): HTMLElement {
-    let icon: HTMLElement;
-
-    if (isDirectory) {
-      icon = this.createMaterialIcon(IconName.folder);
-    } else {
-      icon = this.createMaterialIcon(IconName.insertDriveFile);
-    }
-
-    icon.setAttribute(AttributeName.DATA_TYPE, "icon");
-
-    return icon;
-  }
-
-  /**
    * クリックしたtargetの情報
-   *
    * @param click
    */
   public EventTargetInfo(click: MouseEvent): ITargetInfo {

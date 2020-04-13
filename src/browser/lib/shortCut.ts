@@ -13,7 +13,6 @@ export class ShortCut {
 
   /**
    * 指定のキーのバインドを行う
-   *
    * @param keys
    * @param callback
    * @param isElementActive

@@ -15,7 +15,6 @@ class FileIO {
 
   /**
    * テキストの保存
-   *
    * @param value
    */
   public save(value: string): void {
@@ -28,7 +27,6 @@ class FileIO {
 
   /**
    * 名前を付けて保存する
-   *
    * @param value
    */
   public saveAs(value: string) {
@@ -43,7 +41,6 @@ class FileIO {
 
   /**
    * ファイルを開いてその中身を流し込む
-   *
    * @param path
    */
   public open(path: string): IOpenFile {
@@ -61,7 +58,6 @@ class FileIO {
   /**
    * - フォルダを開く
    * - `dirPath`内にあるファイル名とパスとstatsを`directoryList`に追加
-   *
    * @param dirPath
    * @param directoryList
    */
@@ -83,7 +79,6 @@ class FileIO {
 
   /**
    * `path`をfilePathにセット
-   *
    * @param path
    */
   public setPath(path: string): void {

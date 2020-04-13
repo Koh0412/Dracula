@@ -92,7 +92,6 @@ export class BaseEditor {
 
   /**
    * `path`のファイルのデータをStatusのpathとエディター内に流し込む
-   *
    * @param path
    */
   private updateValue(path: string): void {
