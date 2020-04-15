@@ -1,7 +1,8 @@
 import { BaseEditor } from "./base/baseEditor";
 import { acePrefix } from "../../../common/constants/editorConstants";
 
-class EditorSession extends BaseEditor {
+/** セッション周りのクラス */
+class EditSession extends BaseEditor {
   constructor() {
     super();
   }
@@ -15,4 +16,4 @@ class EditorSession extends BaseEditor {
   }
 }
 
-export default new EditorSession();
+export default new EditSession();

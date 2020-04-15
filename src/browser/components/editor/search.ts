@@ -1,6 +1,7 @@
 import { BaseEditor } from "./base/baseEditor";
 import Util from "../../../common/util";
 
+/** 検索ボックス */
 class Search extends BaseEditor {
   private search: HTMLElement = Util.getElement("search-word");
 
