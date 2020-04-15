@@ -1,3 +1,5 @@
+import Events from "../../common/events";
+
 export default class Resize {
   private isResize: boolean = false;
   private resizeable: HTMLElement;
@@ -7,10 +9,15 @@ export default class Resize {
     const parent = resizeable.parentElement;
     if (parent) {
       parent.style.position = "relative";
+      const css = getComputedStyle(parent);
 
       this.fire((e) => {
         if (this.isResize) {
-          parent.style.width = `${e.clientX}px`;
+          document.body.style.cursor = "ew-resize";
+          if (parseInt(css.minWidth, 10) < e.clientX && e.clientX < parseInt(css.maxWidth, 10)) {
+            parent.style.width = `${e.clientX}px`;
+            Events.resizeEvent("resize", parent.style);
+          }
         }
       });
     }
@@ -29,6 +36,7 @@ export default class Resize {
     });
     document.addEventListener("mouseup", () => {
       this.isResize = false;
+      document.body.style.cursor = "default";
     });
   }
 }

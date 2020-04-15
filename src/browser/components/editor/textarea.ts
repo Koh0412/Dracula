@@ -20,7 +20,6 @@ class Textarea extends BaseEditor {
 
     Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
       this.updateValue(e.detail.path);
-      console.log(e);
     });
 
     Util.addCustomEventListener<HTMLElement>("tab", (e) => {
@@ -29,6 +28,11 @@ class Textarea extends BaseEditor {
       } else {
         this.init();
       }
+    });
+    const editorMainArea: HTMLElement = Util.getElement("editor-main");
+
+    Util.addCustomEventListener<CSSStyleDeclaration>("resize", (e) => {
+      editorMainArea.style.width = `calc(100% - ${e.detail.width})`;
     });
   }
 

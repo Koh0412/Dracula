@@ -46,6 +46,10 @@ class Events {
   public tabEvent(typeArg: string, element: HTMLElement): void {
     this.createEvent<HTMLElement>(typeArg, { eventInitDict: element });
   }
+
+  public resizeEvent(typeArg: string, style: CSSStyleDeclaration) {
+    this.createEvent<CSSStyleDeclaration>(typeArg, { eventInitDict: style });
+  }
 }
 
 export default new Events();

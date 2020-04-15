@@ -6,12 +6,10 @@
   user-select: none;
 
   .dir-menu {
-    display: flex;
-    flex-direction: column;
     text-align: center;
     color: $color-text-general;
     overflow: hidden;
-    width: $width-settings;
+    width: $width-side-menu;
     min-width: $width-min-dir-menu;
     max-width: $width-max-dir-menu;
     &::-webkit-scrollbar {
@@ -29,6 +27,7 @@
 
     .editor-setting {
       padding: 0;
+      height: $height-tabs;
       list-style: none;
       margin: 0;
       display: flex;
@@ -106,7 +105,7 @@
           background: $color-bg-open-btn;
           color: $color-text-general;
           border: none;
-          padding: 0.5rem 2rem;
+          padding: 0.5rem 1.7rem;
           cursor: pointer;
           border-radius: 5px;
           outline: none;
@@ -120,9 +119,7 @@
 
   .editor-main {
     height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    width: calc(100% - #{$width-side-menu});
     background-color: $color-bg-editor-main-display;
 
     .editor-tab {
@@ -138,7 +135,6 @@
       overflow-y: hidden;
       &::-webkit-scrollbar {
         width: 5px;
-        background: $color-scrollbar-track;
       }
 
       &::-webkit-scrollbar:horizontal {

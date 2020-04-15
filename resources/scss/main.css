@@ -29,6 +29,7 @@ body {
   width: 5px;
   height: 100%;
   right: 0;
+  top: 0;
   cursor: ew-resize;
 }
 
@@ -81,13 +82,6 @@ body {
 }
 
 .editor .dir-menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   text-align: center;
   color: #bcb8c0;
   overflow: hidden;
@@ -111,6 +105,7 @@ body {
 
 .editor .dir-menu .editor-setting {
   padding: 0;
+  height: 35px;
   list-style: none;
   margin: 0;
   display: -webkit-box;
@@ -201,7 +196,7 @@ body {
   background: #49366f;
   color: #bcb8c0;
   border: none;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1.7rem;
   cursor: pointer;
   border-radius: 5px;
   outline: none;
@@ -213,14 +208,7 @@ body {
 
 .editor .editor-main {
   height: 100%;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  width: calc(100% - 15rem);
   background-color: #1e2027;
 }
 
@@ -239,7 +227,6 @@ body {
 
 .editor .editor-main .editor-tab::-webkit-scrollbar {
   width: 5px;
-  background: #404755;
 }
 
 .editor .editor-main .editor-tab::-webkit-scrollbar:horizontal {
