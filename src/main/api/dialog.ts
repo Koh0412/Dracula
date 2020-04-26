@@ -1,4 +1,6 @@
 import { dialog, ipcMain as ipc, BrowserWindow } from "electron";
+
+import Core from "../core/core";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
 interface IOptionProperty {
@@ -17,12 +19,21 @@ type PropertyType = keyof IOptionProperty;
 class Dialog {
   private options: Electron.OpenDialogOptions = {};
 
+  constructor() {
+    Core.app.on("ready", () => {
+      this.ready(Core.window);
+    });
+  }
+
   /**
    * ダイアログをIPCから受け取れるように準備状態にする
    *
    * @param win
    */
-  public ready(win: BrowserWindow): void {
+  public ready(win: BrowserWindow | null): void {
+    if (!win) {
+      return;
+    }
     ipc.on(IPCConstants.OPEN_DIALOG, () => {
       const paths = this.createOpenDialog("openFile");
       if (paths) {
