@@ -8,9 +8,7 @@ class Core {
   public app: App;
 
   constructor(app: App) {
-    process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = "true";
     this.app = app;
-
     this.app.on("window-all-closed", this.onWindowAllClosed.bind(this));
     this.app.on("ready", this.create.bind(this));
     this.app.on("activate", this.onActivated.bind(this));
