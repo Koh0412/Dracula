@@ -1,6 +1,7 @@
 import { IconName, AttributeName } from "./constants/systemConstants";
 import { ITargetInfo } from "./definition/ITargetInfo";
 import { IElementOptions } from "./definition/IElementOptions";
+import * as eventType from "./type/eventType";
 
 type ListItemType = "li" | "ul" | "ol";
 
@@ -125,11 +126,11 @@ class Util {
   }
 
   /**
-   * カスタムイベントの登録
+   * カスタムイベントのリスナーの登録
    * @param type
    * @param callback
    */
-  public addCustomEventListener<T = any>(type: string, callback: (event: CustomEvent<T>) => void) {
+  public addCustomEventListener<T = any>(type: eventType.all, callback: (event: CustomEvent<T>) => void) {
     document.body.addEventListener(type, (e) => {
       callback(e as CustomEvent<T>);
     });

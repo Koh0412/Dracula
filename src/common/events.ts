@@ -1,6 +1,6 @@
 import { IFileEvent } from "./definition/event/IFileEvent";
 import { IOpenFile } from "./definition/IOpenFile";
-import { ITargetInfo } from "./definition/ITargetInfo";
+import * as type from "./type/eventType";
 
 /** イベントクラス */
 class Events {
@@ -22,7 +22,7 @@ class Events {
    * @param typeArg
    * @param path
    */
-  public fileEvent(typeArg: string, path: string): void {
+  public fileEvent(typeArg: type.fileEvent, path: string): void {
     const fileProp: IFileEvent = {
       filePath: path,
     };
@@ -34,7 +34,7 @@ class Events {
    * @param typeArg
    * @param openFile
    */
-  public clickTypeEvent(typeArg: string, openFile: IOpenFile): void {
+  public customClickEvent(typeArg: type.customClickEvent, openFile: IOpenFile): void {
     this.createEvent<IOpenFile>(typeArg, { eventInitDict: { text: openFile.text, path: openFile.path } });
   }
 
@@ -43,11 +43,11 @@ class Events {
    * @param typeArg
    * @param info
    */
-  public tabEvent(typeArg: string, element: HTMLElement): void {
+  public tabEvent(typeArg: type.tabEvent, element: HTMLElement): void {
     this.createEvent<HTMLElement>(typeArg, { eventInitDict: element });
   }
 
-  public resizeEvent(typeArg: string, style: CSSStyleDeclaration) {
+  public resizeEvent(typeArg: type.resizeEvent, style: CSSStyleDeclaration) {
     this.createEvent<CSSStyleDeclaration>(typeArg, { eventInitDict: style });
   }
 }

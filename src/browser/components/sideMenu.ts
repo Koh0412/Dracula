@@ -143,7 +143,7 @@ class SideMenu {
         }
       }
     } else {
-      Events.clickTypeEvent("fileClick", { text: target.element.innerHTML, path });
+      Events.customClickEvent("fileClick", { text: target.element.innerHTML, path });
     }
   }
 
