@@ -1,5 +1,5 @@
 import { BaseEditor } from "./base/baseEditor";
-import { acePrefix, aceLangs } from "../../../common/constants/editorConstants";
+import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants/editorConstants";
 
 /** セッション周りのクラス */
 class EditSession extends BaseEditor {
@@ -12,14 +12,27 @@ class EditSession extends BaseEditor {
     return Object.values(aceLangs);
   }
 
-  /** 現在のエディタの使用言語のフルパス */
-  private get mode(): string {
-    return this.textarea.getOption("mode");
+  /** 利用可能なタブサイズ */
+  public get availableTabSize(): string[] {
+    const tabSizes = Object.values(aceTabSize);
+    return tabSizes.map((size) => {
+      return size.toLocaleString();
+    });
   }
 
   /** 現在のエディタの使用言語の名前 */
-  public get modeName() {
+  public get modeName(): string {
     return this.mode.substring(this.mode.lastIndexOf("/") + 1);
+  }
+
+  /** 現在のエディタのタブサイズを取得 */
+  public get tabSize(): number {
+    return this.textarea.session.getTabSize();
+  }
+
+  /** 現在のエディタの使用言語のフルパス */
+  private get mode(): string {
+    return this.textarea.getOption("mode");
   }
 
   /**
@@ -28,6 +41,14 @@ class EditSession extends BaseEditor {
    */
   public setMode(mode: string): void {
     this.textarea.session.setMode(acePrefix.MODE + mode);
+  }
+
+  /**
+   * タブサイズを設定
+   * @param size
+   */
+  public setTabsize(size: number): void {
+    this.textarea.session.setTabSize(size);
   }
 }
 

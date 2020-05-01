@@ -17,15 +17,17 @@ class Status {
     const lines = this.createStatusItem(StatusMessage.INIT_POSITION);
     this.path.innerHTML = StatusMessage.UNTITLED;
 
-    const select = this.createStatusSelectItem(() => {
-      EditSession.setMode(select.value);
+    const modeSelect = this.createStatusSelectItem(EditSession.availableModes, () => {
+      EditSession.setMode(modeSelect.value);
     });
-    EditSession.availableModes.forEach((mode) => {
-      const option = document.createElement("option");
-      option.value = option.textContent = mode;
-      select.appendChild(option);
+    modeSelect.value = EditSession.modeName;
+    modeSelect.title = StatusMessage.MODE_TITLE;
+
+    const tabSelect = this.createStatusSelectItem(EditSession.availableTabSize, () => {
+      EditSession.setTabsize(Number(tabSelect.value));
     });
-    select.value = EditSession.modeName;
+    tabSelect.value = EditSession.tabSize.toLocaleString();
+    tabSelect.title = StatusMessage.TABSIZE_TITLE;
 
     Cursor.change(() => {
       lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
@@ -37,9 +39,10 @@ class Status {
 
     Util.addCustomEventListener<IFileEvent>("update", (e) => {
       this.setPath(e.detail.filePath);
+
       const extension = pathModule.extname(e.detail.filePath);
       EditSession.setMode(FileExtension.autoJudgement(extension));
-      select.value = EditSession.modeName;
+      modeSelect.value = EditSession.modeName;
     });
   }
 
@@ -81,9 +84,15 @@ class Status {
    * - `callback`は選択肢が変更された時の処理
    * @param callback
    */
-  private createStatusSelectItem(callback: (e: Event) => void) {
+  private createStatusSelectItem(optionItems: string[], callback: (e: Event) => void) {
     const select = document.createElement("select");
     Util.addClass(select, "status-item-select");
+
+    optionItems.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = option.textContent = item;
+      select.appendChild(option);
+    });
 
     this.item.appendChild(select);
     select.addEventListener("change", (e) => {

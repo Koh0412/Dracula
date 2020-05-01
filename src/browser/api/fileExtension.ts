@@ -2,7 +2,7 @@ import { aceLangs } from "../../common/constants/editorConstants";
 
 class FileExtension {
 
-  private name: string;
+  private name: string = "";
 
   /**
    * 拡張子から使用言語名を判断し返す

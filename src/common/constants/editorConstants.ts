@@ -6,10 +6,11 @@ export const acePrefix = {
 
 /** エディタのデフォルト */
 export const aceDefault = {
-  MODE: acePrefix.MODE + "typescript",
+  MODE: acePrefix.MODE + "text",
   THEME: acePrefix.THEME + "dracula",
 };
 
+/** エディタの使用言語 */
 export const aceLangs = {
   C_CPP: "c_cpp",
   C_SHARP: "csharp",
@@ -52,4 +53,13 @@ export const aceLangs = {
   TS: "typescript",
   XML: "xml",
   YAML: "yaml",
+};
+
+/** エディタのタブサイズ */
+export const aceTabSize = {
+  ONE: 1,
+  TWO: 2,
+  FOUR: 4,
+  SIX: 6,
+  EIGHT: 8
 };
