@@ -401,13 +401,25 @@ body {
   white-space: nowrap;
 }
 
-.editor-footer .status-item .status-list {
-  list-style: none;
-  padding: 4px 8px;
+.editor-footer .status-item .status-item-list, .editor-footer .status-item .status-item-select {
   cursor: pointer;
+  padding: 4px 8px;
 }
 
-.editor-footer .status-item .status-list:hover {
-  background: #622ab1;
+.editor-footer .status-item .status-item-list {
+  list-style: none;
+}
+
+.editor-footer .status-item .status-item-select {
+  background: #502290;
+  color: #bcb8c0;
+  border: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.editor-footer .status-item .status-item-select:focus {
+  outline: none;
 }
 /*# sourceMappingURL=main.css.map */

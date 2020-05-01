@@ -19,12 +19,22 @@
     padding: 0;
     white-space: nowrap;
 
-    .status-list {
-      list-style: none;
-      padding: 4px 8px;
+    .status-item-list, .status-item-select {
       cursor: pointer;
-      &:hover {
-        background: $color-bg-footer-hover;
+      padding: 4px 8px;
+    }
+
+    .status-item-list {
+      list-style: none;
+    }
+
+    .status-item-select {
+      background: $color-bg-footer;
+      color: $color-text-general;
+      border: none;
+      appearance: none;
+      &:focus {
+        outline: none;
       }
     }
   }

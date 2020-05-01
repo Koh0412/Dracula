@@ -1,4 +1,8 @@
+import pathModule from "path";
+
 import Cursor from "./editor/cursor";
+import EditSession from "../components/editor/editSession";
+import FileExtension from "../api/fileExtension";
 
 import { IFileEvent } from "../../common/definition/event/IFileEvent";
 import Util from "../../common/util";
@@ -10,8 +14,18 @@ class Status {
   private item: HTMLElement = Util.getElement("status-item");
 
   constructor() {
-    const lines = this.createStatusList(StatusMessage.INIT_POSITION);
+    const lines = this.createStatusItem(StatusMessage.INIT_POSITION);
     this.path.innerHTML = StatusMessage.UNTITLED;
+
+    const select = this.createStatusSelectItem(() => {
+      EditSession.setMode(select.value);
+    });
+    EditSession.availableModes.forEach((mode) => {
+      const option = document.createElement("option");
+      option.value = option.textContent = mode;
+      select.appendChild(option);
+    });
+    select.value = EditSession.modeName;
 
     Cursor.change(() => {
       lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
@@ -23,29 +37,34 @@ class Status {
 
     Util.addCustomEventListener<IFileEvent>("update", (e) => {
       this.setPath(e.detail.filePath);
+      const extension = pathModule.extname(e.detail.filePath);
+      EditSession.setMode(FileExtension.autoJudgement(extension));
+      select.value = EditSession.modeName;
     });
   }
 
   /**
-   * Statusのパスをセット
-   *
-   * @param path
+   * 取得したfilePathをfooterのstatus-pathに入れる
+   * @param filePath
    */
-  public setPath(path: string): void {
-    this.path.innerHTML = path;
+  private addSaveMessage(filePath: string): void {
+    this.path.innerHTML = StatusMessage.SAVE;
+
+    setTimeout(() => {
+      this.path.innerHTML = filePath;
+    }, 1500);
   }
 
   /**
-   * - ステータスバーの各リストを1つ生成する
+   * - ステータスバーの各アイテムを1つ生成する(listItem形式)
    * - `callback`はclickされた時の処理
-   *
    * @param name
    * @param callback
    */
-  public createStatusList(name: string, callback?: (event: MouseEvent) => void): HTMLElement {
+  private createStatusItem(name: string, callback?: (event: MouseEvent) => void): HTMLElement {
     const li: HTMLElement = Util.createListItemElement("li", { text: name });
 
-    Util.addClass(li, "status-list");
+    Util.addClass(li, "status-item-list");
     this.item.appendChild(li);
 
     if (callback) {
@@ -58,16 +77,27 @@ class Status {
   }
 
   /**
-   * 取得したfilePathをfooterのstatus-pathに入れる
-   *
-   * @param filePath
+   * - ステータスバーの各アイテムを1つ生成する(select形式)
+   * - `callback`は選択肢が変更された時の処理
+   * @param callback
    */
-  public addSaveMessage(filePath: string): void {
-    this.path.innerHTML = StatusMessage.SAVE;
+  private createStatusSelectItem(callback: (e: Event) => void) {
+    const select = document.createElement("select");
+    Util.addClass(select, "status-item-select");
 
-    setTimeout(() => {
-      this.path.innerHTML = filePath;
-    }, 1500);
+    this.item.appendChild(select);
+    select.addEventListener("change", (e) => {
+      callback(e);
+    });
+    return select;
+  }
+
+  /**
+   * Statusのパスをセット
+   * @param path
+   */
+  private setPath(path: string): void {
+    this.path.innerHTML = path;
   }
 }
 
