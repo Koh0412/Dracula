@@ -1,12 +1,10 @@
 import { BaseEditor } from "./base/baseEditor";
 import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants/editorConstants";
-import { ipcRenderer } from "electron";
 
 /** セッション周りのクラス */
 class EditSession extends BaseEditor {
   constructor() {
     super();
-    ipcRenderer.on("menu:undo", () => this.textarea.undo());
   }
 
   /** 利用可能な言語 */

@@ -3,7 +3,7 @@ import * as path from "path";
 
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-import CallDialog from "../../process/electron-browser/callDialog";
+import CallDialog from "../process/callDialog";
 import Events from "../../common/events";
 
 class FileIO {

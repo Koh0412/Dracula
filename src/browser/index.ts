@@ -6,3 +6,5 @@ import "./components/status";
 
 import "./lib/titleBar";
 import "./lib/shortCut";
+
+import "./process/callTitleBarMenu";

@@ -1,6 +1,6 @@
 import { dialog, ipcMain as ipc, BrowserWindow } from "electron";
 
-import Core from "../../main/core/core";
+import Core from "../core/core";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
 interface IOptionProperty {

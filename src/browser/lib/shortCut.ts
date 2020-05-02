@@ -1,5 +1,5 @@
 import MouseTrap from "mousetrap-ts";
-import CallDialog from "../../process/electron-browser/callDialog";
+import CallDialog from "../process/callDialog";
 import Textarea from "../components/editor/textarea";
 import SideMenu from "../components/sideMenu";
 

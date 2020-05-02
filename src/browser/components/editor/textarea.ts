@@ -45,6 +45,11 @@ class Textarea extends BaseEditor {
     this.updateValue(path);
   }
 
+  /** redoを行う */
+  public redo() {
+    this.textarea.redo();
+  }
+
   /** エディタ内のvalueのセーブ */
   public save(): void {
     if (!this.hidden) {
@@ -57,6 +62,11 @@ class Textarea extends BaseEditor {
     if (!this.hidden) {
       FileIO.saveAs(this.value);
     }
+  }
+
+  /** undoを行う */
+  public undo() {
+    this.textarea.undo();
   }
 
    /** 初期化処理 */
