@@ -6,6 +6,12 @@ export const IPCConstants = {
   OPEN_PATH: "open-path",
   DIR_DIALOG: "dir-dialog",
   DIR_PATH: "dir-path",
+  MENU_SAVE: "menu-save",
+  MENU_SAVE_AS: "menu-save-as",
+  MENU_FILE_OPEN: "menu-open",
+  MENU_DIR_OPEN: "menu-dir-open",
+  MENU_REDO: "menu-redo",
+  MENU_UNDO: "menu-undo",
 };
 
 /** カスタムのhtml属性の名前 */
