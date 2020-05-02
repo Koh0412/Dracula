@@ -1,7 +1,7 @@
 import pathModule from "path";
 
 import FileIO from "../api/fileIO";
-import CallDialog from "../api/callDialog";
+import CallDialog from "../../process/electron-browser/callDialog";
 import Resize from "../lib/resize";
 
 import Util from "../../common/util";

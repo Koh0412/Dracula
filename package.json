@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "npm run delete && tsc",
-    "delete": "rimraf ./build/src/main/**/* && rimraf ./build/src/common/**/*",
+    "delete": "rimraf ./build/src/main/**/* && rimraf ./build/src/common/**/* && rimraf ./build/src/process/**/*",
     "start": "webpack && npm run build && electron ./build/src/main/main.js",
     "watch:all": "npm run delete && tsc --watch && webpack --watch",
     "electron": "electron ./build/src/main/main.js"
