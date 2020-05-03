@@ -15,6 +15,9 @@ class CallTitleBarMenu {
     renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((path) => SideMenu.initDirectoryTree(path)));
     renderer.on(IPCConstants.MENU_SAVE, () => Textarea.save());
     renderer.on(IPCConstants.MENU_SAVE_AS, () => Textarea.saveAs());
+
+    renderer.on(IPCConstants.MENU_COPY_LINES_UP, () => Textarea.copyLinesUp());
+    renderer.on(IPCConstants.MENU_COPY_LINES_DOWN, () => Textarea.copyLinesDown());
   }
 }
 

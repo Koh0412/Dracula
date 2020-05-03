@@ -385,6 +385,10 @@ body {
   color: #bcb8c0;
   background: #502290;
   font-size: 14px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .editor-footer .status-path {

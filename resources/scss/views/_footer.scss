@@ -7,6 +7,7 @@
   color: $color-text-general;
   background: $color-bg-footer;
   font-size: $font-size-general;
+  user-select: none;
 
   .status-path {
     padding: 4px 0;

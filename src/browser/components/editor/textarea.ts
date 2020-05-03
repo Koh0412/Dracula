@@ -36,6 +36,16 @@ class Textarea extends BaseEditor {
     });
   }
 
+  /** 行を上へコピー */
+  public copyLinesUp() {
+    this.textarea.copyLinesUp();
+  }
+
+  /** 行を下へコピー */
+  public copyLinesDown() {
+    this.textarea.copyLinesDown();
+  }
+
   /**
    * `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み
    * @param path

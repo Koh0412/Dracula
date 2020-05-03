@@ -1,8 +1,18 @@
+import pathModule from "path";
 import * as customBar from "custom-electron-titlebar";
 
+import Util from "../../common/util";
+import { IFileEvent } from "../../common/definition/event/IFileEvent";
+
 class TitleBar {
+  private instance: customBar.Titlebar | null = null;
   constructor() {
-    this.create();
+    this.instance = this.create();
+
+    Util.addCustomEventListener<IFileEvent>("update", (e) => {
+      const name = pathModule.basename(e.detail.filePath);
+      this.updateTitle(name);
+    });
   }
 
   private readonly bgColor: string = "#24232d";
@@ -21,6 +31,13 @@ class TitleBar {
   /** タイトルバーを生成 */
   private create(): customBar.Titlebar {
     return new customBar.Titlebar(this.options);
+  }
+
+  private updateTitle(add: string) {
+    if (!this.instance) {
+      return;
+    }
+    this.instance.updateTitle(`Dracula - ${add}`);
   }
 }
 

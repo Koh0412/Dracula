@@ -4,25 +4,44 @@ import { IPCConstants } from "../../common/constants/systemConstants";
 import { MethodType } from "../../common/type/menuMethodType";
 
 class TitleBarMenu {
+
   constructor() {
     const menu: Menu = Menu.buildFromTemplate(this.template);
     Menu.setApplicationMenu(menu);
   }
 
+  /** windowsかどうか */
   private get isWindows(): boolean {
     return process.platform === "win32";
   }
 
+  /** タイトルメニューテンプレート */
   private get template(): MenuItemConstructorOptions[] {
     const template: MenuItemConstructorOptions[] = [
       {
         label: "File",
         submenu: [
-          { label: "Open file", click: this.sendRequest(IPCConstants.MENU_FILE_OPEN), accelerator: "Ctrl+O" },
-          { label: "Open folder", click: this.sendRequest(IPCConstants.MENU_DIR_OPEN), accelerator: "Ctrl+Shift+O" },
+          {
+            label: "Open File",
+            click: this.sendRequest(IPCConstants.MENU_FILE_OPEN),
+            accelerator: "CmdOrCtrl+O",
+          },
+          {
+            label: "Open Folder",
+            click: this.sendRequest(IPCConstants.MENU_DIR_OPEN),
+            accelerator: "CmdOrCtrl+Shift+O"
+          },
           { type: "separator" },
-          { label: "Save", click: this.sendRequest(IPCConstants.MENU_SAVE), accelerator: "Ctrl+S" },
-          { label: "Save as...", click: this.sendRequest(IPCConstants.MENU_SAVE_AS), accelerator: "Ctrl+Shift+S" },
+          {
+            label: "Save",
+            click: this.sendRequest(IPCConstants.MENU_SAVE),
+            accelerator: "CmdOrCtrl+S",
+          },
+          {
+            label: "Save As...",
+            click: this.sendRequest(IPCConstants.MENU_SAVE_AS),
+            accelerator: "CmdOrCtrl+Shift+S",
+          },
           { type: "separator" },
           { role: "quit" },
         ]
@@ -39,9 +58,26 @@ class TitleBarMenu {
         ] : [
           { role: "undo" },
           { role: "redo" },
+          { type: "separator" },
           { role: "cut"  },
           { role: "copy" },
           { role: "paste" },
+        ]
+      },
+      {
+        label: "Select",
+        submenu: this.isWindows ? [
+          { label: "SelectAll", click: this.focusAndPerform("selectAll"), accelerator: "Ctrl+A" },
+          { type: "separator" },
+          { label: "Copy Line Up", click: this.sendRequest(IPCConstants.MENU_COPY_LINES_UP) },
+          {
+            label: "Copy Line Down",
+            click: this.sendRequest(IPCConstants.MENU_COPY_LINES_DOWN),
+            accelerator: "CmdOrCtrl+Shift+D",
+          }
+        ] : [
+          { role: "selectAll" },
+          { type: "separator" },
         ]
       },
       {
@@ -63,6 +99,10 @@ class TitleBarMenu {
     return template;
   }
 
+  /**
+   * エディタにフォーカスし、特定のアクションを行う
+   * @param methodName
+   */
   private focusAndPerform(methodName: MethodType) {
     return function(menuItem: MenuItem, window: any) {
       window.webContents.focus();
@@ -71,6 +111,10 @@ class TitleBarMenu {
     };
   }
 
+  /**
+   * browser側にリクエストを送る
+   * @param channel
+   */
   private sendRequest(channel: string) {
     return function(menuItem: MenuItem, window: BrowserWindow) {
       window.webContents.send(channel);

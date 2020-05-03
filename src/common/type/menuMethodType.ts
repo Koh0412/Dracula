@@ -1,1 +1,1 @@
-export type MethodType = "copy" | "cut" | "paste";
+export type MethodType = "copy" | "cut" | "paste" | "selectAll";
