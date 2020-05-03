@@ -7,43 +7,12 @@ type ListItemType = "li" | "ul" | "ol";
 
 class Util {
   /**
-   * 指定の`id`属性の要素を取得
-   * @param id
-   */
-  public getElement<T>(id: string): T {
-    const element = document.getElementById(id) as unknown as T;
-    return element;
-  }
-
-  /**
-   * クラスの追加
-   * @param element
-   * @param className
-   */
-  public addClass(element: HTMLElement, className: string): void {
-    element.classList.add(className);
-  }
-
-  /**
-   * クラスの削除
-   * @param element
-   * @param className
-   */
-  public removeClass(element: HTMLElement, className: string): void {
-    element.classList.remove(className);
-  }
-
-  public toggleClass(element: HTMLElement, className: string): void {
-    element.classList.toggle(className);
-  }
-
-  /**
    * `list`の各アイテムのフォーカスをクリア
    * @param list
    */
   public clearFocus(list: HTMLElement[]): void {
     list.forEach((item) => {
-      this.removeClass(item, "focus-item");
+      item.removeClass("focus-item");
     });
   }
 
@@ -57,7 +26,7 @@ class Util {
     this.clearFocus(list);
     list.forEach((item) => {
       if (compareElementTitle === item.title) {
-        this.addClass(item, "focus-item");
+        item.addClass("focus-item");
       }
     });
   }
@@ -80,7 +49,7 @@ class Util {
 
       close.title = "close";
       close.setAttribute(AttributeName.DATA_TYPE, "close");
-      this.addClass(close, "tab-close");
+      close.addClass("tab-close");
       li.appendChild(close);
 
       li.addEventListener("mouseover", () => close.style.display = "block");
@@ -96,7 +65,7 @@ class Util {
    */
   public createMaterialIcon(iconName: IconName): HTMLElement {
     const italic = document.createElement("i");
-    this.addClass(italic, "material-icons");
+    italic.addClass("material-icons");
     italic.textContent = iconName;
 
     return italic;

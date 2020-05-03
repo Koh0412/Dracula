@@ -26,7 +26,7 @@ class Tab {
   }
 
   public get element(): HTMLElement {
-    const element: HTMLElement = Util.getElement("tab");
+    const element: HTMLElement = document.getElement("tab");
     return element;
   }
 
@@ -42,7 +42,7 @@ class Tab {
       title: path,
       isClose: true,
     });
-    Util.addClass(li, "file");
+    li.addClass("file");
 
     const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
     if (!isDuplicated) {
@@ -52,7 +52,7 @@ class Tab {
 
     this.listItems.forEach((tab) => {
       if (tab.title === path) {
-        Util.addClass(tab, "focus-item");
+        tab.addClass("focus-item");
       }
       this.element.appendChild(tab);
     });
@@ -82,7 +82,7 @@ class Tab {
     Events.tabEvent("tab", this.previous);
 
     if (this.previous) {
-      Util.addClass(this.previous, "focus-item");
+      this.previous.addClass("focus-item");
     }
     return;
   }
@@ -123,7 +123,7 @@ class Tab {
     }
 
     Util.clearFocus(this.listItems);
-    Util.addClass(target.element, "focus-item");
+    target.element.addClass("focus-item");
     Events.tabEvent("tab", target.element);
   }
 }

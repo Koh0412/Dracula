@@ -8,3 +8,6 @@ import "./lib/titleBar";
 import "./lib/shortCut";
 
 import "./process/callTitleBarMenu";
+
+import "../preload/web/Document";
+import "../preload/web/HTMLElement";

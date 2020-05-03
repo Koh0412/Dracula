@@ -14,9 +14,9 @@ import Events from "../../common/events";
 // TODO: 階層ツリーのスタイルを直す
 /** サイドメニュー */
 class SideMenu {
-  private dirMenuItem: HTMLElement = Util.getElement("dir-menu-item");
-  private resize: HTMLElement = Util.getElement("resize");
-  private notDirContents: HTMLElement = Util.getElement("not-dir-contents");
+  private dirMenuItem: HTMLElement = document.getElement("dir-menu-item");
+  private resize: HTMLElement = document.getElement("resize");
+  private notDirContents: HTMLElement = document.getElement("not-dir-contents");
 
   private listItems: HTMLElement[] = [];
   private dirPath: string = "";
@@ -54,7 +54,7 @@ class SideMenu {
    */
   public initDirectoryTree(dirPath: string) {
     this.dirPath = dirPath;
-    const currentDir: HTMLElement = Util.getElement("current-dir");
+    const currentDir: HTMLElement = document.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 
     this.hideMessage();
@@ -71,7 +71,7 @@ class SideMenu {
 
     const openDirBtn: HTMLElement = document.createElement("button");
     openDirBtn.innerHTML = SideMenuMessage.OPEN_DIR;
-    Util.addClass(openDirBtn, "open-btn");
+    openDirBtn.addClass("open-btn");
 
     // ディレクトリのダイアログを表示させる
     openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.initDirectoryTree(path)));
@@ -94,10 +94,10 @@ class SideMenu {
 
       if (opendir.isDirectory) {
         element = Util.createListItemElement("ul", elementOptions);
-        Util.addClass(element, "directory");
+        element.addClass("directory");
       } else {
         element = Util.createListItemElement("li", elementOptions);
-        Util.addClass(element, "file");
+        element.addClass("file");
       }
       element.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
 
@@ -134,12 +134,12 @@ class SideMenu {
     const path: string = target.title;
 
     if (this.isDirectory(target.element)) {
-      Util.toggleClass(target.element, "open-directory");
+      target.element.toggleClass("open-directory");
       if (children.length === 0) {
         this.addDirectories(path, target.element);
       } else {
         for (let i: number = 0; i < children.length; i++) {
-          Util.toggleClass(children[i] as HTMLElement, "hide");
+          (children[i] as HTMLElement).toggleClass("hide");
         }
       }
     } else {

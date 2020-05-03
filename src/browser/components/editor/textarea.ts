@@ -10,7 +10,7 @@ import Util from "../../../common/util";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
-  private noFileMsg: HTMLElement = Util.getElement("no-file-msg");
+  private noFileMsg: HTMLElement = document.getElement("no-file-msg");
 
   constructor() {
     super();
@@ -29,7 +29,7 @@ class Textarea extends BaseEditor {
         this.init();
       }
     });
-    const editorMainArea: HTMLElement = Util.getElement("editor-main");
+    const editorMainArea: HTMLElement = document.getElement("editor-main");
 
     Util.addCustomEventListener<CSSStyleDeclaration>("resize", (e) => {
       editorMainArea.style.width = `calc(100% - ${e.detail.width})`;
@@ -87,7 +87,7 @@ class Textarea extends BaseEditor {
     Events.fileEvent("update", StatusMessage.UNTITLED);
 
     this.textarea.container.hidden = true;
-    Util.removeClass(this.noFileMsg, "hide");
+    this.noFileMsg.removeClass("hide");
 
     this.resize();
   }
@@ -98,7 +98,7 @@ class Textarea extends BaseEditor {
    */
   private updateValue(path: string): void {
     this.textarea.container.hidden = false;
-    Util.addClass(this.noFileMsg, "hide");
+    this.noFileMsg.addClass("hide");
 
     const openFile = FileIO.open(path);
     this.setValue(openFile.text);

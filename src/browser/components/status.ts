@@ -10,8 +10,8 @@ import { StatusMessage } from "../../common/constants/messageConstants";
 
 /** ステータスバー */
 class Status {
-  private path: HTMLElement = Util.getElement("status-path");
-  private item: HTMLElement = Util.getElement("status-item");
+  private path: HTMLElement = document.getElement("status-path");
+  private item: HTMLElement = document.getElement("status-item");
 
   constructor() {
     const lines = this.createStatusItem(StatusMessage.INIT_POSITION);
@@ -67,7 +67,7 @@ class Status {
   private createStatusItem(name: string, callback?: (event: MouseEvent) => void): HTMLElement {
     const li: HTMLElement = Util.createListItemElement("li", { text: name });
 
-    Util.addClass(li, "status-item-list");
+    li.addClass("status-item-list");
     this.item.appendChild(li);
 
     if (callback) {
@@ -86,7 +86,7 @@ class Status {
    */
   private createStatusSelectItem(optionItems: string[], callback: (e: Event) => void) {
     const select = document.createElement("select");
-    Util.addClass(select, "status-item-select");
+    select.addClass("status-item-select");
 
     optionItems.forEach((item) => {
       const option = document.createElement("option");
