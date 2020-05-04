@@ -11,6 +11,7 @@ class CallTitleBarMenu {
     renderer.on(IPCConstants.MENU_UNDO, () => Textarea.undo());
     renderer.on(IPCConstants.MENU_REDO, () => Textarea.redo());
 
+    renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());
     renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((path) => Textarea.openfile(path)));
     renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((path) => SideMenu.initDirectoryTree(path)));
     renderer.on(IPCConstants.MENU_SAVE, () => Textarea.save());

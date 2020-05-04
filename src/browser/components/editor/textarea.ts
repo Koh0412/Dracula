@@ -46,6 +46,10 @@ class Textarea extends BaseEditor {
     this.textarea.copyLinesDown();
   }
 
+  public newFile() {
+    //
+  }
+
   /**
    * `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み
    * @param path

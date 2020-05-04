@@ -22,6 +22,12 @@ class TitleBarMenu {
         label: "File",
         submenu: [
           {
+            label: "New File",
+            click: this.sendRequest(IPCConstants.MENU_NEW_FILE),
+            accelerator: "CmdOrCtrl+N",
+          },
+          { type: "separator" },
+          {
             label: "Open File",
             click: this.sendRequest(IPCConstants.MENU_FILE_OPEN),
             accelerator: "CmdOrCtrl+O",
@@ -78,6 +84,12 @@ class TitleBarMenu {
         ] : [
           { role: "selectAll" },
           { type: "separator" },
+          { label: "Copy Line Up", click: this.sendRequest(IPCConstants.MENU_COPY_LINES_UP) },
+          {
+            label: "Copy Line Down",
+            click: this.sendRequest(IPCConstants.MENU_COPY_LINES_DOWN),
+            accelerator: "CmdOrCtrl+Shift+D",
+          }
         ]
       },
       {

@@ -14,6 +14,7 @@ export const IPCConstants = {
   MENU_UNDO: "menu-undo",
   MENU_COPY_LINES_UP: "menu-copy-line-up",
   MENU_COPY_LINES_DOWN: "menu-copy-line-down",
+  MENU_NEW_FILE: "menu-new-file"
 };
 
 /** カスタムのhtml属性の名前 */

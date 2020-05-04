@@ -11,7 +11,6 @@ import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { IElementOptions } from "../../common/definition/IElementOptions";
 import Events from "../../common/events";
 
-// TODO: 階層ツリーのスタイルを直す
 /** サイドメニュー */
 class SideMenu {
   private dirMenuItem: HTMLElement = document.getElement("dir-menu-item");
