@@ -426,4 +426,45 @@ body {
 .editor-footer .status-item .status-item-select:focus {
   outline: none;
 }
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula {
+  background-color: #1f1d2b;
+  color: #ababb7;
+  border: none;
+  -webkit-box-shadow: 0px 0px 7px 3px #00000052;
+          box-shadow: 0px 0px 7px 3px #00000052;
+  padding: 4px;
+}
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula .ace_scroller .ace_content .ace_text-layer .ace_line {
+  cursor: pointer;
+}
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula .ace_scroller .ace_content .ace_text-layer .ace_line .ace_completion-highlight {
+  color: #bcb8c0;
+  font-weight: bold;
+}
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula .ace_scroller .ace_content .ace_text-layer .ace_line.ace_selected {
+  color: #27272c;
+}
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula .ace_scroller .ace_content .ace_text-layer .ace_line.ace_selected .ace_completion-highlight {
+  color: #19191d;
+  font-weight: bold;
+}
+
+.ace_tooltip.ace_doc-tooltip {
+  background-color: #1f1d2b;
+  color: #ababb7;
+  border: none;
+  -webkit-box-shadow: 0px 0px 7px 3px #00000052;
+          box-shadow: 0px 0px 7px 3px #00000052;
+}
+
+.ace_tooltip.ace_doc-tooltip hr {
+  height: 1px;
+  border: none;
+  background-color: #80808a;
+}
 /*# sourceMappingURL=main.css.map */

@@ -119,7 +119,7 @@ class SideMenu {
    * @param searchElement
    */
   private isDirectory(searchElement: HTMLElement): boolean {
-    const isDirectory = searchElement.getAttribute("data-isDirectory");
+    const isDirectory = searchElement.getAttribute(AttributeName.DATA_ISDIRECTORY);
     return isDirectory === "true";
   }
 

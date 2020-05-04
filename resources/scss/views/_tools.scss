@@ -1,0 +1,48 @@
+$color-bg-tools: #1f1d2b;
+$color-text-tools: #ababb7;
+$color-text-selected: #27272c;
+$color-text-selected-completion: #19191d;
+$color-hr: #80808a;
+$shadow-tools: #00000052;
+
+.ace_editor.ace_autocomplete.ace_dark.ace-dracula {
+  background-color: $color-bg-tools;
+  color: $color-text-tools;
+  border: none;
+  box-shadow: 0px 0px 7px 3px $shadow-tools;
+  padding: 4px;
+
+  .ace_scroller {
+    .ace_content {
+      .ace_text-layer {
+        .ace_line {
+          cursor: pointer;
+          .ace_completion-highlight {
+            color: $color-text-general;
+            font-weight: bold;
+          }
+          &.ace_selected {
+            color: $color-text-selected;
+            .ace_completion-highlight {
+              color: $color-text-selected-completion;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.ace_tooltip.ace_doc-tooltip {
+  background-color: $color-bg-tools;
+  color: $color-text-tools;
+  border: none;
+  box-shadow: 0px 0px 7px 3px $shadow-tools;
+  hr {
+    height: 1px;
+    border: none;
+    background-color: $color-hr;
+  }
+}
