@@ -6,12 +6,17 @@ class Search extends BaseEditor {
 
   constructor() {
     super();
-    this.search.addEventListener("mousedown", this.showSearchBox.bind(this));
+    this.search.addEventListener("mousedown", this.showFindBox.bind(this));
   }
 
   /** 検索ボックス */
-  public showSearchBox(): void {
+  public showFindBox(): void {
     this.textarea.execCommand("find");
+  }
+
+  /** 置換ボックス */
+  public showReplaceBox(): void {
+    this.textarea.execCommand("replace");
   }
 }
 

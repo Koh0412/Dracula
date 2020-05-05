@@ -54,20 +54,16 @@ class TitleBarMenu {
       },
       {
         label: "Edit",
-        submenu: this.isWindows ? [
-          { label: "Undo", click: this.sendRequest(IPCConstants.MENU_UNDO), accelerator: "Ctrl+Z" },
-          { label: "Redo", click: this.sendRequest(IPCConstants.MENU_REDO), accelerator: "Ctrl+Shift+Z" },
+        submenu: [
+          { label: "Undo", click: this.sendRequest(IPCConstants.MENU_UNDO), accelerator: "CmdOrCtrl+Z" },
+          { label: "Redo", click: this.sendRequest(IPCConstants.MENU_REDO), accelerator: "CmdOrCtrl+Shift+Z" },
           { type: "separator" },
-          { label: "Cut", click: this.focusAndPerform("cut"), accelerator: "Ctrl+X" },
-          { label: "Copy", click: this.focusAndPerform("copy"), accelerator: "Ctrl+C" },
-          { label: "Paste", click: this.focusAndPerform("paste"), accelerator: "Ctrl+V" },
-        ] : [
-          { role: "undo" },
-          { role: "redo" },
+          { label: "Cut", click: this.focusAndPerform("cut"), accelerator: "CmdOrCtrl+X" },
+          { label: "Copy", click: this.focusAndPerform("copy"), accelerator: "CmdOrCtrl+C" },
+          { label: "Paste", click: this.focusAndPerform("paste"), accelerator: "CmdOrCtrl+V" },
           { type: "separator" },
-          { role: "cut"  },
-          { role: "copy" },
-          { role: "paste" },
+          { label: "Find", click: this.sendRequest(IPCConstants.MENU_FIND), accelerator: "CmdOrCtrl+F" },
+          { label: "Replace", click: this.sendRequest(IPCConstants.MENU_REPLACE), accelerator: "CmdOrCtrl+H" }
         ]
       },
       {

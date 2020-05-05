@@ -25,7 +25,7 @@ class Tab {
     });
   }
 
-  public get element(): HTMLElement {
+  private get element(): HTMLElement {
     const element: HTMLElement = document.getElement("tab");
     return element;
   }

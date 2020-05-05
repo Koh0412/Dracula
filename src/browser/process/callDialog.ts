@@ -8,8 +8,8 @@ class CallDialog {
    * - `path`にセーブしたパスが返ってくる
    * @param callback
    */
-  public save(callback?: (path: string) => void): void {
-    renderer.send(IPCConstants.SAVE_DIALOG);
+  public save(fileName: string, callback?: (path: string) => void): void {
+    renderer.send(IPCConstants.SAVE_DIALOG, fileName);
     if (callback) {
       renderer.on(IPCConstants.SAVE_PATH, (_, path) => {
         callback(path);

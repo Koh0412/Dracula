@@ -1,3 +1,4 @@
+import "devtron";
 import "./components/editor/textarea";
 import "./components/editor/search";
 import "./components/sideMenu";

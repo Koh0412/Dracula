@@ -31,23 +31,6 @@ class SideMenu {
   }
 
   /**
-   * `dirPath`のフォルダとファイルを`parent`内に追加
-   * @param dirPath
-   * @param parent
-   */
-  public addDirectories(dirPath: string, parent: HTMLElement): void {
-    this.listItems = [];
-
-    const openDirectories = this.openDirectory(dirPath);
-    const directoryList = this.DirectoryList(openDirectories);
-
-    directoryList.forEach((list) => {
-      this.listItems.push(list);
-      parent.appendChild(list);
-    });
-  }
-
-  /**
    * ディレクトリツリーの初期化
    * @param dirPath
    */
@@ -60,6 +43,23 @@ class SideMenu {
     // 初期化
     this.dirMenuItem.textContent = "";
     this.addDirectories(dirPath, this.dirMenuItem);
+  }
+
+  /**
+   * `dirPath`のフォルダとファイルを`parent`内に追加
+   * @param dirPath
+   * @param parent
+   */
+  private addDirectories(dirPath: string, parent: HTMLElement): void {
+    this.listItems = [];
+
+    const openDirectories = this.openDirectory(dirPath);
+    const directoryList = this.DirectoryList(openDirectories);
+
+    directoryList.forEach((list) => {
+      this.listItems.push(list);
+      parent.appendChild(list);
+    });
   }
 
   /** フォルダが開かれてないときに表示するメニューの生成 */

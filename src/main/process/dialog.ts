@@ -41,8 +41,8 @@ class Dialog {
       }
     });
 
-    ipc.on(IPCConstants.SAVE_DIALOG, () => {
-      const path = this.createSaveDialog();
+    ipc.on(IPCConstants.SAVE_DIALOG, (_, fileName: string) => {
+      const path = this.createSaveDialog(fileName);
       if (path) {
         win.webContents.send(IPCConstants.SAVE_PATH, path);
       }
@@ -72,6 +72,7 @@ class Dialog {
    */
   public createOpenDialog(propertyType: PropertyType): string[] | undefined {
     this.options.properties = [propertyType];
+    this.options.defaultPath = "";
     return dialog.showOpenDialogSync(this.options);
   }
 }
