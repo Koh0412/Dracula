@@ -7,16 +7,7 @@ import CallDialog from "../process/callDialog";
 import Events from "../../common/events";
 
 class FileIO {
-  private filePath: string = "";
-
-  /** ファイル名 */
-  private get fileName(): string {
-    if (this.filePath) {
-      return path.basename(this.filePath);
-    } else {
-      return "";
-    }
-  }
+  public filePath: string = "";
 
   /** ファイルパスが空か */
   private get isEmptyPath(): boolean {
@@ -40,7 +31,7 @@ class FileIO {
    * @param value
    */
   public saveAs(value: string) {
-    CallDialog.save(this.fileName, (path) => {
+    CallDialog.save(this.filePath, (path) => {
       if (!path) {
         return;
       }
