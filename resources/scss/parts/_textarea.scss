@@ -1,6 +1,6 @@
 .text-area {
   width: 100%;
-  height: 100%;
+  height: calc(100% - #{$height-tabs});
   font-size: $font-size-textarea;
   background: $color-bg-editor-writeline;
   color: $color-text-editor;
