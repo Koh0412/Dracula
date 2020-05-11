@@ -7,6 +7,7 @@ import { EditorMessage, StatusMessage } from "../../../common/constants/messageC
 import { IOpenFile } from "../../../common/definition/IOpenFile";
 import Events from "../../../common/events";
 import Util from "../../../common/util";
+import tab from "components/tab";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -17,6 +18,12 @@ class Textarea extends BaseEditor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(aceConf);
     this.init();
+
+    this.textarea.on("change", () => {
+      if (this.isFocus) {
+        Events.textareaEvent("textChange", this.isDirty);
+      }
+    });
 
     Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
       this.updateValue(e.detail.path);
@@ -34,6 +41,11 @@ class Textarea extends BaseEditor {
     Util.addCustomEventListener<CSSStyleDeclaration>("resize", (e) => {
       editorMainArea.style.width = `calc(100% - ${e.detail.width})`;
     });
+  }
+
+  /** valueが書き換えられているかどうか */
+  private get isDirty() {
+    return this.value !== FileIO.currentText;
   }
 
   /** 行を上へコピー */

@@ -8,6 +8,8 @@ import Events from "../../common/events";
 
 class FileIO {
   public filePath: string = "";
+  public currentText: string = "";
+  public openTexts: string[] = [];
 
   /** ファイルパスが空か */
   private get isEmptyPath(): boolean {
@@ -46,10 +48,10 @@ class FileIO {
    */
   public open(path: string): IOpenFile {
     this.setPath(path);
-    const text: string = fs.readFileSync(path, { encoding: "utf8" });
+    this.currentText = fs.readFileSync(path, { encoding: "utf8" });
     // ファイルの中身とパスをまとめる
     const openFileProp: IOpenFile = {
-      text,
+      text: this.currentText,
       path: this.filePath,
     };
     Events.fileEvent("update", path);

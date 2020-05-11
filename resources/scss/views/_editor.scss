@@ -155,6 +155,9 @@
         align-items: center;
         border-right: 1px solid $color-border-tab;
         cursor: pointer;
+        &.editor-dirty {
+          color: aquamarine;
+        }
 
         .material-icons {
           font-size: $font-size-list-icon;

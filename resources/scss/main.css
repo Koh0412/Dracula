@@ -253,6 +253,10 @@ body {
   cursor: pointer;
 }
 
+.editor .editor-main .editor-tab li.editor-dirty {
+  color: aquamarine;
+}
+
 .editor .editor-main .editor-tab li .material-icons {
   font-size: 18px;
   margin-right: 4px;

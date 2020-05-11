@@ -47,8 +47,22 @@ class Events {
     this.createEvent<HTMLElement>(typeArg, { eventInitDict: element });
   }
 
+  /**
+   * リサイズに関するイベント
+   * @param typeArg
+   * @param style
+   */
   public resizeEvent(typeArg: type.resizeEvent, style: CSSStyleDeclaration) {
     this.createEvent<CSSStyleDeclaration>(typeArg, { eventInitDict: style });
+  }
+
+  /**
+   * テキストエリアに関するイベント
+   * @param typeArg
+   * @param isDirty
+   */
+  public textareaEvent(typeArg: type.textareaEvent, isDirty: boolean) {
+    this.createEvent<boolean>(typeArg, { eventInitDict: isDirty });
   }
 }
 

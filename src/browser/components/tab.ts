@@ -23,6 +23,29 @@ class Tab {
       const name = pathModule.basename(e.detail.filePath);
       this.create(name, e.detail.filePath);
     });
+
+    Util.addCustomEventListener<IFileEvent>("save", () => {
+      if (this.current) {
+        this.current.removeClass("editor-dirty");
+      }
+    });
+
+    Util.addCustomEventListener<boolean>("textChange", (e) => {
+      const isDirty: boolean = e.detail;
+      if (this.current) {
+        if (isDirty) {
+          this.current.addClass("editor-dirty");
+        } else {
+          this.current.removeClass("editor-dirty");
+        }
+      }
+    });
+  }
+
+  private get current() {
+    return this.listItems.find((tab) => {
+      return tab.classList.contains("focus-item");
+    });
   }
 
   private get element(): HTMLElement {
@@ -56,6 +79,7 @@ class Tab {
       }
       this.element.appendChild(tab);
     });
+    this.index = this.listItems.indexOf(li);
   }
 
   /**
@@ -123,6 +147,7 @@ class Tab {
     }
 
     Util.clearFocus(this.listItems);
+    this.index = this.listItems.indexOf(target.element);
     target.element.addClass("focus-item");
     Events.tabEvent("tab", target.element);
   }

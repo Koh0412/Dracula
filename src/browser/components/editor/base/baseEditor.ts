@@ -10,6 +10,11 @@ export class BaseEditor {
     return this.textarea.container.hidden;
   }
 
+  /** テキストエリアをフォーカスしているかどうか */
+  protected get isFocus(): boolean {
+    return this.textarea.container.classList.contains("ace_focus");
+  }
+
   /** エディタ内のvalueを取得 */
   protected get value(): string {
     return this.textarea.getValue();
