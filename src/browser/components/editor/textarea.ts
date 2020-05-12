@@ -7,7 +7,6 @@ import { EditorMessage, StatusMessage } from "../../../common/constants/messageC
 import { IOpenFile } from "../../../common/definition/IOpenFile";
 import Events from "../../../common/events";
 import Util from "../../../common/util";
-import tab from "components/tab";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -21,6 +20,10 @@ class Textarea extends BaseEditor {
 
     this.textarea.on("change", () => {
       if (this.isFocus) {
+        const openFileItem = FileIO.findOpenFile();
+        if (openFileItem) {
+          openFileItem.text = this.value;
+        }
         Events.textareaEvent("textChange", this.isDirty);
       }
     });

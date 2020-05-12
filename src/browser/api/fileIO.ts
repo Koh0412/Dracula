@@ -9,11 +9,25 @@ import Events from "../../common/events";
 class FileIO {
   public filePath: string = "";
   public currentText: string = "";
-  public openTexts: string[] = [];
+  public openFileList: IOpenFile[] = [];
 
   /** ファイルパスが空か */
   private get isEmptyPath(): boolean {
     return this.filePath === "";
+  }
+
+  /** リストの中のopenFileが現在のパスをもっているかどうか */
+  private get isOpenFilesHasPath(): boolean {
+    return this.openFileList.some((prop) => {
+      return prop.path === this.filePath;
+    });
+  }
+
+  /** リストの中から現在ファイルパスを持っているものを見つける */
+  public findOpenFile(): IOpenFile | undefined {
+    return this.openFileList.find((prop) => {
+      return prop.path === this.filePath;
+    });
   }
 
   /**
@@ -54,6 +68,16 @@ class FileIO {
       text: this.currentText,
       path: this.filePath,
     };
+
+    if (this.isOpenFilesHasPath) {
+      const prop = this.findOpenFile();
+      if (prop) {
+        openFileProp.text = prop.text;
+      }
+    } else {
+      this.openFileList.push(openFileProp);
+    }
+
     Events.fileEvent("update", path);
     return openFileProp;
   }
