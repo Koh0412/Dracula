@@ -1,10 +1,15 @@
 import pathModule from "path";
 
+import FileIO from "api/fileIO";
+import CallDialog from "process/callDialog";
+
 import Util from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import Events from "../../common/events";
 import { IFileEvent } from "../../common/definition/event/IFileEvent";
+import { MessageType, Buttons } from "../../common/constants/systemConstants";
+import { DialogMessage } from "../../common/constants/messageConstants";
 
 /** タブに関するクラス */
 class Tab {
@@ -20,8 +25,11 @@ class Tab {
     });
 
     Util.addCustomEventListener<IFileEvent>("open", (e) => {
-      const name = pathModule.basename(e.detail.filePath);
-      this.create(name, e.detail.filePath);
+      const filePath = e.detail.filePath;
+      if (filePath) {
+        const name = pathModule.basename(filePath);
+        this.create(name, filePath);
+      }
     });
 
     Util.addCustomEventListener<IFileEvent>("save", () => {
@@ -92,6 +100,19 @@ class Tab {
   }
 
   /**
+   * - ファイルに変更があった場合どうするかのダイアログを出す
+   * - responseには返り値としてボタンのインデックスを返す
+   */
+  private confirmRemove(): void {
+    CallDialog.warning({
+      detail: DialogMessage.warn.CATION,
+      type: MessageType.WARN,
+      buttons: Buttons.FILE,
+      message: DialogMessage.warn.MODIFY,
+    }, (res) => console.log(res));
+  }
+
+  /**
    * 前のタブにフォーカスを移す, ただし、最初のタブの場合は後ろにフォーカスを当てる
    * @param target
    */
@@ -117,6 +138,8 @@ class Tab {
    */
   private remove(target: ITargetInfo): void {
     this.element.textContent = "";
+    this.index = this.listItems.indexOf(target.element);
+
     if (target.element.classList.contains("focus-item")) {
       // removeするタブがフォーカスを持っている場合の処理
       this.focusTab(target);
@@ -142,6 +165,11 @@ class Tab {
     }
 
     if (target.attritube.dataType === "close") {
+      if (target.element.classList.contains("editor-dirty")) {
+        this.confirmRemove();
+        return;
+      }
+      FileIO.removeOpenFile(target.title);
       this.remove(target);
       return;
     }

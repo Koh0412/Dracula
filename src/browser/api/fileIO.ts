@@ -1,10 +1,11 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 
-import { IOpenFile } from "../../common/definition/IOpenFile";
-import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import CallDialog from "../process/callDialog";
 import Events from "../../common/events";
+
+import { IOpenFile } from "../../common/definition/IOpenFile";
+import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 
 class FileIO {
   public currentText: string = "";
@@ -27,6 +28,16 @@ class FileIO {
   public findOpenFile(): IOpenFile | undefined {
     return this.openFileList.find((prop) => {
       return prop.path === this.filePath;
+    });
+  }
+
+  /**
+   * 指定のパスを持つopenFileをリストから除去
+   * @param path
+   */
+  public removeOpenFile(path: string) {
+    this.openFileList = this.openFileList.filter((prop) => {
+      return prop.path !== path;
     });
   }
 
@@ -62,7 +73,11 @@ class FileIO {
    */
   public open(path: string): IOpenFile {
     this.setPath(path);
-    this.currentText = fs.readFileSync(path, { encoding: "utf8" });
+    if (path) {
+      this.currentText = fs.readFileSync(path, { encoding: "utf8" });
+    } else {
+      this.currentText = "";
+    }
     // ファイルの中身とパスをまとめる
     const openFileProp: IOpenFile = {
       text: this.currentText,

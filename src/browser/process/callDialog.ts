@@ -1,4 +1,4 @@
-import { ipcRenderer as renderer } from "electron";
+import { ipcRenderer as renderer, MessageBoxOptions } from "electron";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
 /** メインプロセスのダイアログの呼び出しクラス */
@@ -41,6 +41,18 @@ class CallDialog {
     if (callback) {
       renderer.on(IPCConstants.DIR_PATH, (_, path) => {
         callback(path);
+      });
+    }
+  }
+
+  public warning(
+    options: MessageBoxOptions,
+    callback?: (responseNum: number) => void,
+  ) {
+    renderer.send("msg:warn", options);
+    if (callback) {
+      renderer.on("msg:btn-index", (_, responseNum: number) => {
+        callback(responseNum);
       });
     }
   }

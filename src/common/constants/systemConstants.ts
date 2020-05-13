@@ -25,6 +25,16 @@ export const AttributeName = {
   DATA_ISDIRECTORY: "data-isDirectory",
 };
 
+export const MessageType = {
+  WARN: "warning",
+  INFO: "info"
+};
+
+export const Buttons = {
+  DEFAULT: ["Yes", "No"],
+  FILE: ["Save", "No Save", "Cancel"],
+};
+
 /** キーコード */
 export enum Keybind {
   atMark = "CmdOrCtrl+@",

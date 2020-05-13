@@ -1,4 +1,4 @@
-import { dialog, ipcMain as ipc, BrowserWindow } from "electron";
+import { dialog, ipcMain as ipc, BrowserWindow, MessageBoxOptions } from "electron";
 
 import Core from "../core/core";
 import { IPCConstants } from "../../common/constants/systemConstants";
@@ -30,7 +30,7 @@ class Dialog {
    *
    * @param win
    */
-  public ready(win: BrowserWindow | null): void {
+  private ready(win: BrowserWindow | null): void {
     if (!win) {
       return;
     }
@@ -54,11 +54,18 @@ class Dialog {
         win.webContents.send(IPCConstants.DIR_PATH, paths[0]);
       }
     });
+
+    ipc.on("msg:warn", (_, options: MessageBoxOptions) => {
+      const messageDialog = this.createMessageDialog(win, options);
+      messageDialog.then((res) => {
+        win.webContents.send("msg:btn-index", res.response);
+      }).catch((err) => console.log(err));
+    });
   }
   /**
    * saveDialogを生成, 返り値はセーブしたパス
    */
-  public createSaveDialog(defaultPath?: string): string | undefined {
+  private createSaveDialog(defaultPath?: string): string | undefined {
     if (defaultPath) {
       this.options.defaultPath = defaultPath;
     }
@@ -70,10 +77,18 @@ class Dialog {
    *
    * @param propertyType
    */
-  public createOpenDialog(propertyType: PropertyType): string[] | undefined {
+  private createOpenDialog(propertyType: PropertyType): string[] | undefined {
     this.options.properties = [propertyType];
     this.options.defaultPath = "";
     return dialog.showOpenDialogSync(this.options);
+  }
+
+  private createMessageDialog(win: BrowserWindow, options: MessageBoxOptions) {
+    if (!options.message) {
+      dialog.showErrorBox("No message body Error", "please check your message property");
+    }
+    options.title = "Dracula";
+    return dialog.showMessageBox(win, options);
   }
 }
 

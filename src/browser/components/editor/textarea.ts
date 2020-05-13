@@ -61,6 +61,7 @@ class Textarea extends BaseEditor {
     this.textarea.copyLinesDown();
   }
 
+  // TODO: 後々作る
   public newFile() {
     //
   }

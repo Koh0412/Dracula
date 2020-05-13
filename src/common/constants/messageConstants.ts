@@ -17,3 +17,10 @@ export const SideMenuMessage = {
 export const EditorMessage = {
   NO_FILE: "There are no files currently open"
 };
+
+export const DialogMessage = {
+  warn: {
+    MODIFY: "Do you want to save the modifications?",
+    CATION: "if not saved, DATA will be lost",
+  }
+};
