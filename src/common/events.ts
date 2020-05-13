@@ -6,18 +6,6 @@ import * as type from "./type/eventType";
 class Events {
 
   /**
-   * customEventの作成
-   * @param typeArg
-   * @param options
-   */
-  public createEvent<T>(typeArg: string, options: { eventInitDict?: T, element?: HTMLElement }) {
-    const event = new CustomEvent(typeArg, { detail: options.eventInitDict });
-    if (!options.element) {
-      options.element = document.body;
-    }
-    options.element.dispatchEvent(event);
-  }
-  /**
    * ファイルに関する操作で発火
    * @param typeArg
    * @param path
@@ -63,6 +51,19 @@ class Events {
    */
   public textareaEvent(typeArg: type.textareaEvent, isDirty: boolean) {
     this.createEvent<boolean>(typeArg, { eventInitDict: isDirty });
+  }
+
+  /**
+   * customEventの作成
+   * @param typeArg
+   * @param options
+   */
+  private createEvent<T>(typeArg: string, options: { eventInitDict?: T, element?: HTMLElement }) {
+    const event = new CustomEvent(typeArg, { detail: options.eventInitDict });
+    if (!options.element) {
+      options.element = document.body;
+    }
+    options.element.dispatchEvent(event);
   }
 }
 

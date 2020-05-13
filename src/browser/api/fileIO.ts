@@ -7,9 +7,9 @@ import CallDialog from "../process/callDialog";
 import Events from "../../common/events";
 
 class FileIO {
-  public filePath: string = "";
   public currentText: string = "";
   public openFileList: IOpenFile[] = [];
+  private filePath: string = "";
 
   /** ファイルパスが空か */
   private get isEmptyPath(): boolean {

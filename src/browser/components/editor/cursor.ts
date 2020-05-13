@@ -7,15 +7,6 @@ class Cursor extends BaseEditor {
     super();
   }
 
-   /** 現在のカーソルの位置を取得 */
-  public get cursorPosition(): ace.Position {
-    const cursorPosition = this.textarea.getCursorPosition();
-    const row = cursorPosition.row + 1;
-    const column = cursorPosition.column + 1;
-
-    return { row, column };
-  }
-
   /** カーソルの行 */
   public get row(): number {
     return this.cursorPosition.row;
@@ -24,6 +15,15 @@ class Cursor extends BaseEditor {
   /** カーソルの列 */
   public get column(): number {
     return this.cursorPosition.column;
+  }
+
+  /** 現在のカーソルの位置を取得 */
+  private get cursorPosition(): ace.Position {
+    const cursorPosition = this.textarea.getCursorPosition();
+    const row = cursorPosition.row + 1;
+    const column = cursorPosition.column + 1;
+
+    return { row, column };
   }
 
   /**
