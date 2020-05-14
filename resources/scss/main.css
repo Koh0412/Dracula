@@ -207,7 +207,8 @@ body {
 }
 
 .editor .dir-menu .dir-menu-list .not-dir-contents .open-btn:disabled {
-  background: white;
+  cursor: default;
+  background: #6c5699a4;
 }
 
 .editor .editor-main {

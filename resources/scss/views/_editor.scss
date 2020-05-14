@@ -113,7 +113,8 @@
             background-color: $color-bg-open-btn-hover;
           }
           &:disabled {
-            background: white;
+            cursor: default;
+            background: $color-bg-open-btn-disabled;
           }
         }
       }

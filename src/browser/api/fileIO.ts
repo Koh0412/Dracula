@@ -51,6 +51,7 @@ class FileIO {
     } else {
       this.writeFile(value);
     }
+    this.currentText = value;
   }
 
   /**

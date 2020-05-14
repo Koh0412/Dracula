@@ -2,11 +2,12 @@ import pathModule from "path";
 
 import FileIO from "api/fileIO";
 import CallDialog from "process/callDialog";
+import Textarea from "./editor/textarea";
 
 import Util from "../../common/util";
+import Events from "../../common/events";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 import { IOpenFile } from "../../common/definition/IOpenFile";
-import Events from "../../common/events";
 import { IFileEvent } from "../../common/definition/event/IFileEvent";
 import { MessageType, Buttons } from "../../common/constants/systemConstants";
 import { DialogMessage } from "../../common/constants/messageConstants";
@@ -103,13 +104,27 @@ class Tab {
    * - ファイルに変更があった場合どうするかのダイアログを出す
    * - responseには返り値としてボタンのインデックスを返す
    */
-  private confirmRemove(): void {
+  private confirmRemove(ev: MouseEvent): void {
+    const target = Util.EventTargetInfo(ev);
+
     CallDialog.warning({
       detail: DialogMessage.warn.CATION,
       type: MessageType.WARN,
       buttons: Buttons.FILE,
       message: DialogMessage.warn.MODIFY,
-    }, (res) => console.log(res));
+    }, (res) => {
+      switch (res) {
+        case 0:
+          Textarea.save();
+          break;
+        case 1:
+          FileIO.removeOpenFile(target.title);
+          this.remove(target);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   /**
@@ -166,7 +181,7 @@ class Tab {
 
     if (target.attritube.dataType === "close") {
       if (target.element.classList.contains("editor-dirty")) {
-        this.confirmRemove();
+        this.confirmRemove(ev);
         return;
       }
       FileIO.removeOpenFile(target.title);

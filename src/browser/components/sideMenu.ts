@@ -76,8 +76,9 @@ class SideMenu {
       CallDialog.openDir((res) => {
         if (res.canceled) {
           openDirBtn.disabled = false;
+        } else {
+          this.initDirectoryTree(res.filePaths[0]);
         }
-        this.initDirectoryTree(res.filePaths[0]);
       });
     });
 
