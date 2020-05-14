@@ -1,4 +1,4 @@
-import { ipcRenderer as renderer, MessageBoxOptions } from "electron";
+import { ipcRenderer as renderer, MessageBoxOptions, OpenDialogReturnValue } from "electron";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
 /** メインプロセスのダイアログの呼び出しクラス */
@@ -19,39 +19,42 @@ class CallDialog {
 
   /**
    * - オープンファイルのダイアログ
-   * - `path`に開いたファイルのパスが返ってくる
    * @param callback
    */
-  public open(callback?: (path: string) => void): void {
+  public open(callback?: (res: OpenDialogReturnValue) => void): void {
     renderer.send(IPCConstants.OPEN_DIALOG);
     if (callback) {
-      renderer.on(IPCConstants.OPEN_PATH, (_, path) => {
-        callback(path);
+      renderer.on(IPCConstants.OPEN_PATH, (_, res) => {
+        callback(res);
       });
     }
   }
 
   /**
-   * - オープンディレクトリのダイアログ
-   * - `path`に開いたファイルのパスが返ってくる
+   * オープンディレクトリのダイアログ
    * @param callback
    */
-  public openDir(callback?: (path: string) => void): void {
+  public openDir(callback?: (res: OpenDialogReturnValue) => void): void {
     renderer.send(IPCConstants.DIR_DIALOG);
     if (callback) {
-      renderer.on(IPCConstants.DIR_PATH, (_, path) => {
-        callback(path);
+      renderer.on(IPCConstants.DIR_PATH, (_, res) => {
+        callback(res);
       });
     }
   }
 
+  /**
+   * 注意メッセージのダイアログ
+   * @param options
+   * @param callback
+   */
   public warning(
     options: MessageBoxOptions,
     callback?: (responseNum: number) => void,
   ) {
-    renderer.send("msg:warn", options);
+    renderer.send(IPCConstants.MSG_WARNING, options);
     if (callback) {
-      renderer.on("msg:btn-index", (_, responseNum: number) => {
+      renderer.on(IPCConstants.MSG_WARNING_RES, (_, responseNum: number) => {
         callback(responseNum);
       });
     }

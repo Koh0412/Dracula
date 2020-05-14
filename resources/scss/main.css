@@ -206,6 +206,10 @@ body {
   background-color: #3c2d58;
 }
 
+.editor .dir-menu .dir-menu-list .not-dir-contents .open-btn:disabled {
+  background: white;
+}
+
 .editor .editor-main {
   height: 100%;
   width: calc(100% - 15rem);

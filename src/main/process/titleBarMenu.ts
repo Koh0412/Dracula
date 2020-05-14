@@ -21,11 +21,11 @@ class TitleBarMenu {
       {
         label: "File",
         submenu: [
-          {
-            label: "New File",
-            click: this.sendRequest(IPCConstants.MENU_NEW_FILE),
-            accelerator: "CmdOrCtrl+N",
-          },
+          // {
+          //   label: "New File",
+          //   click: this.sendRequest(IPCConstants.MENU_NEW_FILE),
+          //   accelerator: "CmdOrCtrl+N",
+          // },
           { type: "separator" },
           {
             label: "Open File",

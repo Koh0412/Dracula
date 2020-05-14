@@ -34,10 +34,10 @@ class Dialog {
     if (!win) {
       return;
     }
-    ipc.on(IPCConstants.OPEN_DIALOG, () => {
-      const paths = this.createOpenDialog("openFile");
-      if (paths) {
-        win.webContents.send(IPCConstants.OPEN_PATH, paths[0]);
+    ipc.on(IPCConstants.OPEN_DIALOG, async () => {
+      const response = await this.createOpenDialog("openFile");
+      if (response) {
+        win.webContents.send(IPCConstants.OPEN_PATH, response);
       }
     });
 
@@ -48,17 +48,17 @@ class Dialog {
       }
     });
 
-    ipc.on(IPCConstants.DIR_DIALOG, () => {
-      const paths = this.createOpenDialog("openDirectory");
-      if (paths) {
-        win.webContents.send(IPCConstants.DIR_PATH, paths[0]);
+    ipc.on(IPCConstants.DIR_DIALOG, async () => {
+      const response = await this.createOpenDialog("openDirectory");
+      if (response) {
+        win.webContents.send(IPCConstants.DIR_PATH, response);
       }
     });
 
-    ipc.on("msg:warn", (_, options: MessageBoxOptions) => {
+    ipc.on(IPCConstants.MSG_WARNING, (_, options: MessageBoxOptions) => {
       const messageDialog = this.createMessageDialog(win, options);
       messageDialog.then((res) => {
-        win.webContents.send("msg:btn-index", res.response);
+        win.webContents.send(IPCConstants.MSG_WARNING_RES, res.response);
       }).catch((err) => console.log(err));
     });
   }
@@ -77,10 +77,10 @@ class Dialog {
    *
    * @param propertyType
    */
-  private createOpenDialog(propertyType: PropertyType): string[] | undefined {
+  private createOpenDialog(propertyType: PropertyType): Promise<Electron.OpenDialogReturnValue> | undefined {
     this.options.properties = [propertyType];
     this.options.defaultPath = "";
-    return dialog.showOpenDialogSync(this.options);
+    return dialog.showOpenDialog(this.options);
   }
 
   private createMessageDialog(win: BrowserWindow, options: MessageBoxOptions) {

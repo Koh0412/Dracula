@@ -18,7 +18,6 @@ class SideMenu {
   private notDirContents: HTMLElement = document.getElement("not-dir-contents");
 
   private listItems: HTMLElement[] = [];
-  private dirPath: string = "";
 
   /** 一度でもディレクトリを開いたかどうか */
   private isOpenDir: boolean = false;
@@ -35,7 +34,6 @@ class SideMenu {
    * @param dirPath
    */
   public initDirectoryTree(dirPath: string) {
-    this.dirPath = dirPath;
     const currentDir: HTMLElement = document.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 
@@ -68,12 +66,20 @@ class SideMenu {
     missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
     this.notDirContents.appendChild(missingMsg);
 
-    const openDirBtn: HTMLElement = document.createElement("button");
+    const openDirBtn: HTMLButtonElement = document.createElement("button");
     openDirBtn.innerHTML = SideMenuMessage.OPEN_DIR;
     openDirBtn.addClass("open-btn");
 
     // ディレクトリのダイアログを表示させる
-    openDirBtn.addEventListener("mousedown", () => CallDialog.openDir((path) => this.initDirectoryTree(path)));
+    openDirBtn.addEventListener("mousedown", () => {
+      openDirBtn.disabled = true;
+      CallDialog.openDir((res) => {
+        if (res.canceled) {
+          openDirBtn.disabled = false;
+        }
+        this.initDirectoryTree(res.filePaths[0]);
+      });
+    });
 
     this.notDirContents.appendChild(openDirBtn);
   }

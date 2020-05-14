@@ -10,9 +10,11 @@ import { IPCConstants } from "../../common/constants/systemConstants";
 class CallTitleBarMenu {
   constructor() {
     // ファイル関係
-    renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());
-    renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((path) => Textarea.openfile(path)));
-    renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((path) => SideMenu.initDirectoryTree(path)));
+    // renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());
+    renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((res) => Textarea.openfile(res.filePaths[0])));
+    renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((res) => {
+      SideMenu.initDirectoryTree(res.filePaths[0]);
+    }));
     renderer.on(IPCConstants.MENU_SAVE, () => Textarea.save());
     renderer.on(IPCConstants.MENU_SAVE_AS, () => Textarea.saveAs());
     // 編集関係

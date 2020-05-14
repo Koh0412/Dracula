@@ -17,6 +17,8 @@ export const IPCConstants = {
   MENU_NEW_FILE: "menu-new-file",
   MENU_FIND: "menu-find",
   MENU_REPLACE: "menu-replace",
+  MSG_WARNING: "msg-warning",
+  MSG_WARNING_RES: "msg-warning-res"
 };
 
 /** カスタムのhtml属性の名前 */
