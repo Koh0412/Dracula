@@ -1,12 +1,18 @@
 import Events from "../../common/events";
 
-export default class Resize {
+export class Resize {
   private isResize: boolean = false;
   private resizeable: HTMLElement;
 
   constructor(resizeable: HTMLElement) {
     this.resizeable = resizeable;
-    const parent = resizeable.parentElement;
+  }
+
+  /**
+   * リサイズの適用
+   */
+  public apply(): HTMLElement | null {
+    const parent = this.resizeable.parentElement;
     if (parent) {
       parent.style.position = "relative";
       const css = getComputedStyle(parent);
@@ -21,6 +27,7 @@ export default class Resize {
         }
       });
     }
+    return parent;
   }
 
   /**

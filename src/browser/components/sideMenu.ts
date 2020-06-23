@@ -2,7 +2,7 @@ import pathModule from "path";
 
 import FileIO from "../api/fileIO";
 import CallDialog from "../process/callDialog";
-import Resize from "../lib/resize";
+import { Resize } from "../lib/resize";
 
 import Util from "../../common/util";
 import { AttributeName } from "../../common/constants/systemConstants";
@@ -27,6 +27,7 @@ class SideMenu {
     this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
 
     const resize = new Resize(this.resize);
+    resize.apply();
   }
 
   /**

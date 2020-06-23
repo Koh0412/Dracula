@@ -6,9 +6,8 @@ import "./components/tab";
 import "./components/status";
 
 import "./lib/titleBar";
-import "./lib/shortCut";
 
-import "./process/callTitleBarMenu";
+import "./process";
 
 import "../preload/web/Document";
 import "../preload/web/HTMLElement";
