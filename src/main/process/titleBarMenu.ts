@@ -3,12 +3,7 @@ import { MenuItemConstructorOptions, Menu, MenuItem, BrowserWindow } from "elect
 import { IPCConstants } from "../../common/constants/systemConstants";
 import { MethodType } from "../../common/type/menuMethodType";
 
-class TitleBarMenu {
-
-  constructor() {
-    const menu: Menu = Menu.buildFromTemplate(this.template);
-    Menu.setApplicationMenu(menu);
-  }
+export class TitleBarMenu {
 
   /** windowsかどうか */
   private get isWindows(): boolean {
@@ -16,7 +11,7 @@ class TitleBarMenu {
   }
 
   /** タイトルメニューテンプレート */
-  private get template(): MenuItemConstructorOptions[] {
+  public get template(): MenuItemConstructorOptions[] {
     const template: MenuItemConstructorOptions[] = [
       {
         label: "File",
@@ -129,5 +124,3 @@ class TitleBarMenu {
     };
   }
 }
-
-export default new TitleBarMenu();

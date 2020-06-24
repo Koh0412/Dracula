@@ -1,17 +1,25 @@
 import { BrowserWindow, app, App } from "electron";
-import Window from "./window";
+import { Window } from "./window";
 
 import { initLog, stopAppLog } from "../../common/decorators";
+import { MainProcess } from "../process/mainProcess";
 
-class Core {
-  public window: BrowserWindow | null = null;
-  public app: App;
+export class Core {
+  private window: BrowserWindow | null = null;
+  private app: App;
 
   constructor(app: App) {
     this.app = app;
     this.app.on("window-all-closed", this.onWindowAllClosed.bind(this));
     this.app.on("ready", this.create.bind(this));
     this.app.on("activate", this.onActivated.bind(this));
+  }
+
+  /**
+   * アプリケーションの作成
+   */
+  public static createApplication() {
+    return new Core(app);
   }
 
   /**
@@ -27,8 +35,11 @@ class Core {
    */
   @initLog()
   private create(): void {
-    this.window = Window.create();
-    this.window.on("closed", () => Window.dispose.bind(this));
+    const window = new Window();
+    this.window = window.create();
+
+    MainProcess.dialog.ready(this.window);
+    this.window.on("closed", () => window.dispose.bind(this));
   }
 
   /**
@@ -40,5 +51,3 @@ class Core {
       }
   }
 }
-
-export default new Core(app);

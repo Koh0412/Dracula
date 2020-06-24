@@ -1,6 +1,5 @@
 import { dialog, ipcMain as ipc, BrowserWindow, MessageBoxOptions } from "electron";
 
-import Core from "../core/core";
 import { IPCConstants } from "../../common/constants/systemConstants";
 
 interface IOptionProperty {
@@ -16,21 +15,15 @@ interface IOptionProperty {
 
 type PropertyType = keyof IOptionProperty;
 
-class Dialog {
+export class Dialog {
   private options: Electron.OpenDialogOptions = {};
-
-  constructor() {
-    Core.app.on("ready", () => {
-      this.ready(Core.window);
-    });
-  }
 
   /**
    * ダイアログをIPCから受け取れるように準備状態にする
    *
    * @param win
    */
-  private ready(win: BrowserWindow | null): void {
+  public ready(win: BrowserWindow | null): void {
     if (!win) {
       return;
     }
@@ -91,5 +84,3 @@ class Dialog {
     return dialog.showMessageBox(win, options);
   }
 }
-
-export default new Dialog();

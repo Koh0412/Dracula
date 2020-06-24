@@ -1,7 +1,7 @@
 import { BrowserWindow } from "electron";
 import Common from "../constants/common";
 
-class Window {
+export class Window {
   private instance: BrowserWindow | null = null;
 
   private get options(): Electron.BrowserWindowConstructorOptions {
@@ -48,5 +48,3 @@ class Window {
     this.instance = null;
   }
 }
-
-export default new Window();
