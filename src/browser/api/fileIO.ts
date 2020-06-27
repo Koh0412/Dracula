@@ -2,7 +2,7 @@ import * as fs from "fs-extra";
 import * as path from "path";
 
 import CallDialog from "../process/callDialog";
-import Events from "../../common/events";
+import { eventEmitter } from "../../common/util";
 
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
@@ -94,7 +94,7 @@ class FileIO {
       this.openFileList.push(openFileProp);
     }
 
-    Events.fileEvent("update", path);
+    eventEmitter.emit("update", path);
     return openFileProp;
   }
 
@@ -133,7 +133,7 @@ class FileIO {
    * @param value
    */
   private writeFile(value: string) {
-    Events.fileEvent("save", this.filePath);
+    eventEmitter.emit("save", this.filePath);
     fs.writeFileSync(this.filePath, value);
   }
 }

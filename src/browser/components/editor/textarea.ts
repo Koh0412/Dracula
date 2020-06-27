@@ -5,8 +5,7 @@ import aceConf from "../../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage } from "../../../common/constants/messageConstants";
 import { IOpenFile } from "../../../common/definition/IOpenFile";
-import Events from "../../../common/events";
-import Util from "../../../common/util";
+import { eventEmitter } from "../../../common/util";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -24,25 +23,23 @@ class Textarea extends BaseEditor {
         if (openFileItem) {
           openFileItem.text = this.value;
         }
-        Events.textareaEvent("textChange", this.isDirty);
+        eventEmitter.emit("textChange", this.isDirty);
       }
     });
 
-    Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
-      this.updateValue(e.detail.path);
-    });
+    eventEmitter.on("fileClick", (openFile: IOpenFile) => this.updateValue(openFile.path));
 
-    Util.addCustomEventListener<HTMLElement>("tab", (e) => {
-      if (e.detail) {
-        this.updateValue(e.detail.title);
+    eventEmitter.on("tab", (tab: HTMLElement) => {
+      if (tab) {
+        this.updateValue(tab.title);
       } else {
         this.init();
       }
     });
     const editorMainArea: HTMLElement = document.getElement("editor-main");
 
-    Util.addCustomEventListener<CSSStyleDeclaration>("resize", (e) => {
-      editorMainArea.style.width = `calc(100% - ${e.detail.width})`;
+    eventEmitter.on("resize", (width: number) => {
+      editorMainArea.style.width = `calc(100% - ${width})`;
     });
   }
 
@@ -71,7 +68,7 @@ class Textarea extends BaseEditor {
    * @param path
    */
   public openfile(path: string): void {
-    Events.fileEvent("open", path);
+    eventEmitter.emit("open", path);
     this.updateValue(path);
   }
 
@@ -104,7 +101,7 @@ class Textarea extends BaseEditor {
     FileIO.setPath("");
     this.setValue("");
     this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
-    Events.fileEvent("update", StatusMessage.UNTITLED);
+    eventEmitter.emit("update", StatusMessage.UNTITLED);
 
     this.textarea.container.hidden = true;
     this.noFileMsg.removeClass("hide");

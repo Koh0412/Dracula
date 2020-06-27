@@ -1,16 +1,15 @@
 import pathModule from "path";
 import * as customBar from "custom-electron-titlebar";
 
-import Util from "../../common/util";
-import { IFileEvent } from "../../common/definition/event/IFileEvent";
+import { eventEmitter } from "../../common/util";
 
 class TitleBar {
   private instance: customBar.Titlebar | null = null;
   constructor() {
     this.instance = this.create();
 
-    Util.addCustomEventListener<IFileEvent>("update", (e) => {
-      const name = pathModule.basename(e.detail.filePath);
+    eventEmitter.on("update", (path: string) => {
+      const name = pathModule.basename(path);
       this.updateTitle(name);
     });
   }

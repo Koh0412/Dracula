@@ -1,4 +1,4 @@
-import Events from "../../common/events";
+import { eventEmitter } from "../../common/util";
 
 export class Resize {
   private isResize: boolean = false;
@@ -22,7 +22,7 @@ export class Resize {
           document.body.style.cursor = "ew-resize";
           if (parseInt(css.minWidth, 10) < e.clientX && e.clientX < parseInt(css.maxWidth, 10)) {
             parent.style.width = `${e.clientX}px`;
-            Events.resizeEvent("resize", parent.style);
+            eventEmitter.emit("resize", parent.style.width);
           }
         }
       });

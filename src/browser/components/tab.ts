@@ -4,11 +4,9 @@ import FileIO from "api/fileIO";
 import CallDialog from "process/callDialog";
 import Textarea from "./editor/textarea";
 
-import Util from "../../common/util";
-import Events from "../../common/events";
+import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 import { IOpenFile } from "../../common/definition/IOpenFile";
-import { IFileEvent } from "../../common/definition/event/IFileEvent";
 import { MessageType, Buttons } from "../../common/constants/systemConstants";
 import { DialogMessage } from "../../common/constants/messageConstants";
 
@@ -21,26 +19,21 @@ class Tab {
   constructor() {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
 
-    Util.addCustomEventListener<IOpenFile>("fileClick", (e) => {
-      this.create(e.detail.text, e.detail.path);
-    });
-
-    Util.addCustomEventListener<IFileEvent>("open", (e) => {
-      const filePath = e.detail.filePath;
-      if (filePath) {
-        const name = pathModule.basename(filePath);
-        this.create(name, filePath);
+    eventEmitter.on("fileClick", (openFile: IOpenFile) => this.create(openFile.text, openFile.path));
+    eventEmitter.on("open", (path: string) => {
+      if (path) {
+        const name = pathModule.basename(path);
+        this.create(name, path);
       }
     });
 
-    Util.addCustomEventListener<IFileEvent>("save", () => {
+    eventEmitter.on("save", () => {
       if (this.current) {
         this.current.removeClass("editor-dirty");
       }
     });
 
-    Util.addCustomEventListener<boolean>("textChange", (e) => {
-      const isDirty: boolean = e.detail;
+    eventEmitter.on("textChange", (isDirty) => {
       if (this.current) {
         if (isDirty) {
           this.current.addClass("editor-dirty");
@@ -139,7 +132,7 @@ class Tab {
       this.index++;
     }
     this.previous = this.listItems[this.index];
-    Events.tabEvent("tab", this.previous);
+    eventEmitter.emit("tab", this.previous);
 
     if (this.previous) {
       this.previous.addClass("focus-item");
@@ -192,7 +185,7 @@ class Tab {
     Util.clearFocus(this.listItems);
     this.index = this.listItems.indexOf(target.element);
     target.element.addClass("focus-item");
-    Events.tabEvent("tab", target.element);
+    eventEmitter.emit("tab", target.element);
   }
 }
 

@@ -4,8 +4,7 @@ import Cursor from "./editor/cursor";
 import EditSession from "../components/editor/editSession";
 import FileExtension from "../api/fileExtension";
 
-import { IFileEvent } from "../../common/definition/event/IFileEvent";
-import Util from "../../common/util";
+import Util, { eventEmitter } from "../../common/util";
 import { StatusMessage } from "../../common/constants/messageConstants";
 
 /** ステータスバー */
@@ -33,14 +32,12 @@ class Status {
       lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
     });
 
-    Util.addCustomEventListener<IFileEvent>("save", (e) => {
-      this.addSaveMessage(e.detail.filePath);
-    });
+    eventEmitter.on("save", (path: string) => this.addSaveMessage(path));
 
-    Util.addCustomEventListener<IFileEvent>("update", (e) => {
-      this.setPath(e.detail.filePath);
+    eventEmitter.on("update", (path: string) => {
+      this.setPath(path);
 
-      const extension = pathModule.extname(e.detail.filePath);
+      const extension = pathModule.extname(path);
       EditSession.setMode(FileExtension.autoJudgement(extension));
       modeSelect.value = EditSession.modeName;
     });

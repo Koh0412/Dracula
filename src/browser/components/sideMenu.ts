@@ -4,12 +4,12 @@ import FileIO from "../api/fileIO";
 import CallDialog from "../process/callDialog";
 import { Resize } from "../lib/resize";
 
-import Util from "../../common/util";
+import Util, { eventEmitter } from "../../common/util";
 import { AttributeName } from "../../common/constants/systemConstants";
 import { SideMenuMessage } from "../../common/constants/messageConstants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { IElementOptions } from "../../common/definition/IElementOptions";
-import Events from "../../common/events";
+import { IOpenFile } from "../../common/definition/IOpenFile";
 
 /** サイドメニュー */
 class SideMenu {
@@ -150,7 +150,8 @@ class SideMenu {
         }
       }
     } else {
-      Events.customClickEvent("fileClick", { text: target.element.innerHTML, path });
+      const openFile: IOpenFile = { text: target.element.innerHTML, path };
+      eventEmitter.emit("fileClick", openFile);
     }
   }
 
