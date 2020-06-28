@@ -7,8 +7,7 @@ import Textarea from "./editor/textarea";
 import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo } from "../../common/definition/ITargetInfo";
 import { IOpenFile } from "../../common/definition/IOpenFile";
-import { MessageType, Buttons } from "../../common/constants/systemConstants";
-import { DialogMessage } from "../../common/constants/messageConstants";
+import { MessageType, Buttons, DialogMessage } from "../../common/constants";
 
 /** タブに関するクラス */
 class Tab {

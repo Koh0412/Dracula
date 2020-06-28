@@ -5,8 +5,7 @@ import CallDialog from "../process/callDialog";
 import { Resize } from "../lib/resize";
 
 import Util, { eventEmitter } from "../../common/util";
-import { AttributeName } from "../../common/constants/systemConstants";
-import { SideMenuMessage } from "../../common/constants/messageConstants";
+import { AttributeName, SideMenuMessage } from "../../common/constants";
 import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
 import { IElementOptions } from "../../common/definition/IElementOptions";
 import { IOpenFile } from "../../common/definition/IOpenFile";

@@ -1,6 +1,6 @@
 import { MenuItemConstructorOptions, Menu, MenuItem, BrowserWindow } from "electron";
 
-import { IPCConstants } from "../../common/constants/systemConstants";
+import { IPCConstants } from "../../common/constants";
 import { MethodType } from "../../common/type/menuMethodType";
 
 export class TitleBarMenu {

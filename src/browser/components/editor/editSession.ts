@@ -1,5 +1,5 @@
 import { BaseEditor } from "./base/baseEditor";
-import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants/editorConstants";
+import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants";
 
 /** セッション周りのクラス */
 class EditSession extends BaseEditor {

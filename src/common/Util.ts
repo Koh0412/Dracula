@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 
-import { IconName, AttributeName } from "./constants/systemConstants";
+import { IconName, AttributeName } from "./constants";
 import { ITargetInfo } from "./definition/ITargetInfo";
 import { IElementOptions } from "./definition/IElementOptions";
 

@@ -1,6 +1,6 @@
 import { dialog, ipcMain as ipc, BrowserWindow, MessageBoxOptions } from "electron";
 
-import { IPCConstants } from "../../common/constants/systemConstants";
+import { IPCConstants } from "../../common/constants";
 
 interface IOptionProperty {
   openFile: string;

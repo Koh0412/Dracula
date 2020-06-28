@@ -3,7 +3,7 @@ import { BaseEditor } from "./base/baseEditor";
 import FileIO from "../../api/fileIO";
 import aceConf from "../../../../aceconfig.json";
 
-import { EditorMessage, StatusMessage } from "../../../common/constants/messageConstants";
+import { EditorMessage, StatusMessage } from "../../../common/constants";
 import { IOpenFile } from "../../../common/definition/IOpenFile";
 import { eventEmitter } from "../../../common/util";
 

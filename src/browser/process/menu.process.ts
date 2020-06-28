@@ -5,7 +5,7 @@ import Search from "../components/editor/search";
 import SideMenu from "../components/sideMenu";
 
 import CallDialog from "./callDialog";
-import { IPCConstants } from "../../common/constants/systemConstants";
+import { IPCConstants } from "../../common/constants";
 
 // ファイル関係
 // renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());

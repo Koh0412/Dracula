@@ -5,7 +5,7 @@ import EditSession from "../components/editor/editSession";
 import FileExtension from "../api/fileExtension";
 
 import Util, { eventEmitter } from "../../common/util";
-import { StatusMessage } from "../../common/constants/messageConstants";
+import { StatusMessage } from "../../common/constants";
 
 /** ステータスバー */
 class Status {
