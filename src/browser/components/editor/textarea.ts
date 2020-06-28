@@ -3,7 +3,7 @@ import { BaseEditor } from "./base/baseEditor";
 import FileIO from "../../api/fileIO";
 import aceConf from "../../../../aceconfig.json";
 
-import { EditorMessage, StatusMessage } from "../../../common/constants";
+import { EditorMessage, StatusMessage, EventName } from "../../../common/constants";
 import { IOpenFile } from "../../../common/definition/IOpenFile";
 import { eventEmitter } from "../../../common/util";
 
@@ -23,13 +23,13 @@ class Textarea extends BaseEditor {
         if (openFileItem) {
           openFileItem.text = this.value;
         }
-        eventEmitter.emit("textChange", this.isDirty);
+        eventEmitter.emit(EventName.TEXT_CHANGE, this.isDirty);
       }
     });
 
-    eventEmitter.on("fileClick", (openFile: IOpenFile) => this.updateValue(openFile.path));
+    eventEmitter.on(EventName.FILE_CLICK, (openFile: IOpenFile) => this.updateValue(openFile.path));
 
-    eventEmitter.on("tab", (tab: HTMLElement) => {
+    eventEmitter.on(EventName.TAB, (tab: HTMLElement) => {
       if (tab) {
         this.updateValue(tab.title);
       } else {
@@ -38,7 +38,7 @@ class Textarea extends BaseEditor {
     });
     const editorMainArea: HTMLElement = document.getElement("editor-main");
 
-    eventEmitter.on("resize", (width: number) => {
+    eventEmitter.on(EventName.RESIZE, (width: number) => {
       editorMainArea.style.width = `calc(100% - ${width})`;
     });
   }
@@ -68,7 +68,7 @@ class Textarea extends BaseEditor {
    * @param path
    */
   public openfile(path: string): void {
-    eventEmitter.emit("open", path);
+    eventEmitter.emit(EventName.OPEN, path);
     this.updateValue(path);
   }
 
@@ -101,7 +101,7 @@ class Textarea extends BaseEditor {
     FileIO.setPath("");
     this.setValue("");
     this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
-    eventEmitter.emit("update", StatusMessage.UNTITLED);
+    eventEmitter.emit(EventName.UPDATE, StatusMessage.UNTITLED);
 
     this.textarea.container.hidden = true;
     this.noFileMsg.removeClass("hide");

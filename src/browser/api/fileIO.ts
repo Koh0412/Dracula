@@ -5,6 +5,7 @@ import CallDialog from "../process/callDialog";
 import { eventEmitter } from "../../common/util";
 
 import { IOpenFile, IOpenDirectory } from "../../common/definition";
+import { EventName } from "../../common/constants";
 
 class FileIO {
   public currentText: string = "";
@@ -93,7 +94,7 @@ class FileIO {
       this.openFileList.push(openFileProp);
     }
 
-    eventEmitter.emit("update", path);
+    eventEmitter.emit(EventName.UPDATE, path);
     return openFileProp;
   }
 
@@ -132,7 +133,7 @@ class FileIO {
    * @param value
    */
   private writeFile(value: string) {
-    eventEmitter.emit("save", this.filePath);
+    eventEmitter.emit(EventName.SAVE, this.filePath);
     fs.writeFileSync(this.filePath, value);
   }
 }

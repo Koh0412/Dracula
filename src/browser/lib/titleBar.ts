@@ -2,13 +2,14 @@ import pathModule from "path";
 import * as customBar from "custom-electron-titlebar";
 
 import { eventEmitter } from "../../common/util";
+import { EventName } from "../../common/constants";
 
 class TitleBar {
   private instance: customBar.Titlebar | null = null;
   constructor() {
     this.instance = this.create();
 
-    eventEmitter.on("update", (path: string) => {
+    eventEmitter.on(EventName.UPDATE, (path: string) => {
       const name = pathModule.basename(path);
       this.updateTitle(name);
     });

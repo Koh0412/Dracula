@@ -5,7 +5,7 @@ import EditSession from "../components/editor/editSession";
 import FileExtension from "../api/fileExtension";
 
 import Util, { eventEmitter } from "../../common/util";
-import { StatusMessage } from "../../common/constants";
+import { StatusMessage, EventName } from "../../common/constants";
 
 /** ステータスバー */
 class Status {
@@ -32,9 +32,9 @@ class Status {
       lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
     });
 
-    eventEmitter.on("save", (path: string) => this.addSaveMessage(path));
+    eventEmitter.on(EventName.SAVE, (path: string) => this.addSaveMessage(path));
 
-    eventEmitter.on("update", (path: string) => {
+    eventEmitter.on(EventName.UPDATE, (path: string) => {
       this.setPath(path);
 
       const extension = pathModule.extname(path);

@@ -6,7 +6,7 @@ import Textarea from "./editor/textarea";
 
 import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo, IOpenFile } from "../../common/definition";
-import { MessageType, Buttons, DialogMessage } from "../../common/constants";
+import { MessageType, Buttons, DialogMessage, EventName } from "../../common/constants";
 
 /** タブに関するクラス */
 class Tab {
@@ -17,21 +17,21 @@ class Tab {
   constructor() {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
 
-    eventEmitter.on("fileClick", (openFile: IOpenFile) => this.create(openFile.text, openFile.path));
-    eventEmitter.on("open", (path: string) => {
+    eventEmitter.on(EventName.FILE_CLICK, (openFile: IOpenFile) => this.create(openFile.text, openFile.path));
+    eventEmitter.on(EventName.OPEN, (path: string) => {
       if (path) {
         const name = pathModule.basename(path);
         this.create(name, path);
       }
     });
 
-    eventEmitter.on("save", () => {
+    eventEmitter.on(EventName.SAVE, () => {
       if (this.current) {
         this.current.removeClass("editor-dirty");
       }
     });
 
-    eventEmitter.on("textChange", (isDirty) => {
+    eventEmitter.on(EventName.TEXT_CHANGE, (isDirty) => {
       if (this.current) {
         if (isDirty) {
           this.current.addClass("editor-dirty");
@@ -130,7 +130,7 @@ class Tab {
       this.index++;
     }
     this.previous = this.listItems[this.index];
-    eventEmitter.emit("tab", this.previous);
+    eventEmitter.emit(EventName.TAB, this.previous);
 
     if (this.previous) {
       this.previous.addClass("focus-item");
@@ -183,7 +183,7 @@ class Tab {
     Util.clearFocus(this.listItems);
     this.index = this.listItems.indexOf(target.element);
     target.element.addClass("focus-item");
-    eventEmitter.emit("tab", target.element);
+    eventEmitter.emit(EventName.TAB, target.element);
   }
 }
 

@@ -5,7 +5,7 @@ import CallDialog from "../process/callDialog";
 import { Resize } from "../lib/resize";
 
 import Util, { eventEmitter } from "../../common/util";
-import { AttributeName, SideMenuMessage } from "../../common/constants";
+import { AttributeName, SideMenuMessage, EventName } from "../../common/constants";
 import { IOpenDirectory, IElementOptions, IOpenFile } from "../../common/definition";
 
 /** サイドメニュー */
@@ -148,7 +148,7 @@ class SideMenu {
       }
     } else {
       const openFile: IOpenFile = { text: target.element.innerHTML, path };
-      eventEmitter.emit("fileClick", openFile);
+      eventEmitter.emit(EventName.FILE_CLICK, openFile);
     }
   }
 
