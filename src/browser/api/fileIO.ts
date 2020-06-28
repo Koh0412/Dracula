@@ -4,8 +4,7 @@ import * as path from "path";
 import CallDialog from "../process/callDialog";
 import { eventEmitter } from "../../common/util";
 
-import { IOpenFile } from "../../common/definition/IOpenFile";
-import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
+import { IOpenFile, IOpenDirectory } from "../../common/definition";
 
 class FileIO {
   public currentText: string = "";

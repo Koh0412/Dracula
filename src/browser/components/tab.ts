@@ -5,8 +5,7 @@ import CallDialog from "process/callDialog";
 import Textarea from "./editor/textarea";
 
 import Util, { eventEmitter } from "../../common/util";
-import { ITargetInfo } from "../../common/definition/ITargetInfo";
-import { IOpenFile } from "../../common/definition/IOpenFile";
+import { ITargetInfo, IOpenFile } from "../../common/definition";
 import { MessageType, Buttons, DialogMessage } from "../../common/constants";
 
 /** タブに関するクラス */

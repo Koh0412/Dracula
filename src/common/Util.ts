@@ -1,8 +1,7 @@
 import { EventEmitter } from "events";
 
 import { IconName, AttributeName } from "./constants";
-import { ITargetInfo } from "./definition/ITargetInfo";
-import { IElementOptions } from "./definition/IElementOptions";
+import { ITargetInfo, IElementOptions } from "./definition";
 
 type ListItemType = "li" | "ul" | "ol";
 

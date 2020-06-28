@@ -6,9 +6,7 @@ import { Resize } from "../lib/resize";
 
 import Util, { eventEmitter } from "../../common/util";
 import { AttributeName, SideMenuMessage } from "../../common/constants";
-import { IOpenDirectory } from "../../common/definition/IOpenDirectory";
-import { IElementOptions } from "../../common/definition/IElementOptions";
-import { IOpenFile } from "../../common/definition/IOpenFile";
+import { IOpenDirectory, IElementOptions, IOpenFile } from "../../common/definition";
 
 /** サイドメニュー */
 class SideMenu {
