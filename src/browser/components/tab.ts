@@ -31,7 +31,7 @@ class Tab {
       }
     });
 
-    eventEmitter.on(EventName.TEXT_CHANGE, (isDirty) => {
+    eventEmitter.on(EventName.TEXT_CHANGE, (isDirty: boolean) => {
       if (this.current) {
         if (isDirty) {
           this.current.addClass("editor-dirty");

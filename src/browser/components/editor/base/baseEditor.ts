@@ -27,6 +27,14 @@ export class BaseEditor {
   protected setValue(value: string): string {
     return this.textarea.setValue(value);
   }
+
+  /**
+   * エディタコンテナのhiddenプロパティに値をセット
+   * @param isHidden
+   */
+  protected setHidden(isHidden: boolean): boolean {
+    return this.textarea.container.hidden = isHidden;
+  }
 }
 
 export default new BaseEditor();

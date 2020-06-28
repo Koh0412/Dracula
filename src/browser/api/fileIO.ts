@@ -12,6 +12,13 @@ class FileIO {
   public openFileList: IOpenFile[] = [];
   private filePath: string = "";
 
+  /** リストの中から現在開かれているファイルを取得 */
+  public get openedFile(): IOpenFile | undefined {
+    return this.openFileList.find((file) => {
+      return file.path === this.filePath;
+    });
+  }
+
   /** ファイルパスが空か */
   private get isEmptyPath(): boolean {
     return this.filePath === "";
@@ -19,16 +26,17 @@ class FileIO {
 
   /** リストの中のopenFileが現在のパスをもっているかどうか */
   private get isOpenFilesHasPath(): boolean {
-    return this.openFileList.some((prop) => {
-      return prop.path === this.filePath;
+    return this.openFileList.some((file) => {
+      return file.path === this.filePath;
     });
   }
 
-  /** リストの中から現在ファイルパスを持っているものを見つける */
-  public findOpenFile(): IOpenFile | undefined {
-    return this.openFileList.find((prop) => {
-      return prop.path === this.filePath;
-    });
+  /**
+   * `path`をfilePathにセット
+   * @param path
+   */
+  public setPath(path: string): void {
+    this.filePath = path;
   }
 
   /**
@@ -36,8 +44,8 @@ class FileIO {
    * @param path
    */
   public removeOpenFile(path: string) {
-    this.openFileList = this.openFileList.filter((prop) => {
-      return prop.path !== path;
+    this.openFileList = this.openFileList.filter((file) => {
+      return file.path !== path;
     });
   }
 
@@ -86,9 +94,9 @@ class FileIO {
     };
 
     if (this.isOpenFilesHasPath) {
-      const prop = this.findOpenFile();
-      if (prop) {
-        openFileProp.text = prop.text;
+      const file = this.openedFile;
+      if (file) {
+        openFileProp.text = file.text;
       }
     } else {
       this.openFileList.push(openFileProp);
@@ -118,14 +126,6 @@ class FileIO {
       };
       directoryList.push(prop);
     });
-  }
-
-  /**
-   * `path`をfilePathにセット
-   * @param path
-   */
-  public setPath(path: string): void {
-    this.filePath = path;
   }
 
   /**

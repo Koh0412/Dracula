@@ -5,7 +5,7 @@ import aceConf from "../../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage, EventName } from "../../../common/constants";
 import { IOpenFile } from "../../../common/definition/IOpenFile";
-import { eventEmitter } from "../../../common/util";
+import Util, { eventEmitter } from "../../../common/util";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -19,9 +19,9 @@ class Textarea extends BaseEditor {
 
     this.textarea.on("change", () => {
       if (this.isFocus) {
-        const openFileItem = FileIO.findOpenFile();
-        if (openFileItem) {
-          openFileItem.text = this.value;
+        const file = FileIO.openedFile;
+        if (file) {
+          file.text = this.value;
         }
         eventEmitter.emit(EventName.TEXT_CHANGE, this.isDirty);
       }
@@ -36,11 +36,9 @@ class Textarea extends BaseEditor {
         this.init();
       }
     });
-    const editorMainArea: HTMLElement = document.getElement("editor-main");
 
-    eventEmitter.on(EventName.RESIZE, (width: number) => {
-      editorMainArea.style.width = `calc(100% - ${width})`;
-    });
+    const editorMainArea: HTMLElement = document.getElement("editor-main");
+    eventEmitter.on(EventName.RESIZE, (width: number) => editorMainArea.style.width = Util.calc(width));
   }
 
   /** valueが書き換えられているかどうか */
@@ -114,7 +112,9 @@ class Textarea extends BaseEditor {
    * @param path
    */
   private updateValue(path: string): void {
-    this.textarea.container.hidden = false;
+    if (!this.noFileMsg.classList.contains("hide")) {
+      this.setHidden(false);
+    }
     this.noFileMsg.addClass("hide");
 
     const openFile = FileIO.open(path);
