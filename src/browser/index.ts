@@ -5,7 +5,7 @@ import "./components/sideMenu";
 import "./components/tab";
 import "./components/status";
 
-import "./lib/titleBar";
+import "./modules/titleBar";
 
 import "./process";
 

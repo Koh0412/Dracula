@@ -2,7 +2,7 @@ import pathModule from "path";
 
 import FileIO from "../api/fileIO";
 import CallDialog from "../process/callDialog";
-import { Resize } from "../lib/resize";
+import { Resize } from "../modules/resize";
 
 import Util, { eventEmitter } from "../../common/util";
 import { AttributeName, SideMenuMessage, EventName } from "../../common/constants";
