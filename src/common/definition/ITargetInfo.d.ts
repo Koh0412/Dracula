@@ -5,6 +5,7 @@ export interface ITargetInfo {
   title: string;
 }
 
+/** 属性の情報 */
 export interface IAttribute {
   dataType: DataType;
   dataIsDirectory: string | null;
