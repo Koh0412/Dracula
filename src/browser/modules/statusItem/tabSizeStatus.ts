@@ -4,18 +4,18 @@ import { StatusMessage } from "../../../common/constants";
 
 /** タブサイズの選択に関するステータスクラス */
 export class TabSizeStatus implements IStatus {
-  public statusElement: HTMLSelectElement;
+  public mainElement: HTMLSelectElement;
   private tabSizes: string[] = EditSession.availableTabSize;
 
   constructor() {
-    this.statusElement = this.create();
+    this.mainElement = this.create();
 
-    this.statusElement.addEventListener("change", () => {
-      EditSession.setTabsize(Number(this.statusElement.value));
+    this.mainElement.addEventListener("change", () => {
+      EditSession.setTabsize(Number(this.mainElement.value));
     });
 
-    this.statusElement.value = EditSession.tabSize.toLocaleString();
-    this.statusElement.title =  StatusMessage.TABSIZE_TITLE;
+    this.mainElement.value = EditSession.tabSize.toLocaleString();
+    this.mainElement.title =  StatusMessage.TABSIZE_TITLE;
   }
 
   public create(): HTMLSelectElement {

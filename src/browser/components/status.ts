@@ -23,10 +23,10 @@ class Status {
    * ステータスバーにリストを作成
    * @param statusItems
    */
-  private create(...statusClasses: Array<new() => any>) {
+  private create(...statusClasses: Array<new() => IStatus>) {
     for (const Class of statusClasses) {
-      const status: IStatus = new Class();
-      this.item.appendChild(status.statusElement);
+      const status = new Class();
+      this.item.appendChild(status.mainElement);
     }
   }
 

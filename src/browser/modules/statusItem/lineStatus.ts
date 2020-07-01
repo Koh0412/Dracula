@@ -6,14 +6,14 @@ import Cursor from "components/editor/cursor";
 /** 行数, 列に関するステータスクラス */
 export class LineStatus implements IStatus {
 
-  public statusElement: HTMLElement;
+  public mainElement: HTMLElement;
   public textContent: string = StatusMessage.INIT_POSITION;
 
   constructor() {
-    this.statusElement = this.create();
+    this.mainElement = this.create();
 
     Cursor.change(() => {
-      this.statusElement.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
+      this.mainElement.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
     });
   }
 

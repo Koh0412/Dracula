@@ -8,15 +8,15 @@ import FileExtension from "api/fileExtension";
 
 /** 言語の選択に関するステータスクラス */
 export class ModeSelectStatus implements IStatus {
-  public statusElement: HTMLSelectElement;
+  public mainElement: HTMLSelectElement;
   private modes: string[] = EditSession.availableModes;
 
   constructor() {
-    this.statusElement = this.create();
-    this.statusElement.addEventListener("change", () => EditSession.setMode(this.statusElement.value));
+    this.mainElement = this.create();
+    this.mainElement.addEventListener("change", () => EditSession.setMode(this.mainElement.value));
 
-    this.statusElement.value = EditSession.modeName;
-    this.statusElement.title =  StatusMessage.MODE_TITLE;
+    this.mainElement.value = EditSession.modeName;
+    this.mainElement.title =  StatusMessage.MODE_TITLE;
 
     eventEmitter.on(EventName.UPDATE, (path: string) => this.setLanguage(path));
   }
@@ -37,6 +37,6 @@ export class ModeSelectStatus implements IStatus {
   private setLanguage(path: string): void {
     const extension = pathModule.extname(path);
     EditSession.setMode(FileExtension.autoJudgement(extension));
-    this.statusElement.value = EditSession.modeName;
+    this.mainElement.value = EditSession.modeName;
   }
 }
