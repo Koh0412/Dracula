@@ -6,7 +6,7 @@ import Textarea from "./editor/textarea";
 
 import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo, IOpenFile } from "../../common/definition";
-import { MessageType, Buttons, DialogMessage, EventName } from "../../common/constants";
+import { EventName, ButtonValue } from "../../common/constants";
 
 /** タブに関するクラス */
 class Tab {
@@ -100,17 +100,12 @@ class Tab {
   private confirmRemove(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
 
-    CallDialog.warning({
-      detail: DialogMessage.warn.CATION,
-      type: MessageType.WARN,
-      buttons: Buttons.FILE,
-      message: DialogMessage.warn.MODIFY,
-    }, (res) => {
+    CallDialog.warning((res) => {
       switch (res) {
-        case 0:
+        case ButtonValue.File.SAVE:
           Textarea.save();
           break;
-        case 1:
+        case ButtonValue.File.NO_SAVE:
           FileIO.removeOpenFile(target.title);
           this.remove(target);
           break;

@@ -6,6 +6,8 @@ export interface ITargetInfo {
 }
 
 export interface IAttribute {
-  dataType: string | null;
+  dataType: DataType;
   dataIsDirectory: string | null;
 }
+
+export type DataType = "close" | "icon";

@@ -1,5 +1,5 @@
 import { ipcRenderer as renderer, MessageBoxOptions, OpenDialogReturnValue } from "electron";
-import { IPCConstants } from "../../common/constants";
+import { IPCConstants, DialogMessage, DialogType, ButtonsText } from "../../common/constants";
 
 /** メインプロセスのダイアログの呼び出しクラス */
 class CallDialog {
@@ -48,10 +48,14 @@ class CallDialog {
    * @param options
    * @param callback
    */
-  public warning(
-    options: MessageBoxOptions,
-    callback?: (responseNum: number) => void,
-  ) {
+  public warning(callback?: (responseNum: number) => void, options?: MessageBoxOptions): void {
+    options = {
+      detail: DialogMessage.warn.CATION,
+      type: DialogType.WARN,
+      buttons: ButtonsText.FILE,
+      message: DialogMessage.warn.MODIFY,
+    };
+
     renderer.send(IPCConstants.MSG_WARNING, options);
     if (callback) {
       renderer.on(IPCConstants.MSG_WARNING_RES, (_, responseNum: number) => {

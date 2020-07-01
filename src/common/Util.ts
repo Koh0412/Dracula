@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 
 import { IconName, AttributeName } from "./constants";
-import { ITargetInfo, IElementOptions } from "./definition";
+import { ITargetInfo, IElementOptions, DataType } from "./definition";
 
 type ListItemType = "li" | "ul" | "ol";
 
@@ -34,7 +34,7 @@ class Util {
   }
 
   /**
-   * <li>要素を生成 optionsで設定
+   * li要素を生成 optionsで設定
    * @param tagName
    * @param options
    */
@@ -79,8 +79,8 @@ class Util {
    */
   public EventTargetInfo(click: MouseEvent): ITargetInfo {
     let target: HTMLElement = click.target as HTMLElement;
-    const dataType: string | null = target.getAttribute(AttributeName.DATA_TYPE);
-    // クリックした要素がiconなら親要素を参照
+    const dataType = target.getAttribute(AttributeName.DATA_TYPE) as DataType;
+    // クリックした要素がiconまたはcloseなら親要素を参照
     if (dataType === "icon" || dataType === "close") {
       target = target.parentElement as HTMLElement;
     }

@@ -27,25 +27,25 @@ export const AttributeName = {
   DATA_ISDIRECTORY: "data-isDirectory",
 };
 
-export const MessageType = {
+/** メッセージダイアログのタイプ */
+export const DialogType = {
   WARN: "warning",
   INFO: "info"
 };
 
-export const Buttons = {
+/** ダイアログのボタンのテキスト */
+export const ButtonsText = {
   DEFAULT: ["Yes", "No"],
   FILE: ["Save", "No Save", "Cancel"],
 };
 
-/** キーコード */
-export enum Keybind {
-  atMark = "CmdOrCtrl+@",
-  O = "CmdOrCtrl+O",
-  S = "CmdOrCtrl+S",
-  Q = "CmdOrCtrl+Q",
-  ShiftO = "CmdOrCtrl+Shift+O",
-  ShiftS = "CmdOrCtrl+Shift+S"
-}
+/** クリックしたダイアログのボタンの値 */
+export const ButtonValue = {
+  File: {
+    SAVE: 0,
+    NO_SAVE: 1
+  }
+};
 
 /** material iconの名前 */
 export enum IconName {

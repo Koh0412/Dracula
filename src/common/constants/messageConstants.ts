@@ -18,6 +18,7 @@ export const EditorMessage = {
   NO_FILE: "There are no files currently open"
 };
 
+/** ダイアログの定型メッセージ */
 export const DialogMessage = {
   warn: {
     MODIFY: "Do you want to save the modifications?",

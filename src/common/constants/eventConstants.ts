@@ -1,3 +1,4 @@
+/** 自分で定義するイベントの名前 */
 export const EventName = {
   SAVE: "save",
   UPDATE: "update",
