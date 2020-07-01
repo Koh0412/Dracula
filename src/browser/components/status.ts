@@ -1,11 +1,9 @@
-import pathModule from "path";
-
-import Cursor from "./editor/cursor";
-import EditSession from "../components/editor/editSession";
-import FileExtension from "../api/fileExtension";
-
-import Util, { eventEmitter } from "../../common/util";
+import { eventEmitter } from "../../common/util";
 import { StatusMessage, EventName } from "../../common/constants";
+import { IStatus } from "../../common/definition";
+import { LineStatus } from "../modules/statusItem/lineStatus";
+import { ModeSelectStatus } from "modules/statusItem/modeSelectStatus";
+import { TabSizeStatus } from "modules/statusItem/tabSizeStatus";
 
 /** ステータスバー */
 class Status {
@@ -13,34 +11,23 @@ class Status {
   private item: HTMLElement = document.getElement("status-item");
 
   constructor() {
-    const lines = this.createStatusItem(StatusMessage.INIT_POSITION);
     this.path.innerHTML = StatusMessage.UNTITLED;
 
-    const modeSelect = this.createStatusSelectItem(EditSession.availableModes, () => {
-      EditSession.setMode(modeSelect.value);
-    });
-    modeSelect.value = EditSession.modeName;
-    modeSelect.title = StatusMessage.MODE_TITLE;
-
-    const tabSelect = this.createStatusSelectItem(EditSession.availableTabSize, () => {
-      EditSession.setTabsize(Number(tabSelect.value));
-    });
-    tabSelect.value = EditSession.tabSize.toLocaleString();
-    tabSelect.title = StatusMessage.TABSIZE_TITLE;
-
-    Cursor.change(() => {
-      lines.innerHTML = `Ln ${Cursor.row}, Col ${Cursor.column}`;
-    });
+    this.create(LineStatus, ModeSelectStatus, TabSizeStatus);
 
     eventEmitter.on(EventName.SAVE, (path: string) => this.addSaveMessage(path));
+    eventEmitter.on(EventName.UPDATE, (path: string) => this.setPath(path));
+  }
 
-    eventEmitter.on(EventName.UPDATE, (path: string) => {
-      this.setPath(path);
-
-      const extension = pathModule.extname(path);
-      EditSession.setMode(FileExtension.autoJudgement(extension));
-      modeSelect.value = EditSession.modeName;
-    });
+  /**
+   * ステータスバーにリストを作成
+   * @param statusItems
+   */
+  private create(...statusClasses: Array<new() => any>) {
+    for (const Class of statusClasses) {
+      const status: IStatus = new Class();
+      this.item.appendChild(status.statusElement);
+    }
   }
 
   /**
@@ -53,49 +40,6 @@ class Status {
     setTimeout(() => {
       this.path.innerHTML = filePath;
     }, 1500);
-  }
-
-  /**
-   * - ステータスバーの各アイテムを1つ生成する(listItem形式)
-   * - `callback`はclickされた時の処理
-   * @param name
-   * @param callback
-   */
-  private createStatusItem(name: string, callback?: (event: MouseEvent) => void): HTMLElement {
-    const li: HTMLElement = Util.createListItemElement("li", { text: name });
-
-    li.addClass("status-item-list");
-    this.item.appendChild(li);
-
-    if (callback) {
-      li.addEventListener("click", (event) => {
-        callback(event);
-      });
-    }
-
-    return li;
-  }
-
-  /**
-   * - ステータスバーの各アイテムを1つ生成する(select形式)
-   * - `callback`は選択肢が変更された時の処理
-   * @param callback
-   */
-  private createStatusSelectItem(optionItems: string[], callback: (e: Event) => void) {
-    const select = document.createElement("select");
-    select.addClass("status-item-select");
-
-    for (const item of optionItems) {
-      const option = document.createElement("option");
-      option.value = option.textContent = item;
-      select.appendChild(option);
-    }
-
-    this.item.appendChild(select);
-    select.addEventListener("change", (e) => {
-      callback(e);
-    });
-    return select;
   }
 
   /**
