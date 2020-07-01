@@ -13,24 +13,24 @@ class Util {
    * @param list
    */
   public clearFocus(list: HTMLElement[]): void {
-    list.forEach((item) => {
+    for (const item of list) {
       item.removeClass("focus-item");
-    });
+    }
   }
 
   /**
-   * - `list`のアイテムをクリアした上で、`compareElementTitle`で各アイテムを比較して
+   * - `list`のアイテムをクリアした上で、`title`で各アイテムを比較して
    * - 一致するものにフォーカスを与える
    * @param list
    * @param compareElementTitle
    */
-  public updateFocus(list: HTMLElement[], compareElementTitle: string): void {
+  public updateFocus(list: HTMLElement[], title: string): void {
     this.clearFocus(list);
-    list.forEach((item) => {
-      if (compareElementTitle === item.title) {
+    for (const item of list) {
+      if (title === item.title) {
         item.addClass("focus-item");
       }
-    });
+    }
   }
 
   /**

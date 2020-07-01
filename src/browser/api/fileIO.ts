@@ -115,7 +115,7 @@ class FileIO {
   public openDirectory(dirPath: string, directoryList: IOpenDirectory[]): void {
     const fileNames = fs.readdirSync(dirPath);
 
-    fileNames.forEach((name) => {
+    for (const name of fileNames) {
       const fullPath: string = path.join(dirPath, name);
       const stats = fs.statSync(fullPath);
 
@@ -124,8 +124,9 @@ class FileIO {
         fullPath,
         isDirectory: stats.isDirectory(),
       };
+
       directoryList.push(prop);
-    });
+    }
   }
 
   /**

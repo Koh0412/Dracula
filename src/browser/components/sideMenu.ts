@@ -35,7 +35,9 @@ class SideMenu {
     const currentDir: HTMLElement = document.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 
-    this.hideMessage();
+    if (!this.isOpenDir) {
+      this.hideMessage();
+    }
     // 初期化
     this.dirMenuItem.textContent = "";
     this.addDirectories(dirPath, this.dirMenuItem);
@@ -51,15 +53,15 @@ class SideMenu {
 
     const openDirectories = this.openDirectory(dirPath);
     const directoryList = this.DirectoryList(openDirectories);
+    this.listItems.push(...directoryList);
 
-    directoryList.forEach((list) => {
-      this.listItems.push(list);
+    for (const list of directoryList) {
       parent.appendChild(list);
-    });
+    }
   }
 
   /** フォルダが開かれてないときに表示するメニューの生成 */
-  private createNotDirContents(): void {
+  private createNotDirContents(): HTMLElement {
     const missingMsg: HTMLElement = document.createElement("div");
     missingMsg.innerHTML = SideMenuMessage.MISSING_MSG;
     this.notDirContents.appendChild(missingMsg);
@@ -81,6 +83,7 @@ class SideMenu {
     });
 
     this.notDirContents.appendChild(openDirBtn);
+    return this.notDirContents;
   }
 
   /**
@@ -113,9 +116,7 @@ class SideMenu {
    * フォルダを開いたらメッセージを非表示に
    */
   private hideMessage(): void {
-    if (!this.isOpenDir) {
-      this.notDirContents.hidden = true;
-    }
+    this.notDirContents.hidden = true;
     this.isOpenDir = true;
   }
 

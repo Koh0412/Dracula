@@ -85,11 +85,11 @@ class Status {
     const select = document.createElement("select");
     select.addClass("status-item-select");
 
-    optionItems.forEach((item) => {
+    for (const item of optionItems) {
       const option = document.createElement("option");
       option.value = option.textContent = item;
       select.appendChild(option);
-    });
+    }
 
     this.item.appendChild(select);
     select.addEventListener("change", (e) => {

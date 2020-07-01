@@ -1,4 +1,4 @@
-import { MenuItemConstructorOptions, Menu, MenuItem, BrowserWindow } from "electron";
+import { MenuItemConstructorOptions, MenuItem, BrowserWindow } from "electron";
 
 import { IPCConstants } from "../../common/constants";
 import { MethodType } from "../../common/type/menuMethodType";
@@ -107,9 +107,8 @@ export class TitleBarMenu {
    * @param methodName
    */
   private focusAndPerform(methodName: MethodType) {
-    return function(menuItem: MenuItem, window: any) {
+    return function(menuItem: MenuItem, window: BrowserWindow) {
       window.webContents.focus();
-      // TODO: anyじゃなくしたい
       window.webContents[methodName]();
     };
   }

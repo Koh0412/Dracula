@@ -13,6 +13,7 @@ renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((res) => Textarea
 renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((res) => {
   SideMenu.initDirectoryTree(res.filePaths[0]);
 }));
+
 renderer.on(IPCConstants.MENU_SAVE, () => Textarea.save());
 renderer.on(IPCConstants.MENU_SAVE_AS, () => Textarea.saveAs());
 // 編集関係

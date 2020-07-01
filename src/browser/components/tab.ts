@@ -12,7 +12,7 @@ import { MessageType, Buttons, DialogMessage, EventName } from "../../common/con
 class Tab {
   private previous: HTMLElement | null = null;
   private index: number | null = null;
-  private listItems: HTMLElement[] = [];
+  private tablist: HTMLElement[] = [];
 
   constructor() {
     this.element.addEventListener("mousedown", this.openFileByClick.bind(this));
@@ -42,8 +42,8 @@ class Tab {
     });
   }
 
-  private get current() {
-    return this.listItems.find((tab) => {
+  private get current(): HTMLElement | undefined {
+    return this.tablist.find((tab) => {
       return tab.classList.contains("focus-item");
     });
   }
@@ -59,7 +59,7 @@ class Tab {
    * @param text
    * @param path
    */
-  private create(text: string, path: string): void {
+  private create(text: string, path: string): HTMLElement {
     const li: HTMLElement = Util.createListItemElement("li", {
       text,
       title: path,
@@ -67,19 +67,21 @@ class Tab {
     });
     li.addClass("file");
 
-    const isDuplicated: boolean = this.checkElementTitle(this.listItems, li);
+    const isDuplicated: boolean = this.checkElementTitle(this.tablist, li);
     if (!isDuplicated) {
-      this.listItems.push(li);
+      this.tablist.push(li);
     }
-    Util.clearFocus(this.listItems);
+    Util.clearFocus(this.tablist);
 
-    this.listItems.forEach((tab) => {
+    for (const tab of this.tablist) {
       if (tab.title === path) {
         tab.addClass("focus-item");
       }
       this.element.appendChild(tab);
-    });
-    this.index = this.listItems.indexOf(li);
+    }
+
+    this.index = this.tablist.indexOf(li);
+    return li;
   }
 
   /**
@@ -122,20 +124,20 @@ class Tab {
    * 前のタブにフォーカスを移す, ただし、最初のタブの場合は後ろにフォーカスを当てる
    * @param target
    */
-  private focusTab(target: ITargetInfo): void {
-    this.index = this.listItems.indexOf(target.element);
+  private focusTab(target: ITargetInfo): HTMLElement {
+    this.index = this.tablist.indexOf(target.element);
     if (this.index > 0) {
       this.index--;
     } else {
       this.index++;
     }
-    this.previous = this.listItems[this.index];
+    this.previous = this.tablist[this.index];
     eventEmitter.emit(EventName.TAB, this.previous);
 
     if (this.previous) {
       this.previous.addClass("focus-item");
     }
-    return;
+    return this.previous;
   }
 
   /**
@@ -144,20 +146,20 @@ class Tab {
    */
   private remove(target: ITargetInfo): void {
     this.element.textContent = "";
-    this.index = this.listItems.indexOf(target.element);
+    this.index = this.tablist.indexOf(target.element);
 
     if (target.element.classList.contains("focus-item")) {
       // removeするタブがフォーカスを持っている場合の処理
       this.focusTab(target);
     }
 
-    this.listItems = this.listItems.filter((tab) => {
+    this.tablist = this.tablist.filter((tab) => {
       return target.title !== tab.title;
     });
 
-    this.listItems.forEach((tab) => {
+    for (const tab of this.tablist) {
       this.element.appendChild(tab);
-    });
+    }
   }
 
   /**
@@ -180,8 +182,8 @@ class Tab {
       return;
     }
 
-    Util.clearFocus(this.listItems);
-    this.index = this.listItems.indexOf(target.element);
+    Util.clearFocus(this.tablist);
+    this.index = this.tablist.indexOf(target.element);
     target.element.addClass("focus-item");
     eventEmitter.emit(EventName.TAB, target.element);
   }
