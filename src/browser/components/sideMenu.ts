@@ -32,6 +32,9 @@ class SideMenu {
    * @param dirPath
    */
   public initDirectoryTree(dirPath: string) {
+    if (!dirPath) {
+      return;
+    }
     const currentDir: HTMLElement = document.getElement("current-dir");
     currentDir.innerHTML = pathModule.basename(dirPath).toUpperCase();
 
@@ -91,7 +94,10 @@ class SideMenu {
    * @param openDirectories
    */
   private DirectoryList(openDirectories: IOpenDirectory[]): HTMLElement[] {
-    return openDirectories.map((opendir) => {
+    const files: HTMLElement[] = [];
+    const directories: HTMLElement[] = [];
+
+    for (const opendir of openDirectories) {
       const elementOptions: IElementOptions = {
         text: opendir.filename,
         title: opendir.fullPath,
@@ -102,14 +108,18 @@ class SideMenu {
       if (opendir.isDirectory) {
         element = Util.createListItemElement("ul", elementOptions);
         element.addClass("directory");
+        directories.push(element);
       } else {
         element = Util.createListItemElement("li", elementOptions);
         element.addClass("file");
+        files.push(element);
       }
-      element.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
 
-      return element;
-    });
+      element.setAttribute(AttributeName.DATA_ISDIRECTORY, String(opendir.isDirectory));
+    }
+
+    directories.push(...files);
+    return directories;
   }
 
   /**

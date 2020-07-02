@@ -48,14 +48,7 @@ class CallDialog {
    * @param options
    * @param callback
    */
-  public warning(callback?: (responseNum: number) => void, options?: MessageBoxOptions): void {
-    options = {
-      detail: DialogMessage.warn.CATION,
-      type: DialogType.WARN,
-      buttons: ButtonsText.FILE,
-      message: DialogMessage.warn.MODIFY,
-    };
-
+  public warning(options: MessageBoxOptions, callback?: (responseNum: number) => void): void {
     renderer.send(IPCConstants.MSG_WARNING, options);
     if (callback) {
       renderer.on(IPCConstants.MSG_WARNING_RES, (_, responseNum: number) => {

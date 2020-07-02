@@ -6,7 +6,7 @@ import Textarea from "./editor/textarea";
 
 import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo, IOpenFile } from "../../common/definition";
-import { EventName, ButtonValue } from "../../common/constants";
+import { EventName, ButtonValue, DefaultConst } from "../../common/constants";
 
 /** タブに関するクラス */
 class Tab {
@@ -100,7 +100,7 @@ class Tab {
   private confirmRemove(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
 
-    CallDialog.warning((res) => {
+    CallDialog.warning(DefaultConst.dialog.FILE, (res) => {
       switch (res) {
         case ButtonValue.File.SAVE:
           Textarea.save();
