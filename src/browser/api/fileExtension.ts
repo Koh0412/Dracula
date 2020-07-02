@@ -55,7 +55,7 @@ class FileExtension {
       case /^.(js)$/.test(extname):
         this.name = aceLangs.JS;
         break;
-      case /^.(json)$/.test(extname):
+      case /^.(json|lock)$/.test(extname):
         this.name = aceLangs.JSON;
         break;
       case /^.(jl)$/.test(extname):
