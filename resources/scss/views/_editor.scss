@@ -52,7 +52,7 @@
     }
 
     .dir-menu-list {
-      height: calc(100% - #{$height-footer});
+      height: calc(100% - #{$height-footer + $height-tabs});
       overflow-y: overlay;
       &::-webkit-scrollbar {
         width: 5px;
