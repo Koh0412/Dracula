@@ -9,7 +9,8 @@
     "start": "webpack && npm run build && electron ./build/src/main/main.js",
     "electron": "electron ./build/src/main/main.js",
     "webpack:w": "webpack --watch",
-    "tsc:w": "tsc --watch"
+    "tsc:w": "tsc --watch",
+    "release:win": "./node_modules/.bin/gulp packager-win"
   },
   "keywords": [],
   "author": "",
