@@ -66,6 +66,9 @@ class Textarea extends BaseEditor {
    * @param path
    */
   public openfile(path: string): void {
+    if (!path) {
+      return;
+    }
     eventEmitter.emit(EventName.OPEN, path);
     this.updateValue(path);
   }
