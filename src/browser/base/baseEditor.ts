@@ -1,5 +1,5 @@
 import * as ace from "brace";
-import "../../../config/editorconfig";
+import "../config/editorconfig";
 
 /** エディタ基底クラス */
 export class BaseEditor {

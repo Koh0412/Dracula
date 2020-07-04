@@ -1,4 +1,4 @@
-import { BaseEditor } from "./base/baseEditor";
+import { BaseEditor } from "../../base/baseEditor";
 
 import FileIO from "../../api/fileIO";
 import aceConf from "../../../../aceconfig.json";

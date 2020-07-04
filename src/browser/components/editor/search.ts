@@ -1,4 +1,4 @@
-import { BaseEditor } from "./base/baseEditor";
+import { BaseEditor } from "../../base/baseEditor";
 
 /** 検索ボックス */
 class Search extends BaseEditor {

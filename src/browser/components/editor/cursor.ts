@@ -1,5 +1,5 @@
 import * as ace from "brace";
-import { BaseEditor } from "./base/baseEditor";
+import { BaseEditor } from "../../base/baseEditor";
 
 /** カーソルに関するクラス */
 class Cursor extends BaseEditor {

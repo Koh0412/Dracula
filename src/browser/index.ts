@@ -1,7 +1,7 @@
 import "devtron";
 import "./components/editor/textarea";
 import "./components/editor/search";
-import "./components/sideMenu";
+import "./components/explorer";
 import "./components/tab";
 import "./components/status";
 

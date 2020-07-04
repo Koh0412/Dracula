@@ -2,7 +2,7 @@ import { ipcRenderer as renderer } from "electron";
 
 import Textarea from "../components/editor/textarea";
 import Search from "../components/editor/search";
-import SideMenu from "../components/sideMenu";
+import Explorer from "../components/explorer";
 
 import CallDialog from "./callDialog";
 import { IPCConstants } from "../../common/constants";
@@ -11,7 +11,7 @@ import { IPCConstants } from "../../common/constants";
 // renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());
 renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((res) => Textarea.openfile(res.filePaths[0])));
 renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((res) => {
-  SideMenu.initDirectoryTree(res.filePaths[0]);
+  Explorer.initDirectoryTree(res.filePaths[0]);
 }));
 
 renderer.on(IPCConstants.MENU_SAVE, () => Textarea.save());

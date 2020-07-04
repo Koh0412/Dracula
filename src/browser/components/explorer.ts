@@ -1,17 +1,16 @@
 import pathModule from "path";
 
-import FileIO from "../api/fileIO";
-import CallDialog from "../process/callDialog";
-import { Resize } from "../modules/resize";
+import FileIO from "api/fileIO";
+import CallDialog from "process/callDialog";
 
 import Util, { eventEmitter } from "../../common/util";
+import { SideMenu } from "base/sideMenu";
 import { AttributeName, SideMenuMessage, EventName } from "../../common/constants";
 import { IOpenDirectory, IElementOptions, IOpenFile } from "../../common/definition";
 
-/** サイドメニュー */
-class SideMenu {
+/** エクスプローラー */
+class Explorer extends SideMenu {
   private dirMenuItem: HTMLElement = document.getElement("dir-menu-item");
-  private resize: HTMLElement = document.getElement("resize");
   private notDirContents: HTMLElement = document.getElement("not-dir-contents");
 
   private listItems: HTMLElement[] = [];
@@ -20,11 +19,9 @@ class SideMenu {
   private isOpenDir: boolean = false;
 
   constructor() {
+    super();
     this.createNotDirContents();
     this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
-
-    const resize = new Resize(this.resize);
-    resize.apply();
   }
 
   /**
@@ -174,4 +171,4 @@ class SideMenu {
   }
 }
 
-export default new SideMenu();
+export default new Explorer();
