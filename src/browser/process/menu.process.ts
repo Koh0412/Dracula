@@ -1,8 +1,8 @@
 import { ipcRenderer as renderer } from "electron";
 
-import Textarea from "../components/editor/textarea";
-import Search from "../components/editor/search";
-import Explorer from "../components/explorer";
+import Textarea from "components/editor/textarea";
+import Search from "components/editor/search";
+import Explorer from "components/explorer";
 
 import CallDialog from "./callDialog";
 import { IPCConstants } from "../../common/constants";

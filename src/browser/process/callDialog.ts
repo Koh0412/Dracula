@@ -1,5 +1,5 @@
 import { ipcRenderer as renderer, MessageBoxOptions, OpenDialogReturnValue } from "electron";
-import { IPCConstants, DialogMessage, DialogType, ButtonsText } from "../../common/constants";
+import { IPCConstants } from "../../common/constants";
 
 /** メインプロセスのダイアログの呼び出しクラス */
 class CallDialog {

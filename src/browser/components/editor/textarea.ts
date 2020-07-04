@@ -1,6 +1,6 @@
-import { BaseEditor } from "../../base/baseEditor";
+import { BaseEditor } from "base/baseEditor";
 
-import FileIO from "../../api/fileIO";
+import FileIO from "api/fileIO";
 import aceConf from "../../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage, EventName } from "../../../common/constants";
