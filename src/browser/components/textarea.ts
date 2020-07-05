@@ -1,6 +1,6 @@
 import { BaseEditor } from "base/baseEditor";
 
-import { fileIO } from "api/fileIO";
+import { fileIO } from "api/file/fileIO";
 import { search } from "api/editor/search";
 import aceConf from "../../../aceconfig.json";
 

@@ -1,10 +1,10 @@
 import pathModule from "path";
 
 import { IStatus } from "../../../common/definition";
-import { editorSession } from "api/editor/editSession";
+import { editorSession } from "api/editor/editorSession";
 import { StatusMessage, EventName } from "../../../common/constants";
 import { eventEmitter } from "../../../common/util";
-import { fileExtension } from "api/fileExtension";
+import { fileExtension } from "api/file/fileExtension";
 
 /** 言語の選択に関するステータスクラス */
 export class ModeSelectStatus implements IStatus {

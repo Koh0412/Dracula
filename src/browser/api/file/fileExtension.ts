@@ -1,4 +1,4 @@
-import { aceLangs } from "../../common/constants";
+import { aceLangs } from "../../../common/constants";
 
 class FileExtension {
 

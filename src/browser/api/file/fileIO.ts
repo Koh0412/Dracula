@@ -2,10 +2,10 @@ import * as fs from "fs-extra";
 import * as path from "path";
 
 import CallDialog from "process/callDialog";
-import { eventEmitter } from "../../common/util";
+import { eventEmitter } from "../../../common/util";
 
-import { IOpenFile, IOpenDirectory } from "../../common/definition";
-import { EventName } from "../../common/constants";
+import { IOpenFile, IOpenDirectory } from "../../../common/definition";
+import { EventName } from "../../../common/constants";
 
 class FileIO {
   public currentText: string = "";

@@ -1,5 +1,5 @@
 import { IStatus } from "../../../common/definition";
-import { editorSession } from "api/editor/editSession";
+import { editorSession } from "api/editor/editorSession";
 import { StatusMessage } from "../../../common/constants";
 
 /** タブサイズの選択に関するステータスクラス */
