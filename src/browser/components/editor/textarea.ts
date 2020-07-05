@@ -1,6 +1,6 @@
 import { BaseEditor } from "base/baseEditor";
 
-import FileIO from "api/fileIO";
+import { fileIO } from "api/fileIO";
 import aceConf from "../../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage, EventName } from "../../../common/constants";
@@ -19,7 +19,7 @@ class Textarea extends BaseEditor {
 
     this.textarea.on("change", () => {
       if (this.isFocus) {
-        const file = FileIO.openedFile;
+        const file = fileIO.openedFile;
         if (file) {
           file.text = this.value;
         }
@@ -43,7 +43,7 @@ class Textarea extends BaseEditor {
 
   /** valueが書き換えられているかどうか */
   private get isDirty() {
-    return this.value !== FileIO.currentText;
+    return this.value !== fileIO.currentText;
   }
 
   /** 行を上へコピー */
@@ -81,14 +81,14 @@ class Textarea extends BaseEditor {
   /** エディタ内のvalueのセーブ */
   public save(): void {
     if (!this.hidden) {
-      FileIO.save(this.value);
+      fileIO.save(this.value);
     }
   }
 
   /** 名前を付けて保存 */
   public saveAs(): void {
     if (!this.hidden) {
-      FileIO.saveAs(this.value);
+      fileIO.saveAs(this.value);
     }
   }
 
@@ -99,7 +99,7 @@ class Textarea extends BaseEditor {
 
    /** 初期化処理 */
   private init(): void {
-    FileIO.setPath("");
+    fileIO.setPath("");
     this.setValue("");
     this.noFileMsg.innerHTML = EditorMessage.NO_FILE;
     eventEmitter.emit(EventName.UPDATE, StatusMessage.UNTITLED);
@@ -120,7 +120,7 @@ class Textarea extends BaseEditor {
     }
     this.noFileMsg.addClass("hide");
 
-    const openFile = FileIO.open(path);
+    const openFile = fileIO.open(path);
     this.setValue(openFile.text);
 
     this.textarea.gotoLine(1);

@@ -139,4 +139,4 @@ class FileIO {
   }
 }
 
-export default new FileIO();
+export const fileIO = new FileIO();

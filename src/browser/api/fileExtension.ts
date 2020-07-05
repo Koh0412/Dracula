@@ -136,4 +136,4 @@ class FileExtension {
   }
 }
 
-export default new FileExtension();
+export const fileExtension = new FileExtension();

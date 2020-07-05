@@ -1,6 +1,6 @@
 import pathModule from "path";
 
-import FileIO from "api/fileIO";
+import { fileIO } from "api/fileIO";
 import CallDialog from "process/callDialog";
 
 import Util, { eventEmitter } from "../../common/util";
@@ -166,7 +166,7 @@ class Explorer extends SideMenu {
    */
   private openDirectory(path: string): IOpenDirectory[] {
     const openDirectoies: IOpenDirectory[] = [];
-    FileIO.openDirectory(path, openDirectoies);
+    fileIO.openDirectory(path, openDirectoies);
     return openDirectoies;
   }
 }

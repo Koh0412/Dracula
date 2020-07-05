@@ -1,6 +1,6 @@
 import pathModule from "path";
 
-import FileIO from "api/fileIO";
+import { fileIO } from "api/fileIO";
 import CallDialog from "process/callDialog";
 import Textarea from "./editor/textarea";
 
@@ -106,7 +106,7 @@ class Tab {
           Textarea.save();
           break;
         case ButtonValue.File.NO_SAVE:
-          FileIO.removeOpenFile(target.title);
+          fileIO.removeOpenFile(target.title);
           this.remove(target);
           break;
         default:
@@ -172,7 +172,7 @@ class Tab {
         this.confirmRemove(ev);
         return;
       }
-      FileIO.removeOpenFile(target.title);
+      fileIO.removeOpenFile(target.title);
       this.remove(target);
       return;
     }
