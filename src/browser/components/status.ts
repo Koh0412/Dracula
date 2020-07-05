@@ -1,9 +1,7 @@
 import { eventEmitter } from "../../common/util";
 import { StatusMessage, EventName } from "../../common/constants";
 import { IStatus } from "../../common/definition";
-import { LineStatus } from "modules/statusItem/lineStatus";
-import { ModeSelectStatus } from "modules/statusItem/modeSelectStatus";
-import { TabSizeStatus } from "modules/statusItem/tabSizeStatus";
+import { LineStatus, ModeSelectStatus, TabSizeStatus } from "modules/status";
 
 /** ステータスバー */
 class Status {
