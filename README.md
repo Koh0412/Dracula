@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/Koh0412/Dracula)](https://github.com/Koh0412/Dracula/blob/master/LICENSE)
 
-## this is Electron App
+## Dracula Editor
 
 Current screen capture
 
