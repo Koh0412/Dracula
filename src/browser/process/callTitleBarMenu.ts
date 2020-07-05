@@ -4,13 +4,13 @@ import Textarea from "components/textarea";
 import { search } from "api/editor/search";
 import Explorer from "components/explorer";
 
-import CallDialog from "./callDialog";
+import { callDialog } from "./callDialog";
 import { IPCConstants } from "../../common/constants";
 
 // ファイル関係
 // renderer.on(IPCConstants.MENU_NEW_FILE, () => Textarea.newFile());
-renderer.on(IPCConstants.MENU_FILE_OPEN, () => CallDialog.open((res) => Textarea.openfile(res.filePaths[0])));
-renderer.on(IPCConstants.MENU_DIR_OPEN, () => CallDialog.openDir((res) => {
+renderer.on(IPCConstants.MENU_FILE_OPEN, () => callDialog.open((res) => Textarea.openfile(res.filePaths[0])));
+renderer.on(IPCConstants.MENU_DIR_OPEN, () => callDialog.openDir((res) => {
   Explorer.initDirectoryTree(res.filePaths[0]);
 }));
 

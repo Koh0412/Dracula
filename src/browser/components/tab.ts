@@ -1,7 +1,7 @@
 import pathModule from "path";
 
 import { fileIO } from "api/file/fileIO";
-import CallDialog from "process/callDialog";
+import { callDialog } from "process/callDialog";
 import Textarea from "./textarea";
 
 import Util, { eventEmitter } from "../../common/util";
@@ -100,7 +100,7 @@ class Tab {
   private confirmRemove(ev: MouseEvent): void {
     const target = Util.EventTargetInfo(ev);
 
-    CallDialog.warning(DefaultConst.dialog.FILE, (res) => {
+    callDialog.warning(DefaultConst.dialog.FILE, (res) => {
       switch (res) {
         case ButtonValue.File.SAVE:
           Textarea.save();

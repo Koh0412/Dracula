@@ -1,7 +1,7 @@
 import pathModule from "path";
 
 import { fileIO } from "api/file/fileIO";
-import CallDialog from "process/callDialog";
+import { callDialog } from "process/callDialog";
 
 import Util, { eventEmitter } from "../../common/util";
 import { SideMenu } from "base/sideMenu";
@@ -73,7 +73,7 @@ class Explorer extends SideMenu {
     // ディレクトリのダイアログを表示させる
     openDirBtn.addEventListener("mousedown", () => {
       openDirBtn.disabled = true;
-      CallDialog.openDir((res) => {
+      callDialog.openDir((res) => {
         if (res.canceled) {
           openDirBtn.disabled = false;
         } else {

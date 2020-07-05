@@ -36,5 +36,3 @@ export class BaseEditor {
     return this.textarea.container.hidden = isHidden;
   }
 }
-
-export default new BaseEditor();
