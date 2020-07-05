@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import Common from "../constants/common";
+import { Common } from "../constants/common";
 
 export class Window {
   private instance: BrowserWindow | null = null;

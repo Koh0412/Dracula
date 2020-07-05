@@ -58,4 +58,4 @@ class CallDialog {
   }
 }
 
-export default new CallDialog();
+export const callDialog = new CallDialog();
