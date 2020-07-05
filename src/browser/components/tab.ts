@@ -2,7 +2,7 @@ import pathModule from "path";
 
 import { fileIO } from "api/fileIO";
 import CallDialog from "process/callDialog";
-import Textarea from "./editor/textarea";
+import Textarea from "./textarea";
 
 import Util, { eventEmitter } from "../../common/util";
 import { ITargetInfo, IOpenFile } from "../../common/definition";

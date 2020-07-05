@@ -1,11 +1,12 @@
 import { BaseEditor } from "base/baseEditor";
 
 import { fileIO } from "api/fileIO";
-import aceConf from "../../../../aceconfig.json";
+import { search } from "api/editor/search";
+import aceConf from "../../../aceconfig.json";
 
-import { EditorMessage, StatusMessage, EventName } from "../../../common/constants";
-import { IOpenFile } from "../../../common/definition/IOpenFile";
-import Util, { eventEmitter } from "../../../common/util";
+import { EditorMessage, StatusMessage, EventName } from "../../common/constants";
+import { IOpenFile } from "../../common/definition/IOpenFile";
+import Util, { eventEmitter } from "../../common/util";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -26,6 +27,7 @@ class Textarea extends BaseEditor {
         eventEmitter.emit(EventName.TEXT_CHANGE, this.isDirty);
       }
     });
+    search.icon.addEventListener("mousedown", search.showFindBox.bind(this));
 
     eventEmitter.on(EventName.FILE_CLICK, (openFile: IOpenFile) => this.updateValue(openFile.path));
 

@@ -1,7 +1,7 @@
 import { ipcRenderer as renderer } from "electron";
 
-import Textarea from "components/editor/textarea";
-import Search from "components/editor/search";
+import Textarea from "components/textarea";
+import { search } from "api/editor/search";
 import Explorer from "components/explorer";
 
 import CallDialog from "./callDialog";
@@ -19,8 +19,8 @@ renderer.on(IPCConstants.MENU_SAVE_AS, () => Textarea.saveAs());
 // 編集関係
 renderer.on(IPCConstants.MENU_UNDO, () => Textarea.undo());
 renderer.on(IPCConstants.MENU_REDO, () => Textarea.redo());
-renderer.on(IPCConstants.MENU_FIND, () => Search.showFindBox());
-renderer.on(IPCConstants.MENU_REPLACE, () => Search.showReplaceBox());
+renderer.on(IPCConstants.MENU_FIND, () => search.showFindBox());
+renderer.on(IPCConstants.MENU_REPLACE, () => search.showReplaceBox());
 // 選択関係
 renderer.on(IPCConstants.MENU_COPY_LINES_UP, () => Textarea.copyLinesUp());
 renderer.on(IPCConstants.MENU_COPY_LINES_DOWN, () => Textarea.copyLinesDown());

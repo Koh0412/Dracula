@@ -1,13 +1,8 @@
 import { BaseEditor } from "base/baseEditor";
 
-/** 検索ボックス */
+/** エディタに付随する検索に関するクラス */
 class Search extends BaseEditor {
-  private search: HTMLElement = document.getElement("search-word");
-
-  constructor() {
-    super();
-    this.search.addEventListener("mousedown", this.showFindBox.bind(this));
-  }
+  public icon: HTMLElement = document.getElement("search-word");
 
   /** 検索ボックス */
   public showFindBox(): void {
@@ -20,4 +15,4 @@ class Search extends BaseEditor {
   }
 }
 
-export default new Search();
+export const search = new Search();

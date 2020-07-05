@@ -3,9 +3,6 @@ import { BaseEditor } from "base/baseEditor";
 
 /** カーソルに関するクラス */
 class Cursor extends BaseEditor {
-  constructor() {
-    super();
-  }
 
   /** カーソルの行 */
   public get row(): number {
@@ -38,4 +35,4 @@ class Cursor extends BaseEditor {
   }
 }
 
-export default new Cursor();
+export const cursor = new Cursor();

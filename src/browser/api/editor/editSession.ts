@@ -2,10 +2,7 @@ import { BaseEditor } from "base/baseEditor";
 import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants";
 
 /** セッション周りのクラス */
-class EditSession extends BaseEditor {
-  constructor() {
-    super();
-  }
+class EditorSession extends BaseEditor {
 
   /** 利用可能な言語 */
   public get availableModes(): string[] {
@@ -52,4 +49,4 @@ class EditSession extends BaseEditor {
   }
 }
 
-export default new EditSession();
+export const editorSession = new EditorSession();
