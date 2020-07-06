@@ -5,7 +5,7 @@ var config = require("./package.json");
 gulp.task("packager-win", (done) => {
   packager({
     dir: "./",
-    out: "./release",
+    out: "./release/win",
     name: config.name,
     arch: "x64",
     platform: "win32",
@@ -22,7 +22,7 @@ gulp.task("packager-win", (done) => {
 gulp.task('packager-mac', (done) => {
   packager({
     dir: './',
-    out: './release',
+    out: './release/mac',
     name: config.name,
     arch: 'x64',
     platform: 'darwin',
