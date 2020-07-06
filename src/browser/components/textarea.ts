@@ -6,7 +6,7 @@ import aceConf from "../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage, EventName } from "../../common/constants";
 import { IOpenFile } from "../../common/definition/IOpenFile";
-import Util, { eventEmitter } from "../../common/util";
+import { eventEmitter, cssUtil } from "../../common/utils";
 
 /** テキストエリア */
 class Textarea extends BaseEditor {
@@ -40,7 +40,7 @@ class Textarea extends BaseEditor {
     });
 
     const editorMainArea: HTMLElement = document.getElement("editor-main");
-    eventEmitter.on(EventName.RESIZE, (width: number) => editorMainArea.style.width = Util.calc(width));
+    eventEmitter.on(EventName.RESIZE, (width: number) => editorMainArea.style.width = cssUtil.calc(width));
   }
 
   /** valueが書き換えられているかどうか */

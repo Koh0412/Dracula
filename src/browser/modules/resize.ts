@@ -1,4 +1,4 @@
-import { eventEmitter } from "../../common/util";
+import { eventEmitter } from "../../common/utils";
 import { EventName } from "../../common/constants";
 
 export class Resize {

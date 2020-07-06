@@ -1,4 +1,4 @@
-import { eventEmitter } from "../../common/util";
+import { eventEmitter } from "../../common/utils";
 import { StatusMessage, EventName } from "../../common/constants";
 import { IStatus } from "../../common/definition";
 import { LineStatus, ModeSelectStatus, TabSizeStatus } from "modules/status";

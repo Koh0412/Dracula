@@ -4,7 +4,7 @@ import { fileIO } from "api/file/fileIO";
 import { callDialog } from "process/callDialog";
 import Textarea from "./textarea";
 
-import Util, { eventEmitter } from "../../common/util";
+import { eventEmitter, domUtil } from "../../common/utils";
 import { ITargetInfo, IOpenFile } from "../../common/definition";
 import { EventName, ButtonValue, DefaultConst } from "../../common/constants";
 
@@ -60,7 +60,7 @@ class Tab {
    * @param path
    */
   private create(text: string, path: string): HTMLElement {
-    const li: HTMLElement = Util.createListItemElement("li", {
+    const li: HTMLElement = domUtil.createListItemElement("li", {
       text,
       title: path,
       isClose: true,
@@ -71,7 +71,7 @@ class Tab {
     if (!isDuplicated) {
       this.tablist.push(li);
     }
-    Util.clearFocus(this.tablist);
+    domUtil.clearFocus(this.tablist);
 
     for (const tab of this.tablist) {
       if (tab.title === path) {
@@ -98,7 +98,7 @@ class Tab {
    * - responseには返り値としてボタンのインデックスを返す
    */
   private confirmRemove(ev: MouseEvent): void {
-    const target = Util.EventTargetInfo(ev);
+    const target = domUtil.EventTargetInfo(ev);
 
     callDialog.warning(DefaultConst.dialog.FILE, (res) => {
       switch (res) {
@@ -162,7 +162,7 @@ class Tab {
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
-    const target = Util.EventTargetInfo(ev);
+    const target = domUtil.EventTargetInfo(ev);
     if (!target.title) {
       return;
     }
@@ -177,7 +177,7 @@ class Tab {
       return;
     }
 
-    Util.clearFocus(this.tablist);
+    domUtil.clearFocus(this.tablist);
     this.index = this.tablist.indexOf(target.element);
     target.element.addClass("focus-item");
     eventEmitter.emit(EventName.TAB, target.element);

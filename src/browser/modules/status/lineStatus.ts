@@ -1,5 +1,5 @@
 import { IStatus } from "../../../common/definition";
-import Util from "../../../common/util";
+import { domUtil } from "../../../common/utils";
 import { StatusMessage } from "../../../common/constants";
 import { cursor } from "api/editor/cursor";
 
@@ -18,7 +18,7 @@ export class LineStatus implements IStatus {
   }
 
   public create(): HTMLElement {
-    const el = Util.createListItemElement("li", { text: this.textContent });
+    const el = domUtil.createListItemElement("li", { text: this.textContent });
     el.addClass("status-item-list");
     return el;
   }

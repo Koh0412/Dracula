@@ -3,7 +3,7 @@ import pathModule from "path";
 import { fileIO } from "api/file/fileIO";
 import { callDialog } from "process/callDialog";
 
-import Util, { eventEmitter } from "../../common/util";
+import { eventEmitter, domUtil } from "../../common/utils";
 import { SideMenu } from "base/sideMenu";
 import { AttributeName, SideMenuMessage, EventName } from "../../common/constants";
 import { IOpenDirectory, IElementOptions, IOpenFile } from "../../common/definition";
@@ -103,11 +103,11 @@ class Explorer extends SideMenu {
       let element: HTMLElement;
 
       if (opendir.isDirectory) {
-        element = Util.createListItemElement("ul", elementOptions);
+        element = domUtil.createListItemElement("ul", elementOptions);
         element.addClass("directory");
         directories.push(element);
       } else {
-        element = Util.createListItemElement("li", elementOptions);
+        element = domUtil.createListItemElement("li", elementOptions);
         element.addClass("file");
         files.push(element);
       }
@@ -141,7 +141,7 @@ class Explorer extends SideMenu {
    * @param ev
    */
   private openFileByClick(ev: MouseEvent): void {
-    const target = Util.EventTargetInfo(ev);
+    const target = domUtil.EventTargetInfo(ev);
     const children = target.element.children;
     const path: string = target.title;
 

@@ -1,7 +1,7 @@
 import pathModule from "path";
 import * as customBar from "custom-electron-titlebar";
 
-import { eventEmitter } from "../../common/util";
+import { eventEmitter } from "../../common/utils";
 import { EventName } from "../../common/constants";
 
 class TitleBar {

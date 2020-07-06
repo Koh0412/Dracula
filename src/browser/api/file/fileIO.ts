@@ -2,7 +2,7 @@ import * as fs from "fs-extra";
 import * as path from "path";
 
 import { callDialog } from "process/callDialog";
-import { eventEmitter } from "../../../common/util";
+import { eventEmitter } from "../../../common/utils";
 
 import { IOpenFile, IOpenDirectory } from "../../../common/definition";
 import { EventName } from "../../../common/constants";

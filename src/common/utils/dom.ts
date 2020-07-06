@@ -1,13 +1,10 @@
-import { EventEmitter } from "events";
-
-import { IconName, AttributeName } from "./constants";
-import { ITargetInfo, IElementOptions, DataType } from "./definition";
+import { IconName, AttributeName } from "../constants";
+import { ITargetInfo, IElementOptions, DataType } from "../definition";
 
 type ListItemType = "li" | "ul" | "ol";
 
-export const eventEmitter = new EventEmitter();
-
-class Util {
+/** domに関わるutilクラス */
+class DOMUtil {
   /**
    * `list`の各アイテムのフォーカスをクリア
    * @param list
@@ -95,17 +92,6 @@ class Util {
     };
     return info;
   }
-
-  /**
-   * - cssのcalcメソッドの実行
-   * - パーセント - lengthで、パーセントのデフォルト値は100
-   *
-   * @param length
-   * @param percent
-   */
-  public calc(length: number, percent: number = 100) {
-    return `calc(${percent}% - ${length})`;
-  }
 }
 
-export default new Util();
+export const domUtil = new DOMUtil();
