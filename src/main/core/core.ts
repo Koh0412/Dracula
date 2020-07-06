@@ -18,7 +18,7 @@ export class Core {
   /**
    * アプリケーションの作成
    */
-  public static createApplication() {
+  public static createApplication(): Core {
     return new Core(app);
   }
 

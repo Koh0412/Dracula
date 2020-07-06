@@ -44,22 +44,22 @@ class Textarea extends BaseEditor {
   }
 
   /** valueが書き換えられているかどうか */
-  private get isDirty() {
+  private get isDirty(): boolean {
     return this.value !== fileIO.currentText;
   }
 
   /** 行を上へコピー */
-  public copyLinesUp() {
-    this.textarea.copyLinesUp();
+  public copyLinesUp(): number {
+    return this.textarea.copyLinesUp();
   }
 
   /** 行を下へコピー */
-  public copyLinesDown() {
-    this.textarea.copyLinesDown();
+  public copyLinesDown(): number {
+    return this.textarea.copyLinesDown();
   }
 
   // TODO: 後々作る
-  public newFile() {
+  public newFile(): void {
     //
   }
 
@@ -76,7 +76,7 @@ class Textarea extends BaseEditor {
   }
 
   /** redoを行う */
-  public redo() {
+  public redo(): void {
     this.textarea.redo();
   }
 
@@ -95,7 +95,7 @@ class Textarea extends BaseEditor {
   }
 
   /** undoを行う */
-  public undo() {
+  public undo(): void {
     this.textarea.undo();
   }
 
