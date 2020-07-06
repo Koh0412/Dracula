@@ -2,11 +2,11 @@ import pathModule from "path";
 
 import { fileIO } from "api/file/fileIO";
 import { callDialog } from "process/callDialog";
-import Textarea from "./textarea";
 
 import { eventEmitter, domUtil } from "../../common/utils";
 import { ITargetInfo, IOpenFile } from "../../common/definition";
 import { EventName, ButtonValue, DefaultConst } from "../../common/constants";
+import { editor } from "api/editor/provider/editorProvider";
 
 /** タブに関するクラス */
 class Tab {
@@ -103,7 +103,7 @@ class Tab {
     callDialog.warning(DefaultConst.dialog.FILE, (res) => {
       switch (res) {
         case ButtonValue.File.SAVE:
-          Textarea.save();
+          editor.save();
           break;
         case ButtonValue.File.NO_SAVE:
           fileIO.removeOpenFile(target.title);

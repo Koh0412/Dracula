@@ -6,5 +6,6 @@ export const EventName = {
   TAB: "tab",
   TEXT_CHANGE: "textChange",
   FILE_CLICK: "fileClick",
-  RESIZE: "resize"
+  RESIZE: "resize",
+  DIR_OPEN: "dir:open"
 };

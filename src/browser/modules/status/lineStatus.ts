@@ -1,7 +1,7 @@
 import { IStatus } from "../../../common/definition";
 import { domUtil } from "../../../common/utils";
 import { StatusMessage } from "../../../common/constants";
-import { cursor } from "api/editor/cursor";
+import { editor } from "api/editor/provider/editorProvider";
 
 /** 行数, 列に関するステータスクラス */
 export class LineStatus implements IStatus {
@@ -12,8 +12,8 @@ export class LineStatus implements IStatus {
   constructor() {
     this.mainElement = this.create();
 
-    cursor.change(() => {
-      this.mainElement.innerHTML = `Ln ${cursor.row}, Col ${cursor.column}`;
+    editor.cursor.change(() => {
+      this.mainElement.innerHTML = `Ln ${editor.cursor.row}, Col ${editor.cursor.column}`;
     });
   }
 

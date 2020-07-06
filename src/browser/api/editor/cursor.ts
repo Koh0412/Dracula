@@ -1,8 +1,8 @@
-import * as ace from "brace";
+import { Position } from "brace";
 import { BaseEditor } from "base/baseEditor";
 
 /** カーソルに関するクラス */
-class Cursor extends BaseEditor {
+export class Cursor extends BaseEditor {
 
   /** カーソルの行 */
   public get row(): number {
@@ -15,7 +15,7 @@ class Cursor extends BaseEditor {
   }
 
   /** 現在のカーソルの位置を取得 */
-  private get cursorPosition(): ace.Position {
+  private get cursorPosition(): Position {
     const cursorPosition = this.textarea.getCursorPosition();
     const row = cursorPosition.row + 1;
     const column = cursorPosition.column + 1;
@@ -34,5 +34,3 @@ class Cursor extends BaseEditor {
     });
   }
 }
-
-export const cursor = new Cursor();

@@ -2,7 +2,7 @@ import { BaseEditor } from "base/baseEditor";
 import { acePrefix, aceLangs, aceTabSize } from "../../../common/constants";
 
 /** セッション周りのクラス */
-class EditorSession extends BaseEditor {
+export class Session extends BaseEditor {
 
   /** 利用可能な言語 */
   public get availableModes(): string[] {
@@ -48,5 +48,3 @@ class EditorSession extends BaseEditor {
     this.textarea.session.setTabSize(size);
   }
 }
-
-export const editorSession = new EditorSession();

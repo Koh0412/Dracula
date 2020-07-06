@@ -1,7 +1,7 @@
 import pathModule from "path";
 
 import { IStatus } from "../../../common/definition";
-import { editorSession } from "api/editor/editorSession";
+import { editor } from "api/editor/provider/editorProvider";
 import { StatusMessage, EventName } from "../../../common/constants";
 import { eventEmitter } from "../../../common/utils";
 import { fileExtension } from "api/file/fileExtension";
@@ -9,13 +9,13 @@ import { fileExtension } from "api/file/fileExtension";
 /** 言語の選択に関するステータスクラス */
 export class ModeSelectStatus implements IStatus {
   public mainElement: HTMLSelectElement;
-  private modes: string[] = editorSession.availableModes;
+  private modes: string[] = editor.session.availableModes;
 
   constructor() {
     this.mainElement = this.create();
-    this.mainElement.addEventListener("change", () => editorSession.setMode(this.mainElement.value));
+    this.mainElement.addEventListener("change", () => editor.session.setMode(this.mainElement.value));
 
-    this.mainElement.value = editorSession.modeName;
+    this.mainElement.value = editor.session.modeName;
     this.mainElement.title =  StatusMessage.MODE_TITLE;
 
     eventEmitter.on(EventName.UPDATE, (path: string) => this.setLanguage(path));
@@ -36,7 +36,7 @@ export class ModeSelectStatus implements IStatus {
 
   private setLanguage(path: string): void {
     const extension = pathModule.extname(path);
-    editorSession.setMode(fileExtension.autoJudgement(extension));
-    this.mainElement.value = editorSession.modeName;
+    editor.session.setMode(fileExtension.autoJudgement(extension));
+    this.mainElement.value = editor.session.modeName;
   }
 }

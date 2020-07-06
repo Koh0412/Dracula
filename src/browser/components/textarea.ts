@@ -1,7 +1,7 @@
 import { BaseEditor } from "base/baseEditor";
 
 import { fileIO } from "api/file/fileIO";
-import { search } from "api/editor/search";
+import { editor } from "api/editor/provider/editorProvider";
 import aceConf from "../../../aceconfig.json";
 
 import { EditorMessage, StatusMessage, EventName } from "../../common/constants";
@@ -27,9 +27,15 @@ class Textarea extends BaseEditor {
         eventEmitter.emit(EventName.TEXT_CHANGE, this.isDirty);
       }
     });
-    search.icon.addEventListener("mousedown", search.showFindBox.bind(this));
+    editor.search.icon.addEventListener("mousedown", editor.search.showFindBox.bind(this));
 
-    eventEmitter.on(EventName.FILE_CLICK, (openFile: IOpenFile) => this.updateValue(openFile.path));
+    eventEmitter.on(EventName.FILE_CLICK, (clickFile: IOpenFile) => this.updateValue(clickFile.path));
+    eventEmitter.on(EventName.OPEN, (path: string) => {
+      if (!path) {
+        return;
+      }
+      this.updateValue(path);
+    });
 
     eventEmitter.on(EventName.TAB, (tab: HTMLElement) => {
       if (tab) {
@@ -48,57 +54,6 @@ class Textarea extends BaseEditor {
     return this.value !== fileIO.currentText;
   }
 
-  /** 行を上へコピー */
-  public copyLinesUp(): number {
-    return this.textarea.copyLinesUp();
-  }
-
-  /** 行を下へコピー */
-  public copyLinesDown(): number {
-    return this.textarea.copyLinesDown();
-  }
-
-  // TODO: 後々作る
-  public newFile(): void {
-    //
-  }
-
-  /**
-   * `path`からタブを生成し、エディタとステータスに`path`のデータを流し込み
-   * @param path
-   */
-  public openfile(path: string): void {
-    if (!path) {
-      return;
-    }
-    eventEmitter.emit(EventName.OPEN, path);
-    this.updateValue(path);
-  }
-
-  /** redoを行う */
-  public redo(): void {
-    this.textarea.redo();
-  }
-
-  /** エディタ内のvalueのセーブ */
-  public save(): void {
-    if (!this.hidden) {
-      fileIO.save(this.value);
-    }
-  }
-
-  /** 名前を付けて保存 */
-  public saveAs(): void {
-    if (!this.hidden) {
-      fileIO.saveAs(this.value);
-    }
-  }
-
-  /** undoを行う */
-  public undo(): void {
-    this.textarea.undo();
-  }
-
    /** 初期化処理 */
   private init(): void {
     fileIO.setPath("");
@@ -109,7 +64,7 @@ class Textarea extends BaseEditor {
     this.textarea.container.hidden = true;
     this.noFileMsg.removeClass("hide");
 
-    this.resize();
+    editor.resize();
   }
 
   /**
@@ -126,14 +81,7 @@ class Textarea extends BaseEditor {
     this.setValue(openFile.text);
 
     this.textarea.gotoLine(1);
-    this.resize();
-  }
-
-  /**
-   * エディタのリサイズを行う
-   */
-  private resize(): void {
-    this.textarea.resize();
+    editor.resize();
   }
 }
 

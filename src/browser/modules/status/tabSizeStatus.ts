@@ -1,20 +1,20 @@
 import { IStatus } from "../../../common/definition";
-import { editorSession } from "api/editor/editorSession";
+import { editor } from "api/editor/provider/editorProvider";
 import { StatusMessage } from "../../../common/constants";
 
 /** タブサイズの選択に関するステータスクラス */
 export class TabSizeStatus implements IStatus {
   public mainElement: HTMLSelectElement;
-  private tabSizes: string[] = editorSession.availableTabSize;
+  private tabSizes: string[] = editor.session.availableTabSize;
 
   constructor() {
     this.mainElement = this.create();
 
     this.mainElement.addEventListener("change", () => {
-      editorSession.setTabsize(Number(this.mainElement.value));
+      editor.session.setTabsize(Number(this.mainElement.value));
     });
 
-    this.mainElement.value = editorSession.tabSize.toLocaleString();
+    this.mainElement.value = editor.session.tabSize.toLocaleString();
     this.mainElement.title =  StatusMessage.TABSIZE_TITLE;
   }
 

@@ -1,7 +1,7 @@
 import { BaseEditor } from "base/baseEditor";
 
 /** エディタに付随する検索に関するクラス */
-class Search extends BaseEditor {
+export class Search extends BaseEditor {
   public icon: HTMLElement = document.getElement("search-word");
 
   /** 検索ボックス */
@@ -14,5 +14,3 @@ class Search extends BaseEditor {
     this.textarea.execCommand("replace");
   }
 }
-
-export const search = new Search();

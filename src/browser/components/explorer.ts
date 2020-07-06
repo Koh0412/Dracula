@@ -22,13 +22,15 @@ class Explorer extends SideMenu {
     super();
     this.createNotDirContents();
     this.dirMenuItem.addEventListener("mousedown", this.openFileByClick.bind(this));
+
+    eventEmitter.on(EventName.DIR_OPEN, (path: string) => this.initDirectoryTree(path));
   }
 
   /**
    * ディレクトリツリーの初期化
    * @param dirPath
    */
-  public initDirectoryTree(dirPath: string) {
+  private initDirectoryTree(dirPath: string) {
     if (!dirPath) {
       return;
     }
