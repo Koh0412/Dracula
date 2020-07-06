@@ -4,7 +4,7 @@ import { fileIO } from "api/file/fileIO";
 import { editor } from "api/editor/provider/editorProvider";
 import aceConf from "../../../aceconfig.json";
 
-import { EditorMessage, StatusMessage, EventName } from "../../common/constants";
+import { EditorMessage, StatusMessage, EventName, TEXTAREA_DEFAULT_HEIGHT } from "../../common/constants";
 import { IOpenFile } from "../../common/definition/IOpenFile";
 import { eventEmitter, cssUtil } from "../../common/utils";
 
@@ -17,6 +17,7 @@ class Textarea extends BaseEditor {
     this.textarea.$blockScrolling = Infinity;
     this.textarea.setOptions(aceConf);
     this.init();
+    this.textarea.renderer.lineHeight = TEXTAREA_DEFAULT_HEIGHT;
 
     this.textarea.on("change", () => {
       if (this.isFocus) {

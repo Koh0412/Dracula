@@ -1,6 +1,6 @@
 @charset "UTF-8";
 ::-webkit-scrollbar {
-  width: 14px;
+  width: 0.9rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,7 +49,7 @@ body {
 
 .directory::before, .open-directory::before, .file::before {
   font-family: 'Material Icons';
-  font-size: 18px;
+  font-size: 1.1rem;
   padding-right: 4px;
   vertical-align: bottom;
 }
@@ -126,12 +126,12 @@ body {
 }
 
 .editor .dir-menu .editor-setting li .material-icons {
-  font-size: 22px;
+  font-size: 1.4rem;
 }
 
 .editor .dir-menu .dir-menu-current-dir {
   padding: 4px 12px;
-  font-size: 14px;
+  font-size: 0.9rem;
   background: #3b3a61;
 }
 
@@ -161,7 +161,7 @@ body {
 .editor .dir-menu .dir-menu-list .dir-menu-item {
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 .editor .dir-menu .dir-menu-list .dir-menu-item li, .editor .dir-menu .dir-menu-list .dir-menu-item ul {
@@ -183,11 +183,11 @@ body {
 
 .editor .dir-menu .dir-menu-list .dir-menu-item li .material-icons, .editor .dir-menu .dir-menu-list .dir-menu-item ul .material-icons {
   margin-right: 4px;
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 
 .editor .dir-menu .dir-menu-list .not-dir-contents {
-  font-size: 14px;
+  font-size: 0.9rem;
   padding: 8px;
 }
 
@@ -224,7 +224,7 @@ body {
   width: 100%;
   color: #bcb8c0;
   display: -webkit-box;
-  font-size: 14px;
+  font-size: 0.9rem;
   list-style: none;
   overflow-x: overlay;
   overflow-y: hidden;
@@ -263,13 +263,13 @@ body {
 }
 
 .editor .editor-main .editor-tab li .material-icons {
-  font-size: 18px;
+  font-size: 1.1rem;
   margin-right: 4px;
 }
 
 .editor .editor-main .editor-tab li .tab-close {
   margin-left: 6px;
-  font-size: 14px;
+  font-size: 0.9rem;
   position: absolute;
   top: 35%;
   left: 80%;
@@ -294,7 +294,7 @@ body {
 .editor .editor-main .text-area {
   width: 100%;
   height: calc(100% - 35px);
-  font-size: 15px;
+  font-size: 0.95rem;
   background: #2d303a;
   color: #cccdcf;
   -webkit-box-sizing: border-box;
@@ -393,7 +393,7 @@ body {
           justify-content: space-between;
   color: #bcb8c0;
   background: #502290;
-  font-size: 14px;
+  font-size: 0.9rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
