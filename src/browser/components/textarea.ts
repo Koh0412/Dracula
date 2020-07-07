@@ -69,7 +69,7 @@ class Textarea extends BaseEditor {
   }
 
   /**
-   * `path`のファイルのデータをStatusのpathとエディター内に流し込む
+   * `path`のファイルのデータをを使用して更新処理を行う
    * @param path
    */
   private updateValue(path: string): void {
