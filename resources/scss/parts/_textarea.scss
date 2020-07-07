@@ -31,6 +31,18 @@
     }
   }
 
+  .ace_text-layer {
+    .ace_line_group {
+      .ace_line {
+        .ace_meta {
+          &.ace_tag.ace_tag-name.ace_xml {
+            color: $color-text-ace-tag;
+          }
+        }
+      }
+    }
+  }
+
   .ace_scroller {
     .ace_search {
       background-color: $color-bg-search;

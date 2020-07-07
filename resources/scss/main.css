@@ -321,6 +321,10 @@ body {
   background: #5e636f;
 }
 
+.editor .editor-main .text-area .ace_text-layer .ace_line_group .ace_line .ace_meta.ace_tag.ace_tag-name.ace_xml {
+  color: #da61cb;
+}
+
 .editor .editor-main .text-area .ace_scroller .ace_search {
   background-color: #2e2b3e;
   border: 1px solid #22212f;
