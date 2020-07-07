@@ -1,4 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/Koh0412/Dracula)](https://github.com/Koh0412/Dracula/blob/master/LICENSE)
+![GitHub repo size](https://img.shields.io/github/repo-size/koh0412/Dracula)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/koh0412/Dracula)
+
 
 ## Dracula Editor
 
