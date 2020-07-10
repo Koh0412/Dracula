@@ -2,7 +2,7 @@
   padding: 0 6px;
   display: flex;
   height: $height-footer;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   color: $color-text-general;
   background: $color-bg-footer;
@@ -10,7 +10,6 @@
   user-select: none;
 
   .status-path {
-    padding: 4px 0;
     white-space: nowrap;
   }
 
